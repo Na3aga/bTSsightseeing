@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Sightseeing</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="button">Button</string>
+    <string name="buttonToAbout">Про Білу Церкву</string>
+    <string name="buttonWhatToSee">Варто побачити</string>
+    <string name="buttonWhereToStop">Де зупинитись</string>
+    <string name="buttonWhereToEat">Де поїсти</string>
+    <string name="buttonToTouristMap">Карта туриста</string>
+    <string name="title_activity_about_bcerkva">AboutBCerkvaActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_what_to_see">WhatToSeeActivity</string>
+    <string name="title_activity_where_to_stop">WhereToStopActivity</string>
+    <string name="title_activity_where_to_eat">WhereToEatActivity</string>
+</resources>

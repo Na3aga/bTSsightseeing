@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/colorPrimary"
+    tools:context="whitechurchapplication.sig.View.MainActivity"
+    >
+
+    <ImageView
+        android:id="@+id/whitechurchimage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <Button
+        android:id="@+id/buttonToAbout"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        android:textColor="@color/colorWhite"
+        android:text="@string/buttonToAbout"
+        />
+    <Button
+        android:id="@+id/buttonWhatToSee"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        android:textColor="@color/colorWhite"
+        android:text="@string/buttonWhatToSee"
+        />
+    <Button
+        android:id="@+id/buttonWhereToStop"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        android:textColor="@color/colorWhite"
+        android:text="@string/buttonWhereToStop"
+        />
+    <Button
+        android:id="@+id/buttonWhereToEat"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        android:textColor="@color/colorWhite"
+        android:text="@string/buttonWhereToEat"
+        />
+    <Button
+        android:id="@+id/buttonToTouristMap"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        android:textColor="@color/colorWhite"
+        android:text="@string/buttonToTouristMap"
+        />
+
+
+</android.widget.LinearLayout>
