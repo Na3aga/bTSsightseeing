@@ -1,4 +1,4 @@
-package whitechurchapplication.sig.View;
+package whitechurchapplication.sig.view;
 
 import android.content.Intent;
 import android.os.Bundle;

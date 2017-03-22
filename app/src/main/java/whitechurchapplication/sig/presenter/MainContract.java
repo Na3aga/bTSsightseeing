@@ -1,4 +1,4 @@
-package whitechurchapplication.sig.View;
+package whitechurchapplication.sig.presenter;
 
 /**
  * Created by macbookpro on 22.03.17.

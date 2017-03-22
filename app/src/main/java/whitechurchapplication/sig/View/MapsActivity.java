@@ -1,4 +1,4 @@
-package whitechurchapplication.sig.View;
+package whitechurchapplication.sig.view;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
