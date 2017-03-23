@@ -1,4 +1,4 @@
-package whitechurchapplication.sig.View;
+package whitechurchapplication.sig.view.stay;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

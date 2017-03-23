@@ -1,4 +1,4 @@
-package whitechurchapplication.sig.View;
+package whitechurchapplication.sig.view.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,11 @@ import com.squareup.picasso.Picasso;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import whitechurchapplication.sig.R;
+import whitechurchapplication.sig.view.map.MapsActivity;
+import whitechurchapplication.sig.view.see.WhatToSeeActivity;
+import whitechurchapplication.sig.view.eat.WhereToEatActivity;
+import whitechurchapplication.sig.view.stay.WhereToStopActivity;
+import whitechurchapplication.sig.view.about.AboutBCerkvaActivity;
 
 public class MainActivity extends AppCompatActivity {
     Button button;
