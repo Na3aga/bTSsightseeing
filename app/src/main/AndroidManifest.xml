@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.main.MainActivity">
+        <activity android:name=".mvp.view.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,21 +37,21 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".view.map.MapsActivity"
+            android:name=".mvp.view.map.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".view.about.AboutBCerkvaActivity"
+            android:name=".mvp.view.about.AboutBCerkvaActivity"
             android:label="@string/title_activity_about_bcerkva" />
         <activity
-            android:name=".view.see.WhatToSeeActivity"
+            android:name=".mvp.view.see.WhatToSeeActivity"
             android:label="@string/title_activity_what_to_see"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.stay.WhereToStopActivity"
+            android:name=".mvp.view.stay.WhereToStopActivity"
             android:label="@string/title_activity_where_to_stop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.eat.WhereToEatActivity"
+            android:name=".mvp.view.eat.WhereToEatActivity"
             android:label="@string/title_activity_where_to_eat"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

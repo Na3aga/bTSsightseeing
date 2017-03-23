@@ -1,4 +1,4 @@
-package whitechurchapplication.sig.view.eat;
+package whitechurchapplication.sig.mvp.view.stay;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,12 +9,12 @@ import android.view.View;
 
 import whitechurchapplication.sig.R;
 
-public class WhereToEatActivity extends AppCompatActivity {
+public class WhereToStopActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_where_to_eat);
+        setContentView(R.layout.activity_where_to_stop);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

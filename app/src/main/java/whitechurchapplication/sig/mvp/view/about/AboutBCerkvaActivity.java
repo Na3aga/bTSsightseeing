@@ -1,4 +1,4 @@
-package whitechurchapplication.sig.view.about;
+package whitechurchapplication.sig.mvp.view.about;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

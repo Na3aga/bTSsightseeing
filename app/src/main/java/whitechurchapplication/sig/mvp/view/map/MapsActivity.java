@@ -1,4 +1,4 @@
-package whitechurchapplication.sig.view.map;
+package whitechurchapplication.sig.mvp.view.map;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;

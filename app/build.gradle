@@ -41,4 +41,5 @@ dependencies {
     provided 'javax.annotation:jsr250-api:1.0'
     provided 'org.glassfish:javax.annotation:10.0-b28'
     compile 'com.android.support:multidex:1.0.1'
+    compile 'org.jetbrains:annotations-java5:15.0'
 }
