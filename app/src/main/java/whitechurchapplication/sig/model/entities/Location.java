@@ -5,4 +5,22 @@ package whitechurchapplication.sig.model.entities;
  */
 
 public class Location {
+
+
+
+    private void dossssssss() {
+        final Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                saveLocations();
+                in
+
+            }
+        });
+       thread.start();
+    }
+
+    private void dos() {
+
+    }
 }
