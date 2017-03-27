@@ -10,14 +10,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import whitechurchapplication.sig.R;
 import whitechurchapplication.sig.mvp.model.RetrofitGenerator;
+import whitechurchapplication.sig.mvp.model.entities.Location;
 import whitechurchapplication.sig.mvp.model.rest.HttpApi;
 import whitechurchapplication.sig.mvp.model.rest.json.response.LocationsResponse;
 
 public class SplashActivity extends AppCompatActivity {
 
     private HttpApi mHttpApi;
-    private Object location;
     private SplashPresenter  mSplashPresenter;
+    private Location location;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,12 +30,12 @@ public class SplashActivity extends AppCompatActivity {
 
 
     public void getLocation() {
-        Call<List<LocationsResponse>> location = mHttpApi .getLocations();
+        final Call<List<LocationsResponse>> location = mHttpApi .getLocations();
         location.enqueue(new Callback<List<LocationsResponse>>() {
             @Override
             public void onResponse(Call<List<LocationsResponse>> call, Response<List<LocationsResponse>> response) {
                 List<LocationsResponse>locationsResponses=response.body();
-                mSplashPresenter.saveLocations(locationsResponses);
+                mSplashPresenter.saveLocations((Location) location,getApplicationContext());
                        //TODO save to db
 
             }
