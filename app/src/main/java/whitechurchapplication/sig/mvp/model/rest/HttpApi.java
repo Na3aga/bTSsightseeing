@@ -15,6 +15,6 @@ public interface HttpApi {
     String BASE_URL ="edu.bionic-university.com:2221/sightseeing/";
 
     @GET("/locations")
-    Call<List<LocationsResponse>>getLocations();
+    Call<List<LocationsResponse>> getLocations();
 
 }

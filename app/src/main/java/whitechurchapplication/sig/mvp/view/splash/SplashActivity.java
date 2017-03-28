@@ -13,12 +13,14 @@ import whitechurchapplication.sig.mvp.model.RetrofitGenerator;
 import whitechurchapplication.sig.mvp.model.entities.Location;
 import whitechurchapplication.sig.mvp.model.rest.HttpApi;
 import whitechurchapplication.sig.mvp.model.rest.json.response.LocationsResponse;
+import whitechurchapplication.sig.mvp.presenter.SplashPresenterImpl;
 
 public class SplashActivity extends AppCompatActivity {
 
     private HttpApi mHttpApi;
-    private SplashPresenter  mSplashPresenter;
+    private SplashPresenterImpl mSplashPresenterImpl;
     private Location location;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,19 +32,19 @@ public class SplashActivity extends AppCompatActivity {
 
 
     public void getLocation() {
-        final Call<List<LocationsResponse>> location = mHttpApi .getLocations();
+        final Call<List<LocationsResponse>> location = mHttpApi.getLocations();
         location.enqueue(new Callback<List<LocationsResponse>>() {
             @Override
             public void onResponse(Call<List<LocationsResponse>> call, Response<List<LocationsResponse>> response) {
-                List<LocationsResponse>locationsResponses=response.body();
-                mSplashPresenter.saveLocations((Location) location,getApplicationContext());
-                       //TODO save to db
+                List<LocationsResponse> locationsResponses = response.body();
+                mSplashPresenterImpl.saveLocations((whitechurchapplication.sig.mvp.model.rest.json.LocationsResponse) locationsResponses, getApplicationContext());
+                //TODO save to db
 
             }
 
             @Override
             public void onFailure(Call<List<LocationsResponse>> call, Throwable t) {
-                     //TODO handle error
+                //TODO handle error
             }
         });
 

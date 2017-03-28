@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import whitechurchapplication.sig.mvp.model.entities.Location;
+import whitechurchapplication.sig.mvp.model.rest.json.LocationsResponse;
 
 /**
  * Created by Nazar on 23.03.2017.
@@ -12,12 +13,23 @@ import whitechurchapplication.sig.mvp.model.entities.Location;
 
 public class MainDaoImpl implements MainDao{
     @Override
-    public void save(Location location, Context context) {
+    public void save(LocationsResponse location, Context context) {
+
+        int id = location.getId();
+        String locName = location.getName();
+        double longitude = location.getLongitude();
+        double latitude = location.getLatitude();
+
         LocationDbHelper mDbHelper;
         mDbHelper = new LocationDbHelper(context);
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(LocationContract.LocationEntry.COLUMN_NAME,"Nazar");
+        while ( id == 1 /*не знаю яку поставити умову циклу */) {
+            values.put(LocationContract.LocationEntry._ID, id);
+            values.put(LocationContract.LocationEntry.COLUMN_NAME, locName);
+            values.put(LocationContract.LocationEntry.COLUMN_LONGITUDE, longitude);/*НЕ знаю як перемикати на наступне значення*/
+            values.put(LocationContract.LocationEntry.COLUMN_LATITUDE, latitude);
+        }
     }
 
     @Override

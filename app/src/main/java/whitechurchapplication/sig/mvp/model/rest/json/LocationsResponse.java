@@ -11,6 +11,7 @@ import java.util.List;
 public class LocationsResponse {
     @SerializedName("id")
     private Integer id;
+
     @SerializedName("name")
     private String name;
     @SerializedName("address")
