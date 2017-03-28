@@ -11,10 +11,4 @@ public class MainPresenterImpl implements MainContract{
 
     private MainModel mainModel = new MainModelImpl();
 
-    @Override
-    public void synchronize() {
-        mainModel.getUpdates();
-
-    }
-
 }
