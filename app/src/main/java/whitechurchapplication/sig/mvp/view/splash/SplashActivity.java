@@ -38,7 +38,7 @@ public class SplashActivity extends AppCompatActivity {
             public void onResponse(Call<List<LocationsResponse>> call, Response<List<LocationsResponse>> response) {
                 List<LocationsResponse> locationsResponses = response.body();
                 mSplashPresenterImpl.saveLocations((whitechurchapplication.sig.mvp.model.rest.json.LocationsResponse) locationsResponses, getApplicationContext());
-                //TODO save to db
+                //TODO save to dbs
 
             }
 
