@@ -6,9 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import whitechurchapplication.sig.mvp.model.rest.json.response.LocationsResponse;
 
-/**
- * Created by macbookpro on 22.03.17.
- */
 
 public interface HttpApi {
 

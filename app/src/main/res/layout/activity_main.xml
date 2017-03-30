@@ -25,6 +25,8 @@
         android:textSize="20sp"
         android:textColor="@color/colorWhite"
         android:text="@string/buttonToAbout"
+
+
         />
     <Button
         android:id="@+id/buttonWhatToSee"

@@ -6,9 +6,7 @@ import whitechurchapplication.sig.mvp.model.dao.MainDao;
 import whitechurchapplication.sig.mvp.model.dao.MainDaoImpl;
 import whitechurchapplication.sig.mvp.model.entities.Location;
 
-/**
- * Created by macbookpro on 22.03.17.
- */
+
 
 public class MainModelImpl implements MainModel{
 

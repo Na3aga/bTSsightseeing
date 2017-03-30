@@ -4,12 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.List;
+
 import whitechurchapplication.sig.mvp.model.entities.Location;
 import whitechurchapplication.sig.mvp.model.rest.json.LocationsResponse;
 
-/**
- * Created by Nazar on 23.03.2017.
- */
+
 
 public class MainDaoImpl implements MainDao{
     @Override
@@ -50,5 +50,11 @@ public class MainDaoImpl implements MainDao{
     @Override
     public void findById(long id) {
 
+    }
+
+    @Override
+    public List<Location> findAll() {
+        //TODO implement this method.
+        return null;
     }
 }

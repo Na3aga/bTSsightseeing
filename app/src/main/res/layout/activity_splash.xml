@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="whitechurchapplication.sig.mvp.view.splash.SplashActivity">
+    tools:context="whitechurchapplication.sig.mvp.model.SplashActivity">
 
 </android.support.constraint.ConstraintLayout>

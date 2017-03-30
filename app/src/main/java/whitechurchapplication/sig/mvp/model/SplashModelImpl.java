@@ -5,13 +5,13 @@ import android.content.Context;
 import whitechurchapplication.sig.mvp.model.dao.MainDao;
 import whitechurchapplication.sig.mvp.model.dao.MainDaoImpl;
 import whitechurchapplication.sig.mvp.model.rest.json.LocationsResponse;
-import whitechurchapplication.sig.mvp.presenter.SplashPresenter;
+import whitechurchapplication.sig.mvp.presenter.SplashContract;
 
-/**
- * Created by Nazar on 27.03.2017.
- */
 
-public class SplashModelImpl implements SplashPresenter {
+
+public class SplashModelImpl implements SplashModel {
+
+
     private MainDao mainDao = new MainDaoImpl();
     LocationsResponse locationsResponse = new LocationsResponse();
 

@@ -4,9 +4,7 @@ import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
 import whitechurchapplication.sig.mvp.model.rest.HttpApi;
 
-/**
- * Created by macbookpro on 25.03.17.
- */
+
 
 public class RetrofitGenerator {
 

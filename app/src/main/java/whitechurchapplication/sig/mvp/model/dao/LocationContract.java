@@ -2,9 +2,7 @@ package whitechurchapplication.sig.mvp.model.dao;
 
 import android.provider.BaseColumns;
 
-/**
- * Created by Nazar on 27.03.2017.
- */
+
 
 public class LocationContract {
     private LocationContract() {

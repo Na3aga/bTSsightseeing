@@ -8,16 +8,28 @@ import whitechurchapplication.sig.mvp.model.SplashModel;
 import whitechurchapplication.sig.mvp.model.SplashModelImpl;
 import whitechurchapplication.sig.mvp.model.rest.json.LocationsResponse;
 
-/**
- * Created by macbookpro on 25.03.17.
- */
 
-public class SplashPresenterImpl implements SplashPresenter {
-    private SplashModel splashModel = (SplashModel) new SplashModelImpl();
+public class SplashPresenterImpl implements SplashContract.SplashPresenter {
+
+    private SplashContract.SplashView splashView;
+    private SplashModel splashModel;
+
+    public SplashPresenterImpl() {this.splashModel= (SplashModel) new SplashModelImpl();}
+
+
+    @Override
+    public void setView(SplashContract.SplashView view) { splashView = view;
+
+    }
 
     @Override
     public void saveLocations(@NotNull LocationsResponse location, @NotNull Context context) {
         splashModel.saveLocations(location, context);
+
+    }
+
+    @Override
+    public void deleteLocations() {
 
     }
 
