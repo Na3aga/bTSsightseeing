@@ -40,7 +40,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
             @Override
             public void onResponse(Call<List<LocationsResponse>> call, Response<List<LocationsResponse>> response) {
                 List<LocationsResponse> locationsResponses = response.body();
-                mSplashPresenterImpl.saveLocations((whitechurchapplication.sig.mvp.model.rest.json.LocationsResponse) locationsResponses, getApplicationContext());
+                mSplashPresenterImpl.saveLocations((Location) location, getApplicationContext());
                 //TODO save to dbs
 
             }

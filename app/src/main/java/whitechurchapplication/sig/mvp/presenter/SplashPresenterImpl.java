@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import whitechurchapplication.sig.mvp.model.SplashModel;
 import whitechurchapplication.sig.mvp.model.SplashModelImpl;
-import whitechurchapplication.sig.mvp.model.rest.json.LocationsResponse;
+import whitechurchapplication.sig.mvp.model.entities.Location;
 
 
 public class SplashPresenterImpl implements SplashContract.SplashPresenter {
@@ -23,7 +23,7 @@ public class SplashPresenterImpl implements SplashContract.SplashPresenter {
     }
 
     @Override
-    public void saveLocations(@NotNull LocationsResponse location, @NotNull Context context) {
+    public void saveLocations(@NotNull Location location, @NotNull Context context) {
         splashModel.saveLocations(location, context);
 
     }

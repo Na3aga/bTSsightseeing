@@ -7,13 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.List;
 
 import whitechurchapplication.sig.mvp.model.entities.Location;
-import whitechurchapplication.sig.mvp.model.rest.json.LocationsResponse;
 
 
 
 public class MainDaoImpl implements MainDao{
     @Override
-    public void save(LocationsResponse location, Context context) {
+    public void save(Location location, Context context) {
 
         int id = location.getId();
         String locName = location.getName();

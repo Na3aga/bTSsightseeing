@@ -2,10 +2,10 @@ package whitechurchapplication.sig.mvp.model;
 
 import android.content.Context;
 
-import whitechurchapplication.sig.mvp.model.rest.json.LocationsResponse;
+import whitechurchapplication.sig.mvp.model.entities.Location;
 
 
 
 public interface SplashModel {
-    void saveLocations(LocationsResponse location, Context context);
+    void saveLocations(Location location, Context context);
 }
