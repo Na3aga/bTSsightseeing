@@ -4,13 +4,12 @@ import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
 import whitechurchapplication.sig.mvp.model.rest.HttpApi;
 
-
-
 public class RetrofitGenerator {
 
     private static HttpApi apiService;
 
     public static HttpApi getApiService() {
+        if (apiService == null) genarateApi();
         return apiService;
     }
 
@@ -21,9 +20,6 @@ public class RetrofitGenerator {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(HttpApi.class);
-
-
     }
-
 
 }

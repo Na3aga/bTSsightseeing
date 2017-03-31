@@ -1,25 +1,33 @@
-package whitechurchapplication.sig.mvp.model.entities;
+package whitechurchapplication.sig.mvp.model.rest.json.response;
+
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class Location {
 
+    @SerializedName("id")
     private Integer id;
+    @SerializedName("name")
     private String name;
+    @SerializedName("address")
     private String address;
+    @SerializedName("phone")
     private String phone;
+    @SerializedName("shortDescription")
     private Object shortDescription;
+    @SerializedName("longDescription")
     private Object longDescription;
+    @SerializedName("longitude")
     private Double longitude;
+    @SerializedName("latitude")
     private Double latitude;
+    @SerializedName("version")
     private Integer version;
+    @SerializedName("locationType")
     private LocationType locationType;
+    @SerializedName("imageList")
     private List<Object> imageList = null;
-
-    public Location(whitechurchapplication.sig.mvp.model.rest.json.response.Location location) {
-        this.id = location.getId();
-        //TODO add all
-    }
 
     public Integer getId() {
         return id;
@@ -108,7 +116,4 @@ public class Location {
     public void setImageList(List<Object> imageList) {
         this.imageList = imageList;
     }
-
 }
-
-

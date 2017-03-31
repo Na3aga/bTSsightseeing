@@ -10,7 +10,9 @@ import whitechurchapplication.sig.mvp.model.entities.Location;
 
 public class MainModelImpl implements MainModel{
 
-    private MainDao mainDao = new MainDaoImpl();
+    private Context context;
+
+    private MainDao mainDao = new MainDaoImpl(context);
 
     @Override
     public void saveToDb(Location location, Context context) {

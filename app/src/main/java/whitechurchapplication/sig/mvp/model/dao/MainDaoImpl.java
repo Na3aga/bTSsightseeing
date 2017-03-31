@@ -6,14 +6,20 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.List;
 
+import whitechurchapplication.sig.mvp.model.data.DataContract;
+import whitechurchapplication.sig.mvp.model.data.LocationDbHelper;
 import whitechurchapplication.sig.mvp.model.entities.Location;
 
+public class MainDaoImpl implements MainDao {
 
+    private Context context;
 
-public class MainDaoImpl implements MainDao{
+    public MainDaoImpl(Context context) {
+        this.context = context;
+    }
+
     @Override
-    public void save(Location location, Context context) {
-
+    public void save(Location location) {
         int id = location.getId();
         String locName = location.getName();
         double longitude = location.getLongitude();
@@ -23,11 +29,17 @@ public class MainDaoImpl implements MainDao{
         mDbHelper = new LocationDbHelper(context);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        while ( id == 1 /*не знаю яку поставити умову циклу */) {
-            values.put(LocationContract.LocationEntry._ID, id);
-            values.put(LocationContract.LocationEntry.COLUMN_NAME, locName);
-            values.put(LocationContract.LocationEntry.COLUMN_LONGITUDE, longitude);/*НЕ знаю як перемикати на наступне значення*/
-            values.put(LocationContract.LocationEntry.COLUMN_LATITUDE, latitude);
+            values.put(DataContract.LocationEntry._ID, id);
+            values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
+            values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
+            values.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
+        //TODO write to db and close db
+    }
+
+    @Override
+    public void saveAll(List<Location> locationList) {
+        for (Location location : locationList) {
+            save(location);
         }
     }
 
@@ -53,7 +65,6 @@ public class MainDaoImpl implements MainDao{
 
     @Override
     public List<Location> findAll() {
-        //TODO implement this method.
         return null;
     }
 }

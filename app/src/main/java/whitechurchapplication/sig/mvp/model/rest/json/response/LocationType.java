@@ -1,8 +1,8 @@
 package whitechurchapplication.sig.mvp.model.rest.json.response;
 
 /**
- * Created by macbookpro on 22.03.17.
+ * Created by Nazar on 31.03.2017.
  */
 
-public class LocationsResponse {
+public class LocationType {
 }

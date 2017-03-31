@@ -1,13 +1,10 @@
 package whitechurchapplication.sig.mvp.presenter;
 
 import android.content.Context;
-
 import org.jetbrains.annotations.NotNull;
-
 import whitechurchapplication.sig.mvp.model.SplashModel;
 import whitechurchapplication.sig.mvp.model.SplashModelImpl;
 import whitechurchapplication.sig.mvp.model.entities.Location;
-
 
 public class SplashPresenterImpl implements SplashContract.SplashPresenter {
 
@@ -15,7 +12,6 @@ public class SplashPresenterImpl implements SplashContract.SplashPresenter {
     private SplashModel splashModel;
 
     public SplashPresenterImpl() {this.splashModel= (SplashModel) new SplashModelImpl();}
-
 
     @Override
     public void setView(SplashContract.SplashView view) { splashView = view;
@@ -31,6 +27,11 @@ public class SplashPresenterImpl implements SplashContract.SplashPresenter {
     @Override
     public void deleteLocations() {
 
+    }
+
+    @Override
+    public void startSync() {
+        splashModel.startSync();
     }
 
 }

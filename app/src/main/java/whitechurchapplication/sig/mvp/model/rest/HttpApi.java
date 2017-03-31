@@ -4,14 +4,13 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import whitechurchapplication.sig.mvp.model.rest.json.response.LocationsResponse;
-
+import whitechurchapplication.sig.mvp.model.rest.json.response.Location;
 
 public interface HttpApi {
 
     String BASE_URL ="edu.bionic-university.com:2221/sightseeing/";
 
     @GET("/locations")
-    Call<List<LocationsResponse>> getLocations();
+    Call<List<Location>> getLocations();
 
 }

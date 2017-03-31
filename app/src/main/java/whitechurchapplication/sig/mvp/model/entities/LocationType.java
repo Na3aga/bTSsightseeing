@@ -1,11 +1,8 @@
 package whitechurchapplication.sig.mvp.model.entities;
 
-
 import com.google.gson.annotations.SerializedName;
 
-
 class LocationType {
-
 
         @SerializedName("id")
         private Integer id;

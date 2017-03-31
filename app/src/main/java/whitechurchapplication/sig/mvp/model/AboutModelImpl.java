@@ -3,7 +3,6 @@ package whitechurchapplication.sig.mvp.model;
 import java.util.List;
 
 import whitechurchapplication.sig.mvp.model.dao.MainDao;
-import whitechurchapplication.sig.mvp.model.dao.MainDaoImpl;
 import whitechurchapplication.sig.mvp.model.entities.Location;
 
 public class AboutModelImpl implements AboutModel {
@@ -11,7 +10,7 @@ public class AboutModelImpl implements AboutModel {
     private MainDao mainDao;
 
     public AboutModelImpl() {
-        this.mainDao = new MainDaoImpl();
+        
     }
 
     @Override
