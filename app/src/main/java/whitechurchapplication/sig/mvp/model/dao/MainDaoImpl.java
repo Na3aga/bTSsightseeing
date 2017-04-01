@@ -3,6 +3,7 @@ package whitechurchapplication.sig.mvp.model.dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 
 import java.util.List;
 
@@ -19,28 +20,38 @@ public class MainDaoImpl implements MainDao {
     }
 
     @Override
-    public void save(Location location) {
+    public boolean save(Location location) {
         int id = location.getId();
         String locName = location.getName();
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
 
-        LocationDbHelper mDbHelper;
-        mDbHelper = new LocationDbHelper(context);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        LocationDbHelper dbHelper;
+        dbHelper = new LocationDbHelper(context);
+        SQLiteDatabase db;
+        try {
+            db = dbHelper.getWritableDatabase();
+        }
+        catch (SQLiteException ex){
+            db = dbHelper.getReadableDatabase();
+        }
         ContentValues values = new ContentValues();
-            values.put(DataContract.LocationEntry._ID, id);
-            values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
-            values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
-            values.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
-        //TODO write to db and close db
+        values.put(DataContract.LocationEntry._ID, id);
+        values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
+        values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
+        values.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
+
+        db.insert(DataContract.LocationEntry.TABLE_NAME, null, values);
+        db.close();
+        return true;
     }
 
     @Override
-    public void saveAll(List<Location> locationList) {
+    public boolean saveAll(List<Location> locationList) {
         for (Location location : locationList) {
             save(location);
         }
+        return true;
     }
 
     @Override

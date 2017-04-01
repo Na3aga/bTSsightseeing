@@ -12,19 +12,32 @@ import whitechurchapplication.sig.mvp.model.dao.MainDao;
 import whitechurchapplication.sig.mvp.model.dao.MainDaoImpl;
 import whitechurchapplication.sig.mvp.model.entities.Location;
 import whitechurchapplication.sig.mvp.model.rest.HttpApi;
+import whitechurchapplication.sig.mvp.presenter.DataSavedCallback;
 
 public class SplashModelImpl implements SplashModel {
 
     private Context context;
-
     private MainDao mainDao = new MainDaoImpl(context);
+    private DataSavedCallback dataSavedCallback;
+
+    public SplashModelImpl(DataSavedCallback dataSavedCallback) {
+        this.dataSavedCallback = dataSavedCallback;
+    }
 
     @Override
-    public void saveLocations(Location location, Context context) {
+    public boolean saveLocations(Location location, Context context) {
 
         if (mainDao != null && location != null && context != null) {
-            mainDao.save(location);
+             return mainDao.save(location);
+        }else return false;
+    }
+
+    public boolean saveAll(List<whitechurchapplication.sig.mvp.model.rest.json.response.Location> locationList) {
+        List<Location> locaionListEntities = new ArrayList<Location>();
+        for (whitechurchapplication.sig.mvp.model.rest.json.response.Location location : locationList) {
+            locaionListEntities.add(new Location(location));
         }
+        return mainDao.saveAll(locaionListEntities);
     }
 
     @Override
@@ -32,14 +45,16 @@ public class SplashModelImpl implements SplashModel {
         HttpApi httpApi = RetrofitGenerator.getApiService();
         Call<List<whitechurchapplication.sig.mvp.model.rest.json.response.Location>> getLocationsCall = httpApi.getLocations();
         getLocationsCall.enqueue(new Callback<List<whitechurchapplication.sig.mvp.model.rest.json.response.Location>>() {
+            boolean saved = false;
             @Override
             public void onResponse(Call<List<whitechurchapplication.sig.mvp.model.rest.json.response.Location>> call, Response<List<whitechurchapplication.sig.mvp.model.rest.json.response.Location>> response) {
                 List<whitechurchapplication.sig.mvp.model.rest.json.response.Location> locationList = response.body();
-                List<Location> locList = new ArrayList<Location>();
-                for (whitechurchapplication.sig.mvp.model.rest.json.response.Location location : locationList) {
-                    locList.add(new Location(location));
+                if (locationList != null) {
+                    saved = saveAll(locationList);
                 }
-                mainDao.saveAll(locList);
+                if (saved && dataSavedCallback != null) {
+                    dataSavedCallback.dataWasSaved();
+                }
             }
 
             @Override

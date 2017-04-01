@@ -21,6 +21,8 @@ public interface SplashContract {
 
         void ShowMessage (String massage);
 
+        void dataWasSaved();
+
         void setView(SplashActivity splashActivity);
     }
 

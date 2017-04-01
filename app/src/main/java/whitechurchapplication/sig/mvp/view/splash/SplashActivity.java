@@ -1,10 +1,13 @@
 package whitechurchapplication.sig.mvp.view.splash;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import whitechurchapplication.sig.R;
 import whitechurchapplication.sig.mvp.presenter.SplashContract;
+import whitechurchapplication.sig.mvp.presenter.SplashPresenterImpl;
+import whitechurchapplication.sig.mvp.view.main.MainActivity;
 
 public class SplashActivity extends AppCompatActivity implements SplashContract.SplashView {
 
@@ -14,11 +17,15 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        mSplashPresenter = new SplashPresenterImpl();
+        mSplashPresenter.setView(this);
         getLocation();
     }
 
     public void getLocation() {
-       mSplashPresenter.startSync();
+        if(mSplashPresenter != null)
+        mSplashPresenter.startSync();
+
     }
 
     @Override
@@ -27,8 +34,20 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
     }
 
     @Override
+    public void dataWasSaved() {
+        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+    }
+
+    @Override
     public void setView(SplashActivity splashActivity) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        if(mSplashPresenter != null)
+            mSplashPresenter.setView(null);
+        super.onDestroy();
     }
 }
 

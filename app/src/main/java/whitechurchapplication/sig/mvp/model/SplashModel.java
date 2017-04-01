@@ -7,6 +7,7 @@ import whitechurchapplication.sig.mvp.model.entities.Location;
 
 
 public interface SplashModel {
-    void saveLocations(Location location, Context context);
+    boolean saveLocations(Location location, Context context);
+
     void startSync();
 }

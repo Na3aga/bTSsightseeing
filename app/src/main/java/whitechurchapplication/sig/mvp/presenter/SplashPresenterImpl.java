@@ -1,20 +1,25 @@
 package whitechurchapplication.sig.mvp.presenter;
 
 import android.content.Context;
+
 import org.jetbrains.annotations.NotNull;
+
 import whitechurchapplication.sig.mvp.model.SplashModel;
 import whitechurchapplication.sig.mvp.model.SplashModelImpl;
 import whitechurchapplication.sig.mvp.model.entities.Location;
 
-public class SplashPresenterImpl implements SplashContract.SplashPresenter {
+public class SplashPresenterImpl implements SplashContract.SplashPresenter, DataSavedCallback {
 
     private SplashContract.SplashView splashView;
     private SplashModel splashModel;
 
-    public SplashPresenterImpl() {this.splashModel= (SplashModel) new SplashModelImpl();}
+    public SplashPresenterImpl() {
+        this.splashModel = (SplashModel) new SplashModelImpl(this);
+    }
 
     @Override
-    public void setView(SplashContract.SplashView view) { splashView = view;
+    public void setView(SplashContract.SplashView view) {
+        splashView = view;
 
     }
 
@@ -32,6 +37,11 @@ public class SplashPresenterImpl implements SplashContract.SplashPresenter {
     @Override
     public void startSync() {
         splashModel.startSync();
+
     }
 
+    @Override
+    public void dataWasSaved() {
+        splashView.dataWasSaved();
+    }
 }
