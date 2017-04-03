@@ -13,8 +13,8 @@ public class SplashPresenterImpl implements SplashContract.SplashPresenter, Data
     private SplashContract.SplashView splashView;
     private SplashModel splashModel;
 
-    public SplashPresenterImpl() {
-        this.splashModel = (SplashModel) new SplashModelImpl(this);
+    public SplashPresenterImpl(Context context) {
+        splashModel = (SplashModel) new SplashModelImpl(this, context);
     }
 
     @Override

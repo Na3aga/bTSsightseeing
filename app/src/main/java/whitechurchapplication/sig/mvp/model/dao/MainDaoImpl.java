@@ -8,40 +8,41 @@ import android.database.sqlite.SQLiteException;
 import java.util.List;
 
 import whitechurchapplication.sig.mvp.model.data.DataContract;
-import whitechurchapplication.sig.mvp.model.data.LocationDbHelper;
+import whitechurchapplication.sig.mvp.model.data.DbHelper;
 import whitechurchapplication.sig.mvp.model.entities.Location;
 
 public class MainDaoImpl implements MainDao {
 
     private Context context;
+    DbHelper dbHelper;
+    SQLiteDatabase db;
 
     public MainDaoImpl(Context context) {
         this.context = context;
+        dbHelper = new DbHelper(context);
     }
 
     @Override
     public boolean save(Location location) {
-        int id = location.getId();
+//        int id = location.getId();
         String locName = location.getName();
+        if (locName == null) locName = "nothing";
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
 
-        LocationDbHelper dbHelper;
-        dbHelper = new LocationDbHelper(context);
-        SQLiteDatabase db;
+
         try {
             db = dbHelper.getWritableDatabase();
-        }
-        catch (SQLiteException ex){
-            db = dbHelper.getReadableDatabase();
+        } catch (SQLiteException ex) {
+//            db = dbHelper.getReadableDatabase();
         }
         ContentValues values = new ContentValues();
-        values.put(DataContract.LocationEntry._ID, id);
+//        values.put(DataContract.LocationEntry._ID, id);
         values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
         values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
         values.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
 
-        db.insert(DataContract.LocationEntry.TABLE_NAME, null, values);
+        db.insertOrThrow(DataContract.LocationEntry.TABLE_NAME, null, values);
         db.close();
         return true;
     }

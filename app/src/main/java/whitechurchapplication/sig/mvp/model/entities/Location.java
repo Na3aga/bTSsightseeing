@@ -22,6 +22,8 @@ public class Location {
     }
 
     public Integer getId() {
+//        if (id == null) return 1;
+//        else return id;
         return id;
     }
 
@@ -70,7 +72,8 @@ public class Location {
     }
 
     public Double getLongitude() {
-        return longitude;
+        if (longitude == null) return 0.0;
+        else return longitude;
     }
 
     public void setLongitude(Double longitude) {
@@ -78,7 +81,8 @@ public class Location {
     }
 
     public Double getLatitude() {
-        return latitude;
+        if (latitude == null) return 0.0;
+        else return latitude;
     }
 
     public void setLatitude(Double latitude) {
