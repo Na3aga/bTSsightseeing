@@ -8,9 +8,9 @@ import whitechurchapplication.sig.mvp.model.rest.json.response.Location;
 
 public interface HttpApi {
 
-    String BASE_URL ="http://edu.bionic-university.com:2221/sightseeing-dev/";
+    String BASE_URL ="http://edu.bionic-university.com:2221/";
 
-    @GET("/locations")
+    @GET("http://edu.bionic-university.com:2221/sightseeing-dev/locations")
     Call<List<Location>> getLocations();
 
 }

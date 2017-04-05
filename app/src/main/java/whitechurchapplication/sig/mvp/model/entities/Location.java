@@ -18,7 +18,16 @@ public class Location {
 
     public Location(whitechurchapplication.sig.mvp.model.rest.json.response.Location location) {
         this.id = location.getId();
-        //TODO add all
+        name = location.getName();
+        address = location.getAddress();
+        phone = location.getPhone();
+        shortDescription = location.getShortDescription();
+        longDescription = location.getLongDescription();
+        longitude = location.getLongitude();
+        latitude = location.getLatitude();
+        version = location.getVersion();
+//        locationType = location.getLocationType();
+
     }
 
     public Integer getId() {

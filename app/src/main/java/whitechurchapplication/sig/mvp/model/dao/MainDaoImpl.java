@@ -22,9 +22,18 @@ public class MainDaoImpl implements MainDao {
         dbHelper = new DbHelper(context);
     }
 
+
     @Override
-    public boolean save(Location location) {
-//        int id = location.getId();
+    public boolean saveAll(List<Location> locationList) {
+        for (Location location : locationList) {
+            save(location);
+        }
+        return true;
+    }
+
+    @Override
+    public void save(Location location) {
+        //        int id = location.getId();
         String locName = location.getName();
         if (locName == null) locName = "nothing";
         double longitude = location.getLongitude();
@@ -44,15 +53,8 @@ public class MainDaoImpl implements MainDao {
 
         db.insertOrThrow(DataContract.LocationEntry.TABLE_NAME, null, values);
         db.close();
-        return true;
-    }
 
-    @Override
-    public boolean saveAll(List<Location> locationList) {
-        for (Location location : locationList) {
-            save(location);
-        }
-        return true;
+
     }
 
     @Override

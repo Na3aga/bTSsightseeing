@@ -6,7 +6,7 @@ import whitechurchapplication.sig.mvp.model.entities.Location;
 
 public interface MainDao {
 
-    boolean save(Location location);
+    void save(Location location);
     void delete(Location location);
     boolean saveAll(List<Location> locationList);
     void delete(long id);

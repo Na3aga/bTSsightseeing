@@ -30,7 +30,8 @@ public class SplashModelImpl implements SplashModel {
     public boolean saveLocations(Location location, Context context) {
 
         if (mainDao != null && location != null && context != null) {
-            return mainDao.save(location);
+            mainDao.save(location);
+            return true;
         } else return false;
     }
 
