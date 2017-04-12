@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import whitechurchapplication.sig.R;
@@ -25,25 +26,47 @@ public class WhereToStopActivity extends AppCompatActivity {
         setContentView(R.layout.activity_where_to_stop);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        TextView textView1 = (TextView) findViewById(R.id.textView1);
-        TextView textView2 = (TextView) findViewById(R.id.textView2);
-        TextView textView3 = (TextView) findViewById(R.id.textView3);
+        final TextView textView1 = (TextView) findViewById(R.id.textView1);
+        final TextView textView2 = (TextView) findViewById(R.id.textView2);
+        final TextView textView3 = (TextView) findViewById(R.id.textView3);
+        Button button2 =(Button) findViewById(R.id.button2);
+        Button button3 =(Button) findViewById(R.id.button3);
         DbHelper dbHelper;
-        SQLiteDatabase db;
+        final SQLiteDatabase db;
         dbHelper = new DbHelper(this);
         db = dbHelper.getWritableDatabase();
 
-        Cursor cursor = db.query(DataContract.LocationEntry.TABLE_NAME,
+        final Cursor cursor = db.query(DataContract.LocationEntry.TABLE_NAME,
                 new String[] {DataContract.LocationEntry.COLUMN_NAME, DataContract.LocationEntry.COLUMN_LATITUDE, DataContract.LocationEntry.COLUMN_LONGITUDE},
-                "_Id = ?",
-                new String[] {Integer.toString(1)},
+                null,
+                null,
                 null, null, null);
         if (cursor != null){
             cursor.moveToFirst();
+
         }
 
         textView1.setText("Name = " + cursor.getString(0));
-        db.close();
+        textView2.setText("lat = " + cursor.getString(1));
+        textView3.setText("lng = " + cursor.getString(2));
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cursor.moveToNext();
+                textView1.setText("Name = " + cursor.getString(0));
+                textView2.setText("lat = " + cursor.getString(1));
+                textView3.setText("lng = " + cursor.getString(2));
+            }
+        });
+
+        button3.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 db.close();
+             }
+         });
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
