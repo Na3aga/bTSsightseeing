@@ -8,8 +8,8 @@ public class Location {
     private String name;
     private String address;
     private String phone;
-    private Object shortDescription;
-    private Object longDescription;
+    private String shortDescription;
+    private String longDescription;
     private Double longitude;
     private Double latitude;
     private Integer version;
@@ -18,21 +18,27 @@ public class Location {
 
     public Location(whitechurchapplication.sig.mvp.model.rest.json.response.Location location) {
         this.id = location.getId();
-        name = location.getName();
-        address = location.getAddress();
-        phone = location.getPhone();
-        shortDescription = location.getShortDescription();
-        longDescription = location.getLongDescription();
-        longitude = location.getLongitude();
-        latitude = location.getLatitude();
-        version = location.getVersion();
+        this.name = location.getName();
+        this.address = location.getAddress();
+        this.phone = location.getPhone();
+        this.shortDescription = (String) location.getShortDescription();//TODO change Location.response OBJ to STRNG
+        this.longDescription = (String) location.getLongDescription();
+        this.longitude = location.getLongitude();
+        this.latitude = location.getLatitude();
+        this.version = location.getVersion();
 //        locationType = location.getLocationType();
 
     }
 
+    public Location(String name,String shortDescription,double longitude,double latitude) {
+        this.name = name;
+        this.shortDescription = shortDescription;
+        this.longitude = longitude;
+        this.latitude = latitude;
+
+    }
+
     public Integer getId() {
-//        if (id == null) return 1;
-//        else return id;
         return id;
     }
 
@@ -64,25 +70,24 @@ public class Location {
         this.phone = phone;
     }
 
-    public Object getShortDescription() {
+    public String getShortDescription() {
         return shortDescription;
     }
 
-    public void setShortDescription(Object shortDescription) {
+    public void setShortDescription(String shortDescription) {
         this.shortDescription = shortDescription;
     }
 
-    public Object getLongDescription() {
+    public String getLongDescription() {
         return longDescription;
     }
 
-    public void setLongDescription(Object longDescription) {
+    public void setLongDescription(String longDescription) {
         this.longDescription = longDescription;
     }
 
     public Double getLongitude() {
-        if (longitude == null) return 0.0;
-        else return longitude;
+        return longitude;
     }
 
     public void setLongitude(Double longitude) {
@@ -90,8 +95,7 @@ public class Location {
     }
 
     public Double getLatitude() {
-        if (latitude == null) return 0.0;
-        else return latitude;
+        return latitude;
     }
 
     public void setLatitude(Double latitude) {
@@ -121,7 +125,7 @@ public class Location {
     public void setImageList(List<Object> imageList) {
         this.imageList = imageList;
     }
-
 }
+
 
 

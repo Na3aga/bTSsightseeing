@@ -2,9 +2,11 @@ package whitechurchapplication.sig.mvp.model.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import whitechurchapplication.sig.mvp.model.data.DataContract;
@@ -13,9 +15,9 @@ import whitechurchapplication.sig.mvp.model.entities.Location;
 
 public class MainDaoImpl implements MainDao {
 
-    private Context context;
-    DbHelper dbHelper;
-    SQLiteDatabase db;
+    public Context context;
+    private DbHelper dbHelper;
+    private SQLiteDatabase db;
 
     public MainDaoImpl(Context context) {
         this.context = context;
@@ -31,6 +33,7 @@ public class MainDaoImpl implements MainDao {
         return true;
     }
 
+
     @Override
     public void save(Location location) {
         //        int id = location.getId();
@@ -43,10 +46,8 @@ public class MainDaoImpl implements MainDao {
         try {
             db = dbHelper.getWritableDatabase();
         } catch (SQLiteException ex) {
-//            db = dbHelper.getReadableDatabase();
         }
         ContentValues values = new ContentValues();
-//        values.put(DataContract.LocationEntry._ID, id);
         values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
         values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
         values.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
@@ -79,6 +80,30 @@ public class MainDaoImpl implements MainDao {
 
     @Override
     public List<Location> findAll() {
-        return null;
+
+        List<Location> locationList = new ArrayList<>();
+
+        db =  dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.query(DataContract.LocationEntry.TABLE_NAME,
+                new String[]{DataContract.LocationEntry.COLUMN_NAME, DataContract.LocationEntry.COLUMN_LATITUDE, DataContract.LocationEntry.COLUMN_LONGITUDE},
+                null,
+                null,
+                null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+
+        for (int i = 0; i < 56; i++) {
+            Location location = new Location(cursor.getString(0), cursor.getString(0), cursor.getDouble(1), cursor.getDouble(2));
+            locationList.add(i, location);
+
+            cursor.moveToNext();
+        }
+
+        db.close();
+
+        //TODO implement
+        return locationList;
     }
 }
