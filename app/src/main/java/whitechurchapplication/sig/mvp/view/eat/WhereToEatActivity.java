@@ -8,8 +8,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import whitechurchapplication.sig.R;
+import whitechurchapplication.sig.mvp.presenter.WhereToEatContract;
+import whitechurchapplication.sig.mvp.presenter.WhereToEatPresenterImpl;
 
-public class WhereToEatActivity extends AppCompatActivity {
+public class WhereToEatActivity extends AppCompatActivity implements WhereToEatContract.WhereToEatView {
+    private WhereToEatContract.WhereToEatPresenter whereToEatPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +20,10 @@ public class WhereToEatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_where_to_eat);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        whereToEatPresenter = new WhereToEatPresenterImpl();
+        whereToEatPresenter.setView(this);
+        whereToEatPresenter.getNumberOfLocationsInDb();
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -31,6 +38,15 @@ public class WhereToEatActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (whereToEatPresenter != null) {
+            whereToEatPresenter.setView(null);
+        }
     }
 
+    @Override
+    public void showMessage(String message) {
+
+    }
 }
+
+

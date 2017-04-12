@@ -2,9 +2,6 @@ package whitechurchapplication.sig.mvp.model.rest.json;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by macbookpro on 27.03.17.
- */
 
 class LocationType {
 

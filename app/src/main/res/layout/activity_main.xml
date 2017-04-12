@@ -1,68 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorWhite"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".mvp.view.main.MainActivity">
 
     <ImageView
         android:id="@+id/whitechurchimage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="center"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/buttonToAbout"
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="60dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="#2196F3"
         android:text="@string/buttonToAbout"
-        android:textColor="@color/colorWhite"
-        android:textSize="20sp" />
+        android:textColor="#FFFFFF"
+        android:drawableLeft="@mipmap/ic_remove_red_eye_black_48dp"
+        android:drawableTint="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:layout_above="@+id/buttonWhereToEat"
+        android:layout_alignLeft="@+id/buttonWhatToSee"
+        android:layout_alignStart="@+id/buttonWhatToSee" />
 
     <Button
         android:id="@+id/buttonWhatToSee"
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="60dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="#2196F3"
         android:text="@string/buttonWhatToSee"
-        android:textColor="@color/colorWhite"
-        android:textSize="20sp" />
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:drawableTint="#FFFFFF"
+        android:drawableLeft="@mipmap/ic_check_circle_black_48dp"
+        android:layout_alignTop="@+id/buttonWhereToEat"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp" />
 
     <Button
         android:id="@+id/buttonWhereToStop"
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="60dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="#2196F3"
         android:text="@string/buttonWhereToStop"
-        android:textColor="@color/colorWhite"
-        android:textSize="20sp" />
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:drawableLeft="@mipmap/ic_local_hotel_black_48dp"
+        android:textSize="15sp"
+        android:drawableTint="#FFFFFF"
+        android:layout_marginTop="82dp"
+        android:layout_below="@+id/whitechurchimage"
+        android:layout_alignLeft="@+id/buttonWhereToEat"
+        android:layout_alignStart="@+id/buttonWhereToEat" />
 
     <Button
         android:id="@+id/buttonWhereToEat"
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="60dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/colorPrimaryDark"
+        android:drawableLeft="@mipmap/ic_local_dining_black_48dp"
+        android:background="#2196F3"
         android:text="@string/buttonWhereToEat"
-        android:textColor="@color/colorWhite"
-        android:textSize="20sp" />
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:drawableTint="#FFFFFF"
+        android:textSize="15sp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp"
+        android:layout_below="@+id/buttonWhereToStop"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="51dp" />
 
-    <Button
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/buttonToTouristMap"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/colorPrimaryDark"
-        android:text="@string/buttonToTouristMap"
-        android:textColor="@color/colorWhite"
-        android:textSize="20sp" />
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:clickable="true"
+        android:drawableTint="#FFFFFF"
+        app:backgroundTint="#D84315"
+        app:fabSize="auto"
+        android:scaleType="center"
+        app:rippleColor="@color/colorWhite"
+        app:srcCompat="@mipmap/ic_map_white_48dp"
+        app:layout_anchorGravity="bottom|right"
+        app:borderWidth="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="66dp"
+        app:layout_anchor="@id/whitechurchimage"
+        android:layout_marginStart="66dp"
+        android:layout_marginBottom="42dp"
+        android:layout_above="@+id/buttonToAbout"
+        android:layout_alignLeft="@+id/buttonToAbout"
+        android:layout_alignStart="@+id/buttonToAbout" />
 
 
-</android.widget.LinearLayout>
+</RelativeLayout>

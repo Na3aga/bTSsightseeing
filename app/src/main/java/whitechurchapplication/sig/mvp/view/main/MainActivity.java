@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         ImageView imageView = (ImageView)findViewById(R.id.whitechurchimage);
-        Picasso.with(this).load(R.drawable.bcmaintop_xxdpi).into(imageView);
+        Picasso.with(this).load(R.drawable.golovnyiekran2).into(imageView);
     }
     @OnClick(R.id.buttonToAbout) protected void switch1(){
         Intent intent = new Intent(MainActivity.this, AboutBCerkvaActivity.class);

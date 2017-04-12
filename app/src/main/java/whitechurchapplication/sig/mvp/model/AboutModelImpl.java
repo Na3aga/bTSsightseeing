@@ -1,7 +1,6 @@
 package whitechurchapplication.sig.mvp.model;
 
 import java.util.List;
-
 import whitechurchapplication.sig.mvp.model.dao.MainDao;
 import whitechurchapplication.sig.mvp.model.entities.Location;
 

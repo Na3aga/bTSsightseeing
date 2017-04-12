@@ -1,13 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".mvp.view.about.AboutBCerkvaActivity">
+    tools:context=".mvp.view.about.AboutBCerkvaActivity"
+    android:background="@color/colorWhite">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="center"
+        android:background="@drawable/probtserkvu"
+        android:id="@+id/imageView"
+        android:layout_below="@+id/buttonbeck"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/buttonbeck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#448AFF"
+        android:text="Про Білу Церкву"
+        android:drawableTint="@color/colorWhite"
+        android:drawableLeft="@mipmap/ic_chevron_left_white_48dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textColor="#424242"
+        android:textSize="17dp"
+        android:text="TextView dhfhd sfhdsfhsdhf shfhsdfhdsfhfhdshfshdf"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextViewfsdhfhdsjfh  fhsfjhsdfhdsf
+dsfjndskfkdskfjdsklfjdskfj
+dsfdsjfhdskjhfdshfjdshfjf
+fsdfdsfdsfdsfdsfdsffds
+dsfdsdsfdsfdsfdsfdsfdsfdsf
+dsfdsfdsfdsfdsfdsfds
 
 
 
-</LinearLayout>
+
+fdsfsdfdsfdsf
+dsfdsfsdf"
+        android:layout_below="@+id/textView4"
+        android:textColor="#424242"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+
+</RelativeLayout>
+
+

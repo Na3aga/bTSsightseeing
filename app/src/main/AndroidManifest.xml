@@ -17,9 +17,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mvp.view.main.MainActivity">
+        <activity android:name=".mvp.view.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
-        </activity>
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -37,7 +38,8 @@
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".mvp.view.about.AboutBCerkvaActivity"
-            android:label="@string/title_activity_about_bcerkva" />
+            android:label="@string/title_activity_about_bcerkva"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".mvp.view.see.WhatToSeeActivity"
             android:label="@string/title_activity_what_to_see"
@@ -46,11 +48,14 @@
             android:name=".mvp.view.stay.WhereToStopActivity"
             android:label="@string/title_activity_where_to_stop"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".mvp.view.eat.WhereToEatActivity"
             android:label="@string/title_activity_where_to_eat"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".mvp.view.splash.SplashActivity">
+        <activity
+            android:name=".mvp.view.splash.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

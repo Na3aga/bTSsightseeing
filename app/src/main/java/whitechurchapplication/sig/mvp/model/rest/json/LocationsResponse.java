@@ -4,9 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-/**
- * Created by macbookpro on 27.03.17.
- */
+
 
 public class LocationsResponse {
     @SerializedName("id")
