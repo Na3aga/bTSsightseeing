@@ -22,10 +22,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        ImageView imageView = (ImageView) findViewById(R.id.whitechurchimage);
-        Picasso.with(this).load(R.drawable.bcmaintop_xxdpi).into(imageView);
-        ImageView imageView = (ImageView)findViewById(R.id.whitechurchimage);
-        Picasso.with(this).load(R.drawable.golovnyiekran2).into(imageView);
+        ImageView imageView1 = (ImageView) findViewById(R.id.whitechurchimage);
+        Picasso.with(this).load(R.drawable.bcmaintop_xxdpi).into(imageView1);
+        ImageView imageView2 = (ImageView)findViewById(R.id.whitechurchimage);
+        Picasso.with(this).load(R.drawable.golovnyiekran2).into(imageView2);
     }
 
     @OnClick(R.id.buttonToAbout)
