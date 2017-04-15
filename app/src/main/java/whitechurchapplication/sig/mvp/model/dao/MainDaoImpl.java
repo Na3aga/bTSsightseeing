@@ -93,13 +93,12 @@ public class MainDaoImpl implements MainDao {
         if (cursor != null) {
             cursor.moveToFirst();
         }
-
-        for (int i = 0; i < 56; i++) {
+        int i = 0;
+        do  {
             Location location = new Location(cursor.getString(0), cursor.getString(0), cursor.getDouble(1), cursor.getDouble(2));
             locationList.add(i, location);
-
-            cursor.moveToNext();
-        }
+            i++;
+        }while (cursor.moveToNext()!=false);
 
         db.close();
 
