@@ -30,6 +30,7 @@ public class MainDaoImpl implements MainDao {
         for (Location location : locationList) {
             save(location);
         }
+
         return true;
     }
 
@@ -38,6 +39,7 @@ public class MainDaoImpl implements MainDao {
     public void save(Location location) {
         //        int id = location.getId();
         String locName = location.getName();
+        String adress = location.getAddress();
         if (locName == null) locName = "nothing";
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
@@ -51,6 +53,8 @@ public class MainDaoImpl implements MainDao {
         values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
         values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
         values.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
+        values.put(DataContract.LocationEntry.COLUMN_ADRESS, adress);
+
 
         db.insertOrThrow(DataContract.LocationEntry.TABLE_NAME, null, values);
         db.close();
@@ -83,10 +87,11 @@ public class MainDaoImpl implements MainDao {
 
         List<Location> locationList = new ArrayList<>();
 
-        db =  dbHelper.getReadableDatabase();
+        db = dbHelper.getReadableDatabase();
 
         Cursor cursor = db.query(DataContract.LocationEntry.TABLE_NAME,
-                new String[]{DataContract.LocationEntry.COLUMN_NAME, DataContract.LocationEntry.COLUMN_LATITUDE, DataContract.LocationEntry.COLUMN_LONGITUDE},
+                new String[]{DataContract.LocationEntry._ID, DataContract.LocationEntry.COLUMN_NAME, DataContract.LocationEntry.COLUMN_LATITUDE,
+                        DataContract.LocationEntry.COLUMN_LONGITUDE, DataContract.LocationEntry.COLUMN_ADRESS},
                 null,
                 null,
                 null, null, null);
@@ -94,11 +99,11 @@ public class MainDaoImpl implements MainDao {
             cursor.moveToFirst();
         }
         int i = 0;
-        do  {
-            Location location = new Location(cursor.getString(0), cursor.getString(0), cursor.getDouble(1), cursor.getDouble(2));
+        do {
+            Location location = new Location(cursor.getInt(0), cursor.getString(1), cursor.getString(1), cursor.getDouble(2), cursor.getDouble(3), cursor.getString(4));
             locationList.add(i, location);
             i++;
-        }while (cursor.moveToNext()!=false);
+        } while (cursor.moveToNext());
 
         db.close();
 

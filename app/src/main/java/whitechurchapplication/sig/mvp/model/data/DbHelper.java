@@ -20,7 +20,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 + DataContract.LocationEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + DataContract.LocationEntry.COLUMN_NAME + " TEXT NOT NULL, "
                 + DataContract.LocationEntry.COLUMN_LONGITUDE + " TEXT NOT NULL, "
-                + DataContract.LocationEntry.COLUMN_LATITUDE + " TEXT NOT NULL);";
+                + DataContract.LocationEntry.COLUMN_LATITUDE + " TEXT NOT NULL, "
+                +DataContract.LocationEntry.COLUMN_ADRESS + " TEXT NOT NULL);";
 
         db.execSQL(SQL_CREATE_GUESTS_TABLE);
     }

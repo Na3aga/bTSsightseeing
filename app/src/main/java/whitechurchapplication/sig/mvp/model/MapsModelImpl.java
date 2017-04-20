@@ -28,8 +28,9 @@ public class MapsModelImpl implements MapsModel {
 
         List<MarkerInfo> markerInfoList = new ArrayList<>();
 
-        for (int i=0;i < locationList.size() ;i++) {
-            MarkerInfo markerInfo = new MarkerInfo(locationList.get(i).getLongitude(),locationList.get(i).getLatitude(),locationList.get(i).getName(),locationList.get(i).getShortDescription());
+        for (int i = 0; i < locationList.size(); i++) {
+            MarkerInfo markerInfo = new MarkerInfo(locationList.get(i).getId(), locationList.get(i).getLongitude(),
+                    locationList.get(i).getLatitude(), locationList.get(i).getName(), locationList.get(i).getShortDescription(), locationList.get(i).getAddress());
             markerInfoList.add(markerInfo);
         }
         return markerInfoList;

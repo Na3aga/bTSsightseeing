@@ -3,17 +3,22 @@ package whitechurchapplication.sig.mvp.model.entities;
 public class MarkerInfo {
 
     private double longitude;
+    private int id;
     private double latitude;
     private String name;
     private String shortDescription;
+    private String adress;
 
     public MarkerInfo() {
     }
 
-    public MarkerInfo(double longitude, double latitude, String name, String shortDescription) {
+    public MarkerInfo(int id,double longitude, double latitude, String name, String shortDescription,String adress) {
+
         this.longitude = longitude;
+        this.id = id;
         this.latitude = latitude;
         this.name = name;
+        this.adress = adress;
         this.shortDescription = shortDescription;
     }
 
@@ -23,6 +28,13 @@ public class MarkerInfo {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 
     public double getLatitude() {

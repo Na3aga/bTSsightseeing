@@ -10,6 +10,7 @@ public class DataContract {
         public final static String COLUMN_NAME = "name";
         public final static String COLUMN_LONGITUDE = "longitude";
         public final static String COLUMN_LATITUDE = "latitude";
+        public final static String COLUMN_ADRESS = "adress";
 
     }
 }

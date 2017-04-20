@@ -17,9 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mvp.view.main.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+        <activity
+            android:name=".mvp.view.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -39,7 +39,7 @@
         <activity
             android:name=".mvp.view.about.AboutBCerkvaActivity"
             android:label="@string/title_activity_about_bcerkva"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".mvp.view.see.WhatToSeeActivity"
             android:label="@string/title_activity_what_to_see"
@@ -48,7 +48,6 @@
             android:name=".mvp.view.stay.WhereToStopActivity"
             android:label="@string/title_activity_where_to_stop"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".mvp.view.eat.WhereToEatActivity"
             android:label="@string/title_activity_where_to_eat"
