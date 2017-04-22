@@ -1,13 +1,13 @@
 package whitechurchapplication.sig.mvp.presenter;
 
-interface MainContract {
+public interface MainContract {
 
     interface MainView {
 
     }
 
     interface MainPresenter {
-
+        void getLocationsByType(String type);
     }
 
 }

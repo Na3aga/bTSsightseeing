@@ -56,24 +56,6 @@ public class SplashModelImpl implements SplashModel {
                 if (locationList != null) {
                     saved = saveAll(locationList);
                 } else {
-                    //TODO remove it later
-                    List<whitechurchapplication.sig.mvp.model.rest.json.response.Location> locationList2 = new ArrayList<whitechurchapplication.sig.mvp.model.rest.json.response.Location>();
-                    locationList2.add(new whitechurchapplication.sig.mvp.model.rest.json.response.Location());
-                    whitechurchapplication.sig.mvp.model.rest.json.response.Location location1 = new whitechurchapplication.sig.mvp.model.rest.json.response.Location();
-                    location1.setId(1);
-                    location1.setName("Kino");
-                    location1.setLatitude(123.213);
-                    location1.setLongitude(123.123);
-                    locationList2.add(location1);
-                    locationList2.add(new whitechurchapplication.sig.mvp.model.rest.json.response.Location());
-                    whitechurchapplication.sig.mvp.model.rest.json.response.Location location2 = new whitechurchapplication.sig.mvp.model.rest.json.response.Location();
-                    location2.setId(2);
-                    location2.setName("Kinoshka");
-                    location2.setLatitude(123.213);
-                    location2.setLongitude(123.123);
-                    locationList2.add(location2);
-                    saved = saveAll(getLocationsForTestOnly());
-
 //                    dataSavedCallback.dataWasSaved();
                 }
                 if (saved && dataSavedCallback != null) {
@@ -88,17 +70,6 @@ public class SplashModelImpl implements SplashModel {
         });
     }
 
-    private List<whitechurchapplication.sig.mvp.model.rest.json.response.Location> getLocationsForTestOnly() {
-        List<whitechurchapplication.sig.mvp.model.rest.json.response.Location> locationList2 = new ArrayList<>();
-        locationList2.add(new whitechurchapplication.sig.mvp.model.rest.json.response.Location());
-        whitechurchapplication.sig.mvp.model.rest.json.response.Location location = new whitechurchapplication.sig.mvp.model.rest.json.response.Location();
-        location.setId(12);
-        location.setName("Kino");
-        location.setLatitude(123.213);
-        location.setLongitude(123.123);
-        locationList2.add(location);
-        return locationList2;
-
-    }
 
 }
+

@@ -49,7 +49,7 @@
         android:drawableTint="#2196F3"
         android:text="@string/buttonToAbout"
         android:textColor="#2196F3"
-        android:textSize="25sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:width="30dp"
 
@@ -58,40 +58,23 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+
     <Button
 
         android:id="@+id/buttonWhereToEat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:background="@color/colorWhite"
         android:drawableBottom="@drawable/ic_local_dining_white_48dp"
         android:drawableTint="#2196F3"
         android:textColor="#2196F3"
-        android:textSize="25sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:text="Де поїсти"
         android:layout_below="@+id/buttonWhatToSee"
 
-
-         />
-
-    <Button
-        android:id="@+id/buttonWhereToStop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@color/colorWhite"
-        android:drawableBottom="@drawable/ic_local_hotel_white_48dp"
-        android:drawableTint="#2196F3"
-        android:textColor="#2196F3"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:text="Де переночувати"
-        android:layout_below="@+id/buttonWhereToEat"
-
-
-      />
+        />
 
     <Button
         android:id="@+id/buttonWhatToSee"
@@ -102,11 +85,29 @@
         android:drawableTint="#2196F3"
         android:text="@string/buttonWhatToSee"
         android:textColor="#2196F3"
-        android:textSize="25sp"
+        android:textSize="15sp"
         android:textStyle="bold"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:layout_below="@+id/buttonToAbout"
             />
+
+    <Button
+        android:id="@+id/buttonWhereToStop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorWhite"
+        android:drawableBottom="@drawable/ic_local_hotel_white_48dp"
+        android:drawableTint="#2196F3"
+        android:textColor="#2196F3"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="Де переночувати"
+        android:layout_below="@+id/buttonWhereToEat"
+
+
+        />
+
 
 
 

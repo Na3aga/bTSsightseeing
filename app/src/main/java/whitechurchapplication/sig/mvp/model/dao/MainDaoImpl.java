@@ -40,25 +40,44 @@ public class MainDaoImpl implements MainDao {
         //        int id = location.getId();
         String locName = location.getName();
         String adress = location.getAddress();
-        if (locName == null) locName = "nothing";
+        if (locName == null) locName = "NoNAME";
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
 
+        String type;
 
         try {
             db = dbHelper.getWritableDatabase();
         } catch (SQLiteException ex) {
         }
-        ContentValues values = new ContentValues();
-        values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
-        values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
-        values.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
-        values.put(DataContract.LocationEntry.COLUMN_ADRESS, adress);
+        ContentValues values1 = new ContentValues();
+        values1.put(DataContract.LocationEntry.COLUMN_NAME, locName);
+        values1.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
+        values1.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
+        values1.put(DataContract.LocationEntry.COLUMN_ADRESS, adress);
 
 
-        db.insertOrThrow(DataContract.LocationEntry.TABLE_NAME, null, values);
+        db.insertOrThrow(DataContract.LocationEntry.TABLE_LOCATIONS_NAME, null, values1);
+
+
+
+        whitechurchapplication.sig.mvp.model.entities.LocationType typeObject = location.getLocationType();
+
+        if (typeObject != null) {
+            type = typeObject.getType();
+
+
+            ContentValues values2 = new ContentValues();
+            values2.put(DataContract.LocationEntry.COLUMN_NAME, locName);
+            values2.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
+            values2.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
+            values2.put(DataContract.LocationEntry.COLUMN_TYPE, type);
+            values2.put(DataContract.LocationEntry.COLUMN_ADRESS, adress);
+
+
+            db.insertOrThrow(DataContract.LocationEntry.TABLE_TYPE_NAME, null, values2);
+        }
         db.close();
-
 
     }
 
@@ -83,13 +102,44 @@ public class MainDaoImpl implements MainDao {
     }
 
     @Override
+    public void findByLocType(String type) {
+
+        List<Location> locationListByType = new ArrayList<>();
+        String[] typeList = new String[10];
+        typeList[1] = type;
+
+        db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
+                new String[]{DataContract.LocationEntry._ID, DataContract.LocationEntry.COLUMN_NAME, DataContract.LocationEntry.COLUMN_LATITUDE,
+                        DataContract.LocationEntry.COLUMN_LONGITUDE, DataContract.LocationEntry.COLUMN_ADRESS},
+                DataContract.LocationEntry.COLUMN_TYPE + " = ",
+                typeList,
+                null, null, null);
+        int count = cursor.getCount();
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        int i = 0;
+        do {
+            Location location = new Location(cursor.getInt(0), cursor.getString(1), cursor.getString(1), cursor.getDouble(2), cursor.getDouble(3), cursor.getString(4));
+            locationListByType.add(i, location);
+            i++;
+        } while (cursor.moveToNext());
+
+        db.close();
+
+
+    }
+
+    @Override
     public List<Location> findAll() {
 
         List<Location> locationList = new ArrayList<>();
 
         db = dbHelper.getReadableDatabase();
 
-        Cursor cursor = db.query(DataContract.LocationEntry.TABLE_NAME,
+        Cursor cursor = db.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
                 new String[]{DataContract.LocationEntry._ID, DataContract.LocationEntry.COLUMN_NAME, DataContract.LocationEntry.COLUMN_LATITUDE,
                         DataContract.LocationEntry.COLUMN_LONGITUDE, DataContract.LocationEntry.COLUMN_ADRESS},
                 null,

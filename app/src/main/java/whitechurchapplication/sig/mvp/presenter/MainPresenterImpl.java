@@ -1,14 +1,22 @@
 package whitechurchapplication.sig.mvp.presenter;
 
+import android.content.Context;
+
 import whitechurchapplication.sig.mvp.model.MainModel;
 import whitechurchapplication.sig.mvp.model.MainModelImpl;
 
 
+public class MainPresenterImpl implements MainContract.MainPresenter {
 
-public class MainPresenterImpl implements MainContract{
+    private MainModel mainModel;
 
-    private MainModel mainModel = new MainModelImpl();
+    public MainPresenterImpl(Context context) {
+        this.mainModel = new MainModelImpl(context);;
+    }
 
-    
 
+    @Override
+    public void getLocationsByType(String type) {
+        mainModel.getLocationsByType(type);
+    }
 }

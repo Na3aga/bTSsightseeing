@@ -12,6 +12,7 @@ public interface MainDao {
     void delete(long id);
     void update(Location location);
     void findById(long id);
+    void findByLocType(String type);
     List<Location> findAll();
 
 }
