@@ -16,9 +16,10 @@ public class AboutBCerkvaActivity extends AppCompatActivity implements AboutCont
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_bcerkva);
-        aboutPresenter = new AboutPresenterImpl();
-        aboutPresenter.setView(this);
-        aboutPresenter.getNumberOfLocationsInDb();
+
+        //aboutPresenter = new AboutPresenterImpl();
+        //aboutPresenter.setView(this);
+        //aboutPresenter.getNumberOfLocationsInDb();
     }
 
     @Override

@@ -14,4 +14,5 @@
     <string name="title_activity_what_to_see">WhatToSeeActivity</string>
     <string name="title_activity_where_to_stop">WhereToStopActivity</string>
     <string name="title_activity_where_to_eat">WhereToEatActivity</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>

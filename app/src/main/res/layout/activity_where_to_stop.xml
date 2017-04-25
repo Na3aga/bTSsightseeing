@@ -9,6 +9,14 @@
     android:background="@color/colorPrimary"
     tools:context=".mvp.view.main.MainActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:id="@+id/zamkova_png"
+        android:layout_gravity="center"
+        android:background="@drawable/zamkova_gora_22"
+        />
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

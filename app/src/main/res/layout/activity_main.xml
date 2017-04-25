@@ -12,31 +12,35 @@
 
     <ImageView
         android:id="@+id/whitechurchimage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
         android:scaleType="center"
+        tools:background="@android:color/black"
        />
 
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/buttonToTouristMap"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:clickable="true"
-        android:drawableTint="#FFFFFF"
-        android:scaleType="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:srcCompat="@android:drawable/ic_dialog_map"
         app:backgroundTint="#D84315"
-        app:borderWidth="@dimen/activity_vertical_margin"
-        app:fabSize="auto"
-        app:layout_anchor="@id/whitechurchimage"
-        app:layout_anchorGravity="bottom|right"
-        app:rippleColor="@color/colorWhite"
-        app:srcCompat="@mipmap/ic_map_white_48dp"
-        android:layout_marginRight="7dp"
-        android:layout_marginEnd="7dp"
+        android:layout_marginTop="248dp"
+        android:layout_marginRight="35dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="220dp"/>
+        android:layout_marginEnd="35dp" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/whitechurchimage"
+        android:orientation="vertical"
+        android:weightSum="4">
 
 
 
@@ -44,19 +48,16 @@
         android:id="@+id/buttonToAbout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
         android:background="@color/colorWhite"
-        android:drawableBottom="@drawable/ic_visibility_white_48dp"
-        android:drawableTint="#2196F3"
         android:text="@string/buttonToAbout"
         android:textColor="#2196F3"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:width="30dp"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_margin="1dp"
 
-
-        android:layout_marginTop="280dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        />
 
 
     <Button
@@ -64,16 +65,17 @@
         android:id="@+id/buttonWhereToEat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:background="@color/colorWhite"
-        android:drawableBottom="@drawable/ic_local_dining_white_48dp"
         android:drawableTint="#2196F3"
         android:textColor="#2196F3"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:textSize="20sp"
         android:text="Де поїсти"
+        android:gravity="center"
         android:layout_below="@+id/buttonWhatToSee"
-
+        android:layout_weight="1"
+        android:layout_margin="1dp"
+        android:textAllCaps="false"
+        
         />
 
     <Button
@@ -81,34 +83,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
-        android:drawableBottom="@drawable/ic_check_circle_white_48dp"
         android:drawableTint="#2196F3"
         android:text="@string/buttonWhatToSee"
         android:textColor="#2196F3"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:layout_marginTop="5dp"
+        android:textSize="20sp"
+        android:gravity="center"
         android:layout_below="@+id/buttonToAbout"
-            />
+        android:layout_weight="1"
+        android:layout_margin="1dp"
+        android:textAllCaps="false"
+
+
+        />
 
     <Button
         android:id="@+id/buttonWhereToStop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:background="@color/colorWhite"
-        android:drawableBottom="@drawable/ic_local_hotel_white_48dp"
         android:drawableTint="#2196F3"
         android:textColor="#2196F3"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:textSize="20sp"
         android:text="Де переночувати"
         android:layout_below="@+id/buttonWhereToEat"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_margin="1dp"
+        android:textAllCaps="false"
 
 
         />
 
 
-
+   </LinearLayout>
 
 </RelativeLayout>
