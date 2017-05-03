@@ -38,13 +38,30 @@ public class MainDaoImpl implements MainDao {
     @Override
     public void save(Location location) {
         //        int id = location.getId();
+
         String locName = location.getName();
-        String adress = location.getAddress();
         if (locName == null) locName = "NoNAME";
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
+        String adress = location.getAddress();
+        int typeId = 0;
 
-        String type;
+
+        whitechurchapplication.sig.mvp.model.entities.LocationType typeObject = location.getLocationType();
+
+        if (typeObject != null) {
+            typeId = typeObject.getId();
+            String typeName = typeObject.getType();
+
+
+            ContentValues values2 = new ContentValues();
+            values2.put(DataContract.LocationEntry._ID_OF_TYPE, typeId);
+            values2.put(DataContract.LocationEntry.COLUMN_TYPE_NAME, typeName);
+
+
+            db.insertOrThrow(DataContract.LocationEntry.TABLE_TYPE_NAME, null, values2);
+            db.close();
+        }
 
         try {
             db = dbHelper.getWritableDatabase();
@@ -53,30 +70,13 @@ public class MainDaoImpl implements MainDao {
         ContentValues values1 = new ContentValues();
         values1.put(DataContract.LocationEntry.COLUMN_NAME, locName);
         values1.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
+        values1.put(DataContract.LocationEntry.ID_TYPE, typeId);
         values1.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
         values1.put(DataContract.LocationEntry.COLUMN_ADRESS, adress);
 
 
         db.insertOrThrow(DataContract.LocationEntry.TABLE_LOCATIONS_NAME, null, values1);
 
-
-
-        whitechurchapplication.sig.mvp.model.entities.LocationType typeObject = location.getLocationType();
-
-        if (typeObject != null) {
-            type = typeObject.getType();
-
-
-            ContentValues values2 = new ContentValues();
-            values2.put(DataContract.LocationEntry.COLUMN_NAME, locName);
-            values2.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
-            values2.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
-            values2.put(DataContract.LocationEntry.COLUMN_TYPE, type);
-            values2.put(DataContract.LocationEntry.COLUMN_ADRESS, adress);
-
-
-            db.insertOrThrow(DataContract.LocationEntry.TABLE_TYPE_NAME, null, values2);
-        }
         db.close();
 
     }
@@ -105,27 +105,39 @@ public class MainDaoImpl implements MainDao {
     public void findByLocType(String type) {
 
         List<Location> locationListByType = new ArrayList<>();
-        String[] typeList = new String[10];
-        typeList[1] = type;
 
         db = dbHelper.getReadableDatabase();
 
-        Cursor cursor = db.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
-                new String[]{DataContract.LocationEntry._ID, DataContract.LocationEntry.COLUMN_NAME, DataContract.LocationEntry.COLUMN_LATITUDE,
-                        DataContract.LocationEntry.COLUMN_LONGITUDE, DataContract.LocationEntry.COLUMN_ADRESS},
-                DataContract.LocationEntry.COLUMN_TYPE + " = ",
-                typeList,
+        Cursor cursor1 = db.query(DataContract.LocationEntry.TABLE_TYPE_NAME,
+                new String[] {DataContract.LocationEntry._ID_OF_TYPE},
+                DataContract.LocationEntry.COLUMN_TYPE_NAME + " = ",
+                new String[] {type},
                 null, null, null);
-        int count = cursor.getCount();
-        if (cursor != null) {
-            cursor.moveToFirst();
+
+
+        if (cursor1!= null) {
+            cursor1.moveToFirst();
         }
+        cursor1.getInt(0);
+
+        Cursor cursor2 = db.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
+                new String[] {DataContract.LocationEntry.COLUMN_NAME,DataContract.LocationEntry.COLUMN_ADRESS},
+                DataContract.LocationEntry.COLUMN_TYPE_NAME + " = ",
+                new String[] {type},
+                null, null, null);
+
+        if (cursor2!= null) {
+            cursor2.moveToFirst();
+        }
+
         int i = 0;
         do {
-            Location location = new Location(cursor.getInt(0), cursor.getString(1), cursor.getString(1), cursor.getDouble(2), cursor.getDouble(3), cursor.getString(4));
+            Location location = new Location(cursor2.getInt(0), cursor2.getString(1), cursor2.getString(1), cursor2.getDouble(2), cursor2.getDouble(3), cursor2.getString(4));
             locationListByType.add(i, location);
+
+
             i++;
-        } while (cursor.moveToNext());
+        } while (cursor1.moveToNext());
 
         db.close();
 
