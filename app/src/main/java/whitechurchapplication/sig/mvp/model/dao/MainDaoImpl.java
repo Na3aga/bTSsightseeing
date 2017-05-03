@@ -49,6 +49,11 @@ public class MainDaoImpl implements MainDao {
 
         whitechurchapplication.sig.mvp.model.entities.LocationType typeObject = location.getLocationType();
 
+//        try {
+            db = dbHelper.getWritableDatabase();
+//        } catch (SQLiteException ex) {
+//        }
+
         if (typeObject != null) {
             typeId = typeObject.getId();
             String typeName = typeObject.getType();
@@ -60,13 +65,9 @@ public class MainDaoImpl implements MainDao {
 
 
             db.insertOrThrow(DataContract.LocationEntry.TABLE_TYPE_NAME, null, values2);
-            db.close();
         }
 
-        try {
-            db = dbHelper.getWritableDatabase();
-        } catch (SQLiteException ex) {
-        }
+
         ContentValues values1 = new ContentValues();
         values1.put(DataContract.LocationEntry.COLUMN_NAME, locName);
         values1.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);

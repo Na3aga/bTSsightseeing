@@ -1,64 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/stopplaceRV"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="5dp"
     android:background="@color/colorPrimary"
+    android:orientation="vertical"
     tools:context=".mvp.view.main.MainActivity">
 
 
-    <Button
-        android:id="@+id/buttonbeck2"
+
+
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#448AFF"
-        android:text=""
-        android:drawableTint="@color/colorWhite"
-        android:drawableLeft="@mipmap/ic_chevron_left_white_48dp"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="210dp"
-        android:id="@+id/zamkova_png"
-        android:layout_gravity="center"
-        android:background="@drawable/zamkova_gora_22"
-        android:layout_margin="3dp"
-        />
-    <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="210dp"
-    android:layout_gravity="center"
-    android:id="@+id/hotelkiyv"
-    android:background="@drawable/hotelkiyv2"
-        android:layout_margin="2dp"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="210dp"
-        android:id="@+id/hotelcity"
-        android:gravity="center"
-        android:background="@drawable/hotelcity"
-        android:layout_margin="3dp"
-        />
+    </android.support.v7.widget.CardView>
+</android.support.v7.widget.RecyclerView>
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-
-    </android.support.design.widget.AppBarLayout>
-
-
-
-</LinearLayout>

@@ -31,21 +31,7 @@ public class WhereToEatActivity extends AppCompatActivity implements WhereToEatC
         // whereToEatPresenter.setView(this);
         //whereToEatPresenter.getNumberOfLocationsInDb();
     }
-        @OnClick(R.id.buttonbeck3)
-        protected void switch1() {
-            Intent intent = new Intent(WhereToEatActivity.this, MainActivity.class);
-            startActivity(intent);
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-    }
 
     @Override
     protected void onDestroy() {

@@ -17,7 +17,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        this.mSplashPresenter = new SplashPresenterImpl(getApplicationContext());
+        this.mSplashPresenter = new SplashPresenterImpl(this);
         mSplashPresenter.setView(this);
         getLocation();
     }
