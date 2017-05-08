@@ -11,6 +11,7 @@ import retrofit2.Response;
 import whitechurchapplication.sig.mvp.model.dao.MainDao;
 import whitechurchapplication.sig.mvp.model.dao.MainDaoImpl;
 import whitechurchapplication.sig.mvp.model.entities.Location;
+import whitechurchapplication.sig.mvp.model.entities.LocationType;
 import whitechurchapplication.sig.mvp.model.rest.HttpApi;
 import whitechurchapplication.sig.mvp.presenter.DataSavedCallback;
 
@@ -37,8 +38,15 @@ public class SplashModelImpl implements SplashModel {
 
     public boolean saveAll(List<whitechurchapplication.sig.mvp.model.rest.json.response.Location> locationList) {
         List<Location> locaionListEntities = new ArrayList<Location>();
+        int i = 0;
         for (whitechurchapplication.sig.mvp.model.rest.json.response.Location location : locationList) {
-            locaionListEntities.add(new Location(location));
+
+            Location location1 = new Location(location);
+            location1.setLocationType(new LocationType(location.getLocationType()));
+            locaionListEntities.add(location1);
+
+
+           i++;
         }
         return mainDao.saveAll(locaionListEntities);
     }
@@ -53,6 +61,7 @@ public class SplashModelImpl implements SplashModel {
             @Override
             public void onResponse(Call<List<whitechurchapplication.sig.mvp.model.rest.json.response.Location>> call, Response<List<whitechurchapplication.sig.mvp.model.rest.json.response.Location>> response) {
                 List<whitechurchapplication.sig.mvp.model.rest.json.response.Location> locationList = response.body();
+
                 if (locationList != null) {
                     saved = saveAll(locationList);
                 } else {

@@ -1,5 +1,9 @@
 package whitechurchapplication.sig.mvp.presenter;
 
+import java.util.List;
+
+import whitechurchapplication.sig.mvp.model.entities.Location;
+
 public interface MainContract {
 
     interface MainView {
@@ -7,7 +11,7 @@ public interface MainContract {
     }
 
     interface MainPresenter {
-        void getLocationsByType(String type);
+        List<Location> getLocationsByType(String type);
     }
 
 }

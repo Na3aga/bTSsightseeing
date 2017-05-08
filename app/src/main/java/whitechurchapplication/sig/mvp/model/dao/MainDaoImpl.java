@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,46 +36,37 @@ public class MainDaoImpl implements MainDao {
 
     @Override
     public void save(Location location) {
-        //        int id = location.getId();
 
         String locName = location.getName();
         if (locName == null) locName = "NoNAME";
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
         String adress = location.getAddress();
-        int typeId = 0;
 
+        int typeId = location.getLocationType().getId();
+        String typeName = location.getLocationType().getType();
+        db = dbHelper.getWritableDatabase();
 
-        whitechurchapplication.sig.mvp.model.entities.LocationType typeObject = location.getLocationType();
+        if (testForUniquenessType(typeName) == true) {
 
-//        try {
-            db = dbHelper.getWritableDatabase();
-//        } catch (SQLiteException ex) {
-//        }
+            ContentValues values = new ContentValues();
+            values.put(DataContract.LocationEntry._ID_OF_TYPE, typeId);
+            values.put(DataContract.LocationEntry.COLUMN_TYPE_NAME, typeName);
 
-        if (typeObject != null) {
-            typeId = typeObject.getId();
-            String typeName = typeObject.getType();
+            db.insertOrThrow(DataContract.LocationEntry.TABLE_TYPE_NAME, null, values);
 
-
-            ContentValues values2 = new ContentValues();
-            values2.put(DataContract.LocationEntry._ID_OF_TYPE, typeId);
-            values2.put(DataContract.LocationEntry.COLUMN_TYPE_NAME, typeName);
-
-
-            db.insertOrThrow(DataContract.LocationEntry.TABLE_TYPE_NAME, null, values2);
         }
 
 
-        ContentValues values1 = new ContentValues();
-        values1.put(DataContract.LocationEntry.COLUMN_NAME, locName);
-        values1.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
-        values1.put(DataContract.LocationEntry.ID_TYPE, typeId);
-        values1.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
-        values1.put(DataContract.LocationEntry.COLUMN_ADRESS, adress);
+        ContentValues values = new ContentValues();
+        values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
+        values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
+        values.put(DataContract.LocationEntry.ID_TYPE, typeId);
+        values.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
+        values.put(DataContract.LocationEntry.COLUMN_ADRESS, adress);
 
 
-        db.insertOrThrow(DataContract.LocationEntry.TABLE_LOCATIONS_NAME, null, values1);
+        db.insertOrThrow(DataContract.LocationEntry.TABLE_LOCATIONS_NAME, null, values);
 
         db.close();
 
@@ -103,31 +93,32 @@ public class MainDaoImpl implements MainDao {
     }
 
     @Override
-    public void findByLocType(String type) {
+    public List<Location> findByLocType(String type) {
 
         List<Location> locationListByType = new ArrayList<>();
 
-        db = dbHelper.getReadableDatabase();
+        SQLiteDatabase ndb = dbHelper.getReadableDatabase();
 
-        Cursor cursor1 = db.query(DataContract.LocationEntry.TABLE_TYPE_NAME,
-                new String[] {DataContract.LocationEntry._ID_OF_TYPE},
-                DataContract.LocationEntry.COLUMN_TYPE_NAME + " = ",
-                new String[] {type},
+        Cursor cursor1 = ndb.query(DataContract.LocationEntry.TABLE_TYPE_NAME,
+                new String[]{DataContract.LocationEntry._ID_OF_TYPE},
+                DataContract.LocationEntry.COLUMN_TYPE_NAME + " = ? ",
+                new String[]{type},
                 null, null, null);
 
 
-        if (cursor1!= null) {
+        if (cursor1 != null) {
             cursor1.moveToFirst();
         }
-        cursor1.getInt(0);
 
-        Cursor cursor2 = db.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
-                new String[] {DataContract.LocationEntry.COLUMN_NAME,DataContract.LocationEntry.COLUMN_ADRESS},
-                DataContract.LocationEntry.COLUMN_TYPE_NAME + " = ",
-                new String[] {type},
+        int typeId = cursor1.getInt(0);
+        Cursor cursor2 = ndb.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
+                new String[]{DataContract.LocationEntry._ID, DataContract.LocationEntry.COLUMN_NAME, DataContract.LocationEntry.COLUMN_LATITUDE,
+                        DataContract.LocationEntry.COLUMN_LONGITUDE, DataContract.LocationEntry.COLUMN_ADRESS},
+                DataContract.LocationEntry.ID_TYPE + " = ? ",
+                new String[]{Integer.toString(typeId)},
                 null, null, null);
 
-        if (cursor2!= null) {
+        if (cursor2 != null) {
             cursor2.moveToFirst();
         }
 
@@ -138,10 +129,10 @@ public class MainDaoImpl implements MainDao {
 
 
             i++;
-        } while (cursor1.moveToNext());
+        } while (cursor2.moveToNext());
 
-        db.close();
-
+        ndb.close();
+        return locationListByType;
 
     }
 
@@ -172,5 +163,24 @@ public class MainDaoImpl implements MainDao {
 
         //TODO implement
         return locationList;
+    }
+
+    public boolean testForUniquenessType(String typeName) {
+        boolean result = true;
+        SQLiteDatabase testDB;
+
+        testDB = dbHelper.getReadableDatabase();
+        Cursor cursor = testDB.query(DataContract.LocationEntry.TABLE_TYPE_NAME,
+                new String[]{DataContract.LocationEntry._ID_OF_TYPE},
+                DataContract.LocationEntry.COLUMN_TYPE_NAME + " = ? ",
+                new String[]{typeName},
+                null, null, null);
+
+        if (cursor != null && cursor.getCount() > 0) {
+            result = false;
+        }
+
+
+        return result;
     }
 }

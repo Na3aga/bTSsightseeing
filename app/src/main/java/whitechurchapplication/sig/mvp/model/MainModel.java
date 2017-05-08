@@ -1,8 +1,12 @@
 package whitechurchapplication.sig.mvp.model;
 
+import java.util.List;
+
+import whitechurchapplication.sig.mvp.model.entities.Location;
+
 public interface MainModel {
 
-    void getLocationsByType(String type);
+    List<Location> getLocationsByType(String type);
 
     void getUpdates();
 

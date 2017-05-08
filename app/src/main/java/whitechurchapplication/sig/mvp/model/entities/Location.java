@@ -16,6 +16,10 @@ public class Location {
     private LocationType locationType;
     private List<Object> imageList = null;
 
+    public Location(){
+
+    }
+
     public Location(whitechurchapplication.sig.mvp.model.rest.json.response.Location location) {
         this.id = location.getId();
         this.name = location.getName();
@@ -127,6 +131,8 @@ public class Location {
     public void setImageList(List<Object> imageList) {
         this.imageList = imageList;
     }
+
+
 }
 
 

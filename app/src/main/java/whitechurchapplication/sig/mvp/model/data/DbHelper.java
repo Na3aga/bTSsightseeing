@@ -17,7 +17,7 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String SQL_CREATE_LOCATIONS_TABLE = "CREATE TABLE " + DataContract.LocationEntry.TABLE_LOCATIONS_NAME + " ("
-                + DataContract.LocationEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + DataContract.LocationEntry._ID + " INTEGER PRIMARY KEY, "
                 + DataContract.LocationEntry.COLUMN_NAME + " TEXT NOT NULL, "
                 + DataContract.LocationEntry.COLUMN_ADRESS + " TEXT NOT NULL, "
                 + DataContract.LocationEntry.COLUMN_LONGITUDE + " TEXT NOT NULL, "
