@@ -24,7 +24,7 @@ public class WhatToSeeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mainPresenter = new MainPresenterImpl(this);
-        List <Location> locationList = mainPresenter.getLocationsByType("Ресторани");
+        List <Location> locationList = mainPresenter.getLocationsByType("Церкви");
 
         textView1 = (TextView) findViewById(R.id.textView1);
         textView1.setText(locationList.get(0).getName());

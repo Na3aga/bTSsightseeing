@@ -178,7 +178,7 @@ public class MainDaoImpl implements MainDao {
 
         if (cursor != null && cursor.getCount() > 0) {
             result = false;
-        }
+        }else {};
 
 
         return result;

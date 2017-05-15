@@ -2,26 +2,18 @@ package whitechurchapplication.sig.mvp.view.stay;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
 import whitechurchapplication.sig.R;
+import whitechurchapplication.sig.mvp.model.entities.Location;
 import whitechurchapplication.sig.mvp.presenter.MainContract;
 import whitechurchapplication.sig.mvp.presenter.MainPresenterImpl;
-import whitechurchapplication.sig.mvp.view.CardViewActivity;
 import whitechurchapplication.sig.mvp.view.Place;
 import whitechurchapplication.sig.mvp.view.RVAdapter;
-
-import static whitechurchapplication.sig.R.layout.item;
 
 
 public class WhereToStopActivity extends AppCompatActivity {
@@ -33,7 +25,6 @@ public class WhereToStopActivity extends AppCompatActivity {
 
     private List<Place> places;
     private RecyclerView rv;
-    private CardView cardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +33,20 @@ public class WhereToStopActivity extends AppCompatActivity {
         rv = (RecyclerView) findViewById(R.id.rview);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
+
+        mainPresenter = new MainPresenterImpl(this);
+
         initializeData();
         initializeAdapter();
 
     }
 
     private List<Place> initializeData() {
+        List <Location> locationList = mainPresenter.getLocationsByType("Ресторани");
         places = new ArrayList<>();
-        places.add(new Place("bc", "info", R.drawable.hotelcity));
-        places.add(new Place("name", "info info", R.drawable.hotelkiyv));
-        places.add(new Place("bc name", "info info info", R.drawable.hotelkiyv2));
+        for (int i = 0 ; i < locationList.size(); i++) {
+            places.add(new Place(locationList.get(i).getName(), locationList.get(i).getShortDescription(), R.drawable.hotelcity));
+        }
         return places;
     }
 
