@@ -1,50 +1,52 @@
 package whitechurchapplication.sig.mvp.view.eat;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import java.util.ArrayList;
+import java.util.List;
+
 import whitechurchapplication.sig.R;
-import whitechurchapplication.sig.mvp.presenter.WhereToEatContract;
-import whitechurchapplication.sig.mvp.presenter.WhereToEatPresenterImpl;
-import whitechurchapplication.sig.mvp.view.main.MainActivity;
-import whitechurchapplication.sig.mvp.view.stay.WhereToStopActivity;
+import whitechurchapplication.sig.mvp.model.entities.Location;
+import whitechurchapplication.sig.mvp.presenter.MainContract;
+import whitechurchapplication.sig.mvp.presenter.MainPresenterImpl;
+import whitechurchapplication.sig.mvp.view.Place;
+import whitechurchapplication.sig.mvp.view.RVAdapter;
 
-public class WhereToEatActivity extends AppCompatActivity implements WhereToEatContract.WhereToEatView {
-    private WhereToEatContract.WhereToEatPresenter whereToEatPresenter;
+public class WhereToEatActivity extends AppCompatActivity{
+    MainContract.MainPresenter mainPresenter;
+
+    private List<Place> places;
+    private RecyclerView rv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_where_to_eat);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ButterKnife.bind(this);
+        rv = (RecyclerView) findViewById(R.id.rview2);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        rv.setLayoutManager(llm);
 
-        //  whereToEatPresenter = new WhereToEatPresenterImpl();
-        // whereToEatPresenter.setView(this);
-        //whereToEatPresenter.getNumberOfLocationsInDb();
+        mainPresenter = new MainPresenterImpl(this);
+
+        initializeData();
+        initializeAdapter();
+
     }
 
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (whereToEatPresenter != null) {
-            whereToEatPresenter.setView(null);
+    private List<Place> initializeData() {
+        List <Location> locationList = mainPresenter.getLocationsByType("Перекусити");
+        places = new ArrayList<>();
+        for (int i = 0 ; i < locationList.size(); i++) {
+            places.add(new Place(locationList.get(i).getName(), locationList.get(i).getShortDescription(), R.drawable.hotelcity));
         }
+        return places;
     }
 
-    @Override
-    public void showMessage(String message) {
-
+    private void initializeAdapter() {
+        RVAdapter adapter = new RVAdapter(places,this);
+        rv.setAdapter(adapter);
     }
 }
-
-
