@@ -34,13 +34,14 @@ public class WhereToEatActivity extends AppCompatActivity{
         initializeData();
         initializeAdapter();
 
+
     }
 
     private List<Place> initializeData() {
         List <Location> locationList = mainPresenter.getLocationsByType("Перекусити");
         places = new ArrayList<>();
         for (int i = 0 ; i < locationList.size(); i++) {
-            places.add(new Place(locationList.get(i).getName(), locationList.get(i).getShortDescription(), R.drawable.hotelcity));
+            places.add(new Place(locationList.get(i).getName(), locationList.get(i).getShortDescription(), R.drawable.hotelcity,locationList.get(i).getId()));
         }
         return places;
     }
@@ -49,4 +50,5 @@ public class WhereToEatActivity extends AppCompatActivity{
         RVAdapter adapter = new RVAdapter(places,this);
         rv.setAdapter(adapter);
     }
+
 }

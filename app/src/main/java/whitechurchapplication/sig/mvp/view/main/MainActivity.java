@@ -17,6 +17,7 @@ import whitechurchapplication.sig.mvp.view.see.WhatToSeeActivity;
 import whitechurchapplication.sig.mvp.view.stay.WhereToStopActivity;
 
 public class MainActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

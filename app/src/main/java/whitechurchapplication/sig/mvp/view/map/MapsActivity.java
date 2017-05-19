@@ -1,5 +1,6 @@
 package whitechurchapplication.sig.mvp.view.map;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -29,6 +30,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     SlidingUpPanelLayout layout;
     TextView textView;
     Marker marker1;
+    public int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMapsPresenter.getMarkerInfo();
         layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         textView = (TextView) findViewById(R.id.MapsPanelTextView11);
+        Intent intent = getIntent();
+        id = intent.getIntExtra("showId", -1);
 
     }
 
@@ -63,8 +67,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng bilaCerkva = new LatLng(49.79617015, 30.13094902);
         marker1 = mMap.addMarker(new MarkerOptions().position(bilaCerkva).title("Welcome to Bila Tserkva!"));
         marker1.setTag(markerInfoList.get(0));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(bilaCerkva));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(13), 2000, null);
         googleMap.setOnMarkerClickListener(this);
 
 
@@ -73,6 +75,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Marker marker = mMap.addMarker(new MarkerOptions().position(bilaCerkva1).title(markerInfoList.get(i).getName()));
             marker.setTag(markerInfoList.get(i));
 
+            if (markerInfoList.get(i).getId() == id) {
+                 onMarkerClick(marker);
+            }
+
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(bilaCerkva));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(13), 2000, null);
 
         }
 
