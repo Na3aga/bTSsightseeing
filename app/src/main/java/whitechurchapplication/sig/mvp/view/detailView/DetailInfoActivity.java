@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import whitechurchapplication.sig.R;
+import whitechurchapplication.sig.mvp.view.DetailedMap.DetailedMapsActivity;
 import whitechurchapplication.sig.mvp.view.Place;
 import whitechurchapplication.sig.mvp.view.map.MapsActivity;
 
@@ -41,7 +42,7 @@ public class DetailInfoActivity extends AppCompatActivity {
 
 @OnClick(R.id.floatingActionButton1)
 protected void switch5() {
-    Intent intent = new Intent(this, MapsActivity.class);
+    Intent intent = new Intent(this, DetailedMapsActivity.class);
     intent.putExtra("showId",id);
     startActivity(intent);
 }

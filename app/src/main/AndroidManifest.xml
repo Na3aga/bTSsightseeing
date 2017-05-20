@@ -64,7 +64,10 @@
         <activity
             android:name=".mvp.view.detailView.DetailInfoActivity"
             android:label="@string/title_activity_detail_info"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".mvp.view.DetailedMap.DetailedMapsActivity"
+            android:label="@string/title_activity_detailed_maps"></activity>
     </application>
 
 </manifest>
