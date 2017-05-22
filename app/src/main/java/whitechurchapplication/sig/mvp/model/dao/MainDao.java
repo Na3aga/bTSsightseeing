@@ -11,7 +11,7 @@ public interface MainDao {
     boolean saveAll(List<Location> locationList);
     void delete(long id);
     void update(Location location);
-    void findById(long id);
+    Location findById(int id);
     List<Location> findByLocType(String type);
     List<Location> findAll();
 

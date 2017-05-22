@@ -19,18 +19,19 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import java.util.List;
 
 import whitechurchapplication.sig.R;
+import whitechurchapplication.sig.mvp.model.entities.Location;
 import whitechurchapplication.sig.mvp.model.entities.MarkerInfo;
+import whitechurchapplication.sig.mvp.presenter.DetailMapContract;
+import whitechurchapplication.sig.mvp.presenter.DetailMapPresenterImpl;
 import whitechurchapplication.sig.mvp.presenter.MapsContract;
 import whitechurchapplication.sig.mvp.presenter.MapsPresenterImpl;
 
 public  class DetailedMapsActivity extends FragmentActivity implements OnMapReadyCallback, MapsContract.MapsView, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
-    MapsContract.MapsPresenter mMapsPresenter;
-    List<MarkerInfo> markerInfoList;
+    DetailMapContract detailMap;
     SlidingUpPanelLayout layout;
     TextView textView;
-    Marker marker1;
     public int id;
 
     @Override
@@ -41,9 +42,7 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        mMapsPresenter = new MapsPresenterImpl(this);
-        mMapsPresenter.setMapsView(this);
-        mMapsPresenter.getMarkerInfo();
+        detailMap = new DetailMapPresenterImpl(this);
         layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         textView = (TextView) findViewById(R.id.MapsPanelTextView11);
         Intent intent = getIntent();
@@ -60,10 +59,16 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
 
         googleMap.setOnMarkerClickListener(this);
 
+            Location location = detailMap.findLocById(id);
 
-            LatLng bilaCerkva1 = new LatLng(markerInfoList.get(id).getLatitude(), markerInfoList.get(id).getLongitude());
-            Marker marker = mMap.addMarker(new MarkerOptions().position(bilaCerkva1).title(markerInfoList.get(id).getName()));
-            marker.setTag(markerInfoList.get(id));
+            LatLng bilaCerkva1 = new LatLng(location.getLatitude(), location.getLongitude());
+            Marker marker = mMap.addMarker(new MarkerOptions().position(bilaCerkva1).title(location.getName()));
+
+            MarkerInfo markerInfo = new MarkerInfo();
+            markerInfo.setLatitude(location.getLatitude());
+            markerInfo.setLongitude(location.getLongitude());
+            markerInfo.setName(location.getName());
+            marker.setTag(markerInfo);
 
             onMarkerClick(marker);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(bilaCerkva1));
@@ -82,15 +87,14 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
 
     @Override
     public void setMarkerInfo(List<MarkerInfo> markerInfo) {
-        markerInfoList = markerInfo;
+
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
         MarkerInfo markerInfo = (MarkerInfo) marker.getTag();
-        String markerId = markerInfo.getName();
 
-        textView.setText(markerId);
+        textView.setText(markerInfo.getName());
         int myColor = Color.argb(127, 255, 0, 255);
         textView.setTextColor(myColor);
 

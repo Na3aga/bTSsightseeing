@@ -38,9 +38,9 @@ public class MainDaoImpl implements MainDao {
     public void save(Location location) {
 
         String locName = location.getName();
-        if (locName == null) locName = "NoNAME";
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
+        int _id = location.getId();
         String adress = location.getAddress();
 
         int typeId = location.getLocationType().getId();
@@ -59,6 +59,7 @@ public class MainDaoImpl implements MainDao {
 
 
         ContentValues values = new ContentValues();
+        values.put(DataContract.LocationEntry._ID, _id);
         values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
         values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
         values.put(DataContract.LocationEntry.ID_TYPE, typeId);
@@ -88,8 +89,26 @@ public class MainDaoImpl implements MainDao {
     }
 
     @Override
-    public void findById(long id) {
+    public Location findById(int id) {
 
+        Location location;
+
+        SQLiteDatabase ndb = dbHelper.getReadableDatabase();
+
+        Cursor cursor = ndb.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
+                new String[]{DataContract.LocationEntry._ID, DataContract.LocationEntry.COLUMN_NAME, DataContract.LocationEntry.COLUMN_LATITUDE,
+                        DataContract.LocationEntry.COLUMN_LONGITUDE, DataContract.LocationEntry.COLUMN_ADRESS},
+                DataContract.LocationEntry._ID + " = ? ",
+                new String[]{Integer.toString(id)},
+                null, null, null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+
+        location = new Location(cursor.getInt(0), cursor.getString(1), cursor.getString(1), cursor.getDouble(2), cursor.getDouble(3), cursor.getString(4));
+
+        return location;
     }
 
     @Override
