@@ -41,7 +41,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PlaceViewHolder> {
             placeName = (TextView) itemView.findViewById(R.id.place_name);
             placeInfo = (TextView) itemView.findViewById(R.id.place_info);
             placePhoto = (ImageView) itemView.findViewById(R.id.place_photo);
-            button = (Button) itemView.findViewById(R.id.button2);
+            button = (Button) itemView.findViewById(R.id.cardButton);
 
 
 
