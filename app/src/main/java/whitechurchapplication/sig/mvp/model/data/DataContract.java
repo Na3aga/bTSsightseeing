@@ -22,5 +22,10 @@ public class DataContract {
         public final static String _ID_OF_TYPE = BaseColumns._ID;
         public final static String COLUMN_TYPE_NAME = "typeName";
 
+        public final static String TABLE_IMAGE_LIST = "imageList";
+        public final static String _ID_IMAGE = BaseColumns._ID;
+        public final static String _ID_IMG_LOCATION = "_ID_";
+        public final static String COLUMN_URL = "imageUrl";
+
     }
 }

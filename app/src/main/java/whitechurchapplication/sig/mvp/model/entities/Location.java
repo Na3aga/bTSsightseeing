@@ -14,7 +14,7 @@ public class Location {
     private Double latitude;
     private Integer version;
     private LocationType locationType;
-    private List<Object> imageList = null;
+    private List<ImageList> imageList = null;
 
     public Location(){
 
@@ -124,14 +124,13 @@ public class Location {
         this.locationType = locationType;
     }
 
-    public List<Object> getImageList() {
+    public List<ImageList> getImageList() {
         return imageList;
     }
 
-    public void setImageList(List<Object> imageList) {
+    public void setImageList(List<ImageList> imageList) {
         this.imageList = imageList;
     }
-
 
 }
 

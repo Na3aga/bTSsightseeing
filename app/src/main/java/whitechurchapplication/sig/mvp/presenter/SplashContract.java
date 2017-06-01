@@ -8,6 +8,7 @@ import whitechurchapplication.sig.mvp.model.entities.Location;
 
 
 public interface SplashContract {
+
     interface SplashPresenter{
 
         void setView(SplashView view);

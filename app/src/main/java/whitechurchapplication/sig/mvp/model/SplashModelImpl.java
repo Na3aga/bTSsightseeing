@@ -10,6 +10,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import whitechurchapplication.sig.mvp.model.dao.MainDao;
 import whitechurchapplication.sig.mvp.model.dao.MainDaoImpl;
+import whitechurchapplication.sig.mvp.model.entities.ImageList;
 import whitechurchapplication.sig.mvp.model.entities.Location;
 import whitechurchapplication.sig.mvp.model.entities.LocationType;
 import whitechurchapplication.sig.mvp.model.rest.HttpApi;
@@ -43,6 +44,15 @@ public class SplashModelImpl implements SplashModel {
 
             Location location1 = new Location(location);
             location1.setLocationType(new LocationType(location.getLocationType()));
+            List<ImageList> imageList = new ArrayList<ImageList>();
+
+            for(i = 0; i < location.getImageList().size();i++) {
+                ImageList imageList1 = new ImageList(location.getImageList().get(i).getId(),location.getImageList().get(i).getUrl());
+                int q = imageList1.getId();
+                String d = imageList1.getUrl();
+                imageList.add(imageList1);
+            }
+            location1.setImageList(imageList);
             locaionListEntities.add(location1);
 
 

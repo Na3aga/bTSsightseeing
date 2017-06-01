@@ -27,7 +27,7 @@ public class Location {
     @SerializedName("locationType")
     private LocationType locationType;
     @SerializedName("imageList")
-    private List<Object> imageList = null;
+    private List<ImageList> imageList = null;
 
     public Integer getId() {
         return id;
@@ -109,11 +109,11 @@ public class Location {
         this.locationType = locationType;
     }
 
-    public List<Object> getImageList() {
+    public List<ImageList> getImageList() {
         return imageList;
     }
 
-    public void setImageList(List<Object> imageList) {
+    public void setImageList(List<ImageList> imageList) {
         this.imageList = imageList;
     }
 }

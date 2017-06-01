@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "locations.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -33,6 +33,15 @@ public class DbHelper extends SQLiteOpenHelper {
                 + DataContract.LocationEntry.COLUMN_TYPE_NAME + " TEXT NOT NULL) ;";
 
         db.execSQL(SQL_CREATE_TYPE_TABLE);
+
+        String SQL_CREATE_IMAGE_LIST_TABLE = "CREATE TABLE " + DataContract.LocationEntry.TABLE_IMAGE_LIST + " ("
+                + DataContract.LocationEntry._ID_IMAGE + " INTEGER PRIMARY KEY , "
+                + DataContract.LocationEntry.COLUMN_URL + " TEXT NOT NULL , "
+                + DataContract.LocationEntry._ID_IMG_LOCATION + " INTEGER , FOREIGN KEY("
+                + DataContract.LocationEntry._ID_IMG_LOCATION + ") REFERENCES "
+                + DataContract.LocationEntry.TABLE_LOCATIONS_NAME + "(" + DataContract.LocationEntry._ID + ") ); ";
+
+        db.execSQL(SQL_CREATE_IMAGE_LIST_TABLE);
     }
 
     @Override

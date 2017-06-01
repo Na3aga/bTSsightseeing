@@ -10,6 +10,7 @@ import java.util.List;
 
 import whitechurchapplication.sig.mvp.model.data.DataContract;
 import whitechurchapplication.sig.mvp.model.data.DbHelper;
+import whitechurchapplication.sig.mvp.model.entities.ImageList;
 import whitechurchapplication.sig.mvp.model.entities.Location;
 
 public class MainDaoImpl implements MainDao {
@@ -37,15 +38,24 @@ public class MainDaoImpl implements MainDao {
     @Override
     public void save(Location location) {
 
+
         String locName = location.getName();
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
         int _id = location.getId();
         String adress = location.getAddress();
 
+        db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
+                new String[]{DataContract.LocationEntry.COLUMN_NAME},
+                DataContract.LocationEntry._ID + " = ? ",
+                new String[]{String.valueOf(_id)},
+                null, null, null);
+
+        if (cursor == null || cursor.getCount() == 0) {
+
         int typeId = location.getLocationType().getId();
         String typeName = location.getLocationType().getType();
-        db = dbHelper.getWritableDatabase();
 
         if (testForUniquenessType(typeName) == true) {
 
@@ -54,22 +64,47 @@ public class MainDaoImpl implements MainDao {
             values.put(DataContract.LocationEntry.COLUMN_TYPE_NAME, typeName);
 
             db.insertOrThrow(DataContract.LocationEntry.TABLE_TYPE_NAME, null, values);
+            db.close();
+        }
+        db = dbHelper.getWritableDatabase();
+
+
+        if (location.getImageList() != null) {
+            for (int i = 0; i < location.getImageList().size(); i++) {
+                try {
+                    int imgId = location.getImageList().get(i).getId();
+
+                    String imgUrl = location.getImageList().get(i).getUrl();
+
+                    ContentValues values = new ContentValues();
+                    values.put(DataContract.LocationEntry._ID_IMAGE, imgId);
+                    values.put(DataContract.LocationEntry._ID_IMG_LOCATION, _id);
+                    values.put(DataContract.LocationEntry.COLUMN_URL, imgUrl);
+
+                    db.insertOrThrow(DataContract.LocationEntry.TABLE_IMAGE_LIST, null, values);
+
+                } catch (Exception e) {
+                    i = location.getImageList().size();
+                }
+            }
+        }
+        try {
+            ContentValues values = new ContentValues();
+            values.put(DataContract.LocationEntry._ID, _id);
+            values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
+            values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
+            values.put(DataContract.LocationEntry.ID_TYPE, typeId);
+            values.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
+            values.put(DataContract.LocationEntry.COLUMN_ADRESS, adress);
+
+
+            db.insertOrThrow(DataContract.LocationEntry.TABLE_LOCATIONS_NAME, null, values);
+        } catch (Exception e) {
 
         }
 
-
-        ContentValues values = new ContentValues();
-        values.put(DataContract.LocationEntry._ID, _id);
-        values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
-        values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
-        values.put(DataContract.LocationEntry.ID_TYPE, typeId);
-        values.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
-        values.put(DataContract.LocationEntry.COLUMN_ADRESS, adress);
-
-
-        db.insertOrThrow(DataContract.LocationEntry.TABLE_LOCATIONS_NAME, null, values);
-
         db.close();
+    }
 
     }
 
@@ -105,8 +140,32 @@ public class MainDaoImpl implements MainDao {
         if (cursor != null) {
             cursor.moveToFirst();
         }
-
         location = new Location(cursor.getInt(0), cursor.getString(1), cursor.getString(1), cursor.getDouble(2), cursor.getDouble(3), cursor.getString(4));
+        cursor.close();
+
+
+        cursor = ndb.query(DataContract.LocationEntry.TABLE_IMAGE_LIST,
+                new String[]{DataContract.LocationEntry._ID_IMAGE, DataContract.LocationEntry.COLUMN_URL},
+                DataContract.LocationEntry._ID_IMG_LOCATION + " = ? ",
+                new String[]{Integer.toString(id)},
+                null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+
+
+        List<ImageList> imageList = new ArrayList<ImageList>();
+
+        for(int i = 0; i < cursor.getCount() ;i++) {
+            ImageList imageList1 = new ImageList(cursor.getInt(0),cursor.getString(1));
+            int q = imageList1.getId();
+            String d = imageList1.getUrl();
+            imageList.add(imageList1);
+            cursor.moveToNext();
+        }
+
+        location.setImageList(imageList);
+        ndb.close();
 
         return location;
     }
@@ -197,7 +256,9 @@ public class MainDaoImpl implements MainDao {
 
         if (cursor != null && cursor.getCount() > 0) {
             result = false;
-        }else {};
+        } else {
+        }
+        ;
 
 
         return result;

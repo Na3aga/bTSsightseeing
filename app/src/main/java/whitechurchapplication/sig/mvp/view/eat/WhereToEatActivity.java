@@ -25,7 +25,9 @@ public class WhereToEatActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_where_to_eat);
+
         rv = (RecyclerView) findViewById(R.id.rview2);
+
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
 
