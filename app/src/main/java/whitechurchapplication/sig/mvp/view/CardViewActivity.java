@@ -28,6 +28,7 @@ public class CardViewActivity extends Activity {
         placeName.setText("name");
         placeInfo.setText("info");
         placePhoto.setImageResource(R.drawable.hotelcity);
+//        placePhoto.setImageResource("");
     }
     @OnClick(R.id.cardButton)
     protected void switch1() {

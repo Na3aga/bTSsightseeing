@@ -43,7 +43,11 @@ public class WhereToStopActivity extends AppCompatActivity {
         List <Location> locationList = mainPresenter.getLocationsByType("Переночувати");
         places = new ArrayList<>();
         for (int i = 0 ; i < locationList.size(); i++) {
-            places.add(new Place(locationList.get(i).getName(), locationList.get(i).getShortDescription(), R.drawable.hotelcity,locationList.get(i).getId()));
+            String url =locationList.get(i).getImageList().get(0).getUrl();
+            if (url == null){
+                url = "no";
+            }
+            places.add(new Place(locationList.get(i).getName(), locationList.get(i).getShortDescription(),url, R.drawable.hotelcity,locationList.get(i).getId()));
         }
         return places;
     }

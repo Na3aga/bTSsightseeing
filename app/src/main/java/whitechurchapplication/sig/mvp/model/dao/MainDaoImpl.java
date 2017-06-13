@@ -140,7 +140,7 @@ public class MainDaoImpl implements MainDao {
         if (cursor != null) {
             cursor.moveToFirst();
         }
-        location = new Location(cursor.getInt(0), cursor.getString(1), cursor.getString(1), cursor.getDouble(2), cursor.getDouble(3), cursor.getString(4));
+        location = new Location(cursor.getInt(0), cursor.getString(1), cursor.getString(1), cursor.getDouble(2), cursor.getDouble(3), cursor.getString(4),null);//TODO
         cursor.close();
 
 
@@ -202,12 +202,23 @@ public class MainDaoImpl implements MainDao {
 
         int i = 0;
         do {
-            Location location = new Location(cursor2.getInt(0), cursor2.getString(1), cursor2.getString(1), cursor2.getDouble(2), cursor2.getDouble(3), cursor2.getString(4));
+            Cursor cursor3 = ndb.query(DataContract.LocationEntry.TABLE_IMAGE_LIST,
+                    new String[]{DataContract.LocationEntry.COLUMN_URL},
+                    DataContract.LocationEntry._ID_IMG_LOCATION + " = ? ",
+                    new String[]{String.valueOf(cursor2.getInt(0))},
+                    null, null, null);
+            List<ImageList> imageLists = new ArrayList<>();
+            if (cursor3 != null && cursor3.moveToFirst()) {
+                cursor3.moveToFirst();
+                ImageList imageList = new ImageList(0,cursor3.getString(0));
+                imageLists.add(imageList);
+            }
+            Location location = new Location(cursor2.getInt(0), cursor2.getString(1), cursor2.getString(1), cursor2.getDouble(2), cursor2.getDouble(3), cursor2.getString(4),imageLists);
             locationListByType.add(i, location);
-
 
             i++;
         } while (cursor2.moveToNext());
+
 
         ndb.close();
         return locationListByType;
@@ -232,7 +243,7 @@ public class MainDaoImpl implements MainDao {
         }
         int i = 0;
         do {
-            Location location = new Location(cursor.getInt(0), cursor.getString(1), cursor.getString(1), cursor.getDouble(2), cursor.getDouble(3), cursor.getString(4));
+            Location location = new Location(cursor.getInt(0), cursor.getString(1), cursor.getString(1), cursor.getDouble(2), cursor.getDouble(3), cursor.getString(4),null);//TODO
             locationList.add(i, location);
             i++;
         } while (cursor.moveToNext());

@@ -1,33 +1,51 @@
 package whitechurchapplication.sig.mvp.model.rest.json.response;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import whitechurchapplication.sig.mvp.model.entities.*;
+import whitechurchapplication.sig.mvp.model.entities.ImageList;
+
 public class Location {
 
     @SerializedName("id")
+    @Expose
     private Integer id;
     @SerializedName("name")
+    @Expose
     private String name;
     @SerializedName("address")
+    @Expose
     private String address;
     @SerializedName("phone")
+    @Expose
     private String phone;
     @SerializedName("shortDescription")
-    private Object shortDescription;
+    @Expose
+    private String shortDescription;
     @SerializedName("longDescription")
-    private Object longDescription;
+    @Expose
+    private String longDescription;
     @SerializedName("longitude")
+    @Expose
     private Double longitude;
     @SerializedName("latitude")
+    @Expose
     private Double latitude;
     @SerializedName("version")
-    private Integer version;
+    @Expose
+    private long version;
+    @SerializedName("deleted")
+    @Expose
+    private Boolean deleted;
     @SerializedName("locationType")
-    private LocationType locationType;
+    @Expose
+    private whitechurchapplication.sig.mvp.model.rest.json.response.LocationType locationType;
     @SerializedName("imageList")
-    private List<ImageList> imageList = null;
+    @Expose
+    private List<whitechurchapplication.sig.mvp.model.rest.json.response.ImageList> imageList = null;
 
     public Integer getId() {
         return id;
@@ -61,19 +79,19 @@ public class Location {
         this.phone = phone;
     }
 
-    public Object getShortDescription() {
+    public String getShortDescription() {
         return shortDescription;
     }
 
-    public void setShortDescription(Object shortDescription) {
+    public void setShortDescription(String shortDescription) {
         this.shortDescription = shortDescription;
     }
 
-    public Object getLongDescription() {
+    public String getLongDescription() {
         return longDescription;
     }
 
-    public void setLongDescription(Object longDescription) {
+    public void setLongDescription(String longDescription) {
         this.longDescription = longDescription;
     }
 
@@ -93,7 +111,7 @@ public class Location {
         this.latitude = latitude;
     }
 
-    public Integer getVersion() {
+    public long getVersion() {
         return version;
     }
 
@@ -101,19 +119,57 @@ public class Location {
         this.version = version;
     }
 
-    public LocationType getLocationType() {
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public whitechurchapplication.sig.mvp.model.rest.json.response.LocationType getLocationType() {
         return locationType;
     }
 
-    public void setLocationType(LocationType locationType) {
+    public void setLocationType(whitechurchapplication.sig.mvp.model.rest.json.response.LocationType locationType) {
         this.locationType = locationType;
     }
 
-    public List<ImageList> getImageList() {
+    public List<whitechurchapplication.sig.mvp.model.rest.json.response.ImageList> getImageList() {
         return imageList;
     }
 
-    public void setImageList(List<ImageList> imageList) {
+    public void setImageList(List<whitechurchapplication.sig.mvp.model.rest.json.response.ImageList> imageList) {
         this.imageList = imageList;
     }
+    public Location(){
+
+    }
+
+    public Location(whitechurchapplication.sig.mvp.model.rest.json.response.Location location) {
+        this.id = location.getId();
+        this.name = location.getName();
+        this.address = location.getAddress();
+        this.phone = location.getPhone();
+        this.shortDescription = (String) location.getShortDescription();//TODO change Location.response OBJ to STRNG
+        this.longDescription = (String) location.getLongDescription();
+        this.longitude = location.getLongitude();
+        this.latitude = location.getLatitude();
+        this.version = location.getVersion();
+//        locationType = location.getLocationType();
+
+    }
+
+    public Location(int id,String name,String shortDescription,double longitude,double latitude,String address) {
+        this.id = id;
+        this.name = name;
+        this.shortDescription = shortDescription;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.address = address;
+
+    }
+
+
 }
+

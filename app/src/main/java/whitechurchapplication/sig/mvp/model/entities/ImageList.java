@@ -38,6 +38,9 @@ public class ImageList {
     }
 
     public String getUrl() {
+        if (url==null){
+            return "url";
+        }
         return url;
     }
 

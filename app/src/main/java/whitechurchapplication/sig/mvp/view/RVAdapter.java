@@ -80,12 +80,14 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PlaceViewHolder> {
                 intent.putExtra("imageId",places.get(i).getPhotoId());
                 intent.putExtra("placeName",places.get(i).getName());
                 intent.putExtra("placeInfo",places.get(i).getInfo());
+                intent.putExtra("imageUrl",places.get(i).getImgUrl());
                 intent.putExtra("id",places.get(i).getId());
                 ((Activity) context).startActivity(intent);
             }
         });
 
-        Picasso.with(context).load(places.get(i).photoId).into(placeViewHolder.placePhoto);
+//        Picasso.with(context).load(places.get(i).photoId).into(placeViewHolder.placePhoto);
+        Picasso.with(context).load(places.get(i).getImgUrl()).resize(640,480).into(placeViewHolder.placePhoto);
 
 
     }

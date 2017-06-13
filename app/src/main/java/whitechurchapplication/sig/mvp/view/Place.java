@@ -2,6 +2,7 @@ package whitechurchapplication.sig.mvp.view;
 
 public class Place {
     String name;
+    String imgUrl;
     String info;
     int photoId;
     int id;
@@ -14,13 +15,21 @@ public class Place {
         this.id = id;
     }
 
-    public Place(String name, String info, int photoId, int id) {
+    public Place(String name, String info,String imgUrl,int photoId, int id) {
         this.name = name;
         this.info = info;
-
+        this.imgUrl = imgUrl;
         this.photoId = photoId;
         this.id = id;
 
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public String getName() {

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -15,6 +16,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -30,6 +32,7 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
 
     private GoogleMap mMap;
     DetailMapContract detailMap;
+    SlidingUpPanelLayout Mainlayout;
     SlidingUpPanelLayout layout;
     TextView textView;
     public int id;
@@ -43,7 +46,11 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         detailMap = new DetailMapPresenterImpl(this);
-        layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+        Mainlayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+        layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout2);
+        ImageView imageView = (ImageView)findViewById(R.id.imageViewSld);
+        Picasso.with(this).load(R.drawable.golovnyiekran2).into(imageView);
+
         textView = (TextView) findViewById(R.id.MapsPanelTextView11);
         Intent intent = getIntent();
         id = intent.getIntExtra("showId", -1);
@@ -102,7 +109,8 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
         LatLng moveTo = new LatLng(markerInfo.getLatitude(), markerInfo.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLng(moveTo));
 
-        layout.setPanelHeight(200);
+        Mainlayout.setPanelHeight(100);
+        layout.setPanelHeight(100);
 
         return true;
     }
