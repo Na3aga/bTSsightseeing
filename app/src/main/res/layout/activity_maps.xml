@@ -17,20 +17,6 @@
         android:layout_weight="4"
         tools:context=".mvp.view.map.MapsActivity" />
 
-    <com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:sothree="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/sliding_layout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
-        sothree:umanoPanelHeight="10dp"
-        sothree:umanoShadowHeight="4dp">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageViewSld"
-            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -218,4 +204,3 @@
         </LinearLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
-</com.sothree.slidinguppanel.SlidingUpPanelLayout>

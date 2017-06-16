@@ -6,17 +6,35 @@ public class MarkerInfo {
     private int id;
     private double latitude;
     private String name;
+    private String phone;
     private String shortDescription;
     private String adress;
 
     public MarkerInfo() {
     }
 
-    public MarkerInfo(int id,double longitude, double latitude, String name, String shortDescription,String adress) {
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public MarkerInfo(int id, double longitude, double latitude, String name, String shortDescription, String adress, String phone) {
 
         this.longitude = longitude;
         this.id = id;
         this.latitude = latitude;
+        this.phone = phone;
         this.name = name;
         this.adress = adress;
         this.shortDescription = shortDescription;

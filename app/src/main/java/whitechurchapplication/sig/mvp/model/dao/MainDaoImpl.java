@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +40,26 @@ public class MainDaoImpl implements MainDao {
     public void save(Location location) {
 
 
+        int _id = location.getId();
         String locName = location.getName();
+        String adress = location.getAddress();
+        String shortDescription = location.getShortDescription();
+        try{
+            shortDescription = new String(shortDescription.getBytes(),"UTF-8");
+        }
+        catch(UnsupportedEncodingException e)
+        {
+            e.printStackTrace();
+        }
+        String phone = location.getPhone();
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
-        int _id = location.getId();
-        String adress = location.getAddress();
+        long version = location.getVersion();
+        short deleted = 0;
+        if (location.getDeleted() == true){
+            deleted = 1;
+        }
+
 
         db = dbHelper.getWritableDatabase();
         Cursor cursor = db.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
@@ -88,20 +104,24 @@ public class MainDaoImpl implements MainDao {
                 }
             }
         }
-        try {
+//        try {
             ContentValues values = new ContentValues();
             values.put(DataContract.LocationEntry._ID, _id);
             values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
+            values.put(DataContract.LocationEntry.COLUMN_SHORT_DESCRPT, shortDescription);
+            values.put(DataContract.LocationEntry.COLUMN_PHONE, phone);
             values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
             values.put(DataContract.LocationEntry.ID_TYPE, typeId);
             values.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
+            values.put(DataContract.LocationEntry.COLUMN_VERSION, version);
+            values.put(DataContract.LocationEntry.COLUMN_DELETED, deleted);
             values.put(DataContract.LocationEntry.COLUMN_ADRESS, adress);
 
 
             db.insertOrThrow(DataContract.LocationEntry.TABLE_LOCATIONS_NAME, null, values);
-        } catch (Exception e) {
-
-        }
+//        } catch (Exception e) {
+//
+//        }
 
         db.close();
     }
@@ -175,9 +195,9 @@ public class MainDaoImpl implements MainDao {
 
         List<Location> locationListByType = new ArrayList<>();
 
-        SQLiteDatabase ndb = dbHelper.getReadableDatabase();
+        SQLiteDatabase qndb = dbHelper.getReadableDatabase();
 
-        Cursor cursor1 = ndb.query(DataContract.LocationEntry.TABLE_TYPE_NAME,
+        Cursor cursor1 = qndb.query(DataContract.LocationEntry.TABLE_TYPE_NAME,
                 new String[]{DataContract.LocationEntry._ID_OF_TYPE},
                 DataContract.LocationEntry.COLUMN_TYPE_NAME + " = ? ",
                 new String[]{type},
@@ -189,36 +209,46 @@ public class MainDaoImpl implements MainDao {
         }
 
         int typeId = cursor1.getInt(0);
+        String id_type = String.valueOf(typeId);
+        cursor1.close();
+        qndb.close();
+        SQLiteDatabase ndb = dbHelper.getReadableDatabase();
+
         Cursor cursor2 = ndb.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
-                new String[]{DataContract.LocationEntry._ID, DataContract.LocationEntry.COLUMN_NAME, DataContract.LocationEntry.COLUMN_LATITUDE,
+                new String[]{DataContract.LocationEntry._ID, DataContract.LocationEntry.COLUMN_NAME, DataContract.LocationEntry.COLUMN_SHORT_DESCRPT,DataContract.LocationEntry.COLUMN_LATITUDE,
                         DataContract.LocationEntry.COLUMN_LONGITUDE, DataContract.LocationEntry.COLUMN_ADRESS},
                 DataContract.LocationEntry.ID_TYPE + " = ? ",
-                new String[]{Integer.toString(typeId)},
+                new String[]{String.valueOf(id_type)},
                 null, null, null);
 
         if (cursor2 != null) {
             cursor2.moveToFirst();
-        }
+
 
         int i = 0;
+
         do {
+            int id = cursor2.getInt(0);
             Cursor cursor3 = ndb.query(DataContract.LocationEntry.TABLE_IMAGE_LIST,
                     new String[]{DataContract.LocationEntry.COLUMN_URL},
                     DataContract.LocationEntry._ID_IMG_LOCATION + " = ? ",
-                    new String[]{String.valueOf(cursor2.getInt(0))},
+                    new String[]{String.valueOf(id)},
                     null, null, null);
             List<ImageList> imageLists = new ArrayList<>();
-            if (cursor3 != null && cursor3.moveToFirst()) {
+            if (cursor3 != null && cursor3.getCount() > 0) {
                 cursor3.moveToFirst();
-                ImageList imageList = new ImageList(0,cursor3.getString(0));
-                imageLists.add(imageList);
+                do {
+                    ImageList imageList = new ImageList(0, cursor3.getString(0));
+                    imageLists.add(imageList);
+                }while (cursor3.moveToNext());
             }
-            Location location = new Location(cursor2.getInt(0), cursor2.getString(1), cursor2.getString(1), cursor2.getDouble(2), cursor2.getDouble(3), cursor2.getString(4),imageLists);
+            Location location = new Location(id, cursor2.getString(1), cursor2.getString(2), cursor2.getDouble(3), cursor2.getDouble(4), cursor2.getString(5),imageLists);
             locationListByType.add(i, location);
 
             i++;
         } while (cursor2.moveToNext());
-
+        }
+        cursor2.close();
 
         ndb.close();
         return locationListByType;
@@ -233,7 +263,7 @@ public class MainDaoImpl implements MainDao {
         db = dbHelper.getReadableDatabase();
 
         Cursor cursor = db.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
-                new String[]{DataContract.LocationEntry._ID, DataContract.LocationEntry.COLUMN_NAME, DataContract.LocationEntry.COLUMN_LATITUDE,
+                new String[]{DataContract.LocationEntry._ID, DataContract.LocationEntry.COLUMN_NAME,DataContract.LocationEntry.COLUMN_SHORT_DESCRPT, DataContract.LocationEntry.COLUMN_LATITUDE,
                         DataContract.LocationEntry.COLUMN_LONGITUDE, DataContract.LocationEntry.COLUMN_ADRESS},
                 null,
                 null,
@@ -243,7 +273,7 @@ public class MainDaoImpl implements MainDao {
         }
         int i = 0;
         do {
-            Location location = new Location(cursor.getInt(0), cursor.getString(1), cursor.getString(1), cursor.getDouble(2), cursor.getDouble(3), cursor.getString(4),null);//TODO
+            Location location = new Location(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3), cursor.getDouble(4), cursor.getString(5),null);//TODO
             locationList.add(i, location);
             i++;
         } while (cursor.moveToNext());

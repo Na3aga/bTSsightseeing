@@ -53,6 +53,7 @@ public class SplashModelImpl implements SplashModel {
                 imageList.add(imageList1);
             }
             location1.setImageList(imageList);
+            location1.setDeleted(location.getDeleted());
             locaionListEntities.add(location1);
 
 

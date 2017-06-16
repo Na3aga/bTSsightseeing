@@ -30,7 +30,7 @@ public class MapsModelImpl implements MapsModel {
 
         for (int i = 0; i < locationList.size(); i++) {
             MarkerInfo markerInfo = new MarkerInfo(locationList.get(i).getId(), locationList.get(i).getLongitude(),
-                    locationList.get(i).getLatitude(), locationList.get(i).getName(), locationList.get(i).getShortDescription(), locationList.get(i).getAddress());
+                    locationList.get(i).getLatitude(), locationList.get(i).getName(), locationList.get(i).getShortDescription(), locationList.get(i).getAddress(),locationList.get(i).getPhone());
             markerInfoList.add(markerInfo);
         }
         return markerInfoList;

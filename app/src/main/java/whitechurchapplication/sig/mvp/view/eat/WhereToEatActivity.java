@@ -43,7 +43,11 @@ public class WhereToEatActivity extends AppCompatActivity{
         List <Location> locationList = mainPresenter.getLocationsByType("Перекусити");
         places = new ArrayList<>();
         for (int i = 0 ; i < locationList.size(); i++) {
-            places.add(new Place(locationList.get(i).getName(), locationList.get(i).getShortDescription(),locationList.get(i).getImageList().get(1).getUrl(), R.drawable.hotelcity,locationList.get(i).getId()));
+            String imgUrl = "not exist";
+            if(locationList.get(i).getImageList().size() > 0){
+                imgUrl = locationList.get(i).getImageList().get(0).getUrl();
+            }
+            places.add(new Place(locationList.get(i).getName(), locationList.get(i).getShortDescription(),imgUrl, R.drawable.hotelcity,locationList.get(i).getId()));
         }
         return places;
     }
