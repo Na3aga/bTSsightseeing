@@ -47,7 +47,7 @@ public class WhereToEatActivity extends AppCompatActivity{
             if(locationList.get(i).getImageList().size() > 0){
                 imgUrl = locationList.get(i).getImageList().get(0).getUrl();
             }
-            places.add(new Place(locationList.get(i).getName(), locationList.get(i).getShortDescription(),imgUrl, R.drawable.hotelcity,locationList.get(i).getId()));
+            places.add(new Place(locationList.get(i).getName(), locationList.get(i).getShortDescription(),imgUrl,i,locationList.get(i).getId()));
         }
         return places;
     }

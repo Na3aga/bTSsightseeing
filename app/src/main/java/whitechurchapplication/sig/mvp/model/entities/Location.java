@@ -175,6 +175,17 @@ public class Location {
         this.phone = phone;
 
     }
+    public Location(int id,String name,String shortDescription,String phone,double longitude,double latitude,String address,List<ImageList> imageLists) {
+        this.id = id;
+        this.name = name;
+        this.shortDescription = shortDescription;
+        this.phone = phone;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.address = address;
+        this.imageList = imageLists;
+
+    }
 
 
 }
