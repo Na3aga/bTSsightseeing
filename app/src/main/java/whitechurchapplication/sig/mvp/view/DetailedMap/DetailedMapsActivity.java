@@ -48,9 +48,9 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
 
 
         textView1 = (TextView) findViewById(R.id.MapsPanelTextView11);
-        textView2 = (TextView) findViewById(R.id.MapsPanelTextView21);
-        textView3 = (TextView) findViewById(R.id.MapsPanelTextView31);
-        textView4 = (TextView) findViewById(R.id.MapsPanelTextView41);
+        textView2 = (TextView) findViewById(R.id.MapsPanelTextView22);
+        textView3 = (TextView) findViewById(R.id.MapsPanelTextView32);
+        textView4 = (TextView) findViewById(R.id.MapsPanelTextView42);
         Intent intent = getIntent();
         id = intent.getIntExtra("showId", -1);
 
@@ -74,6 +74,8 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
             markerInfo.setLatitude(location.getLatitude());
             markerInfo.setLongitude(location.getLongitude());
             markerInfo.setName(location.getName());
+            markerInfo.setAdress(location.getAddress());
+            markerInfo.setPhone(location.getPhone());
             marker.setTag(markerInfo);
 
             onMarkerClick(marker);
@@ -100,10 +102,10 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
     public boolean onMarkerClick(Marker marker) {
         MarkerInfo markerInfo = (MarkerInfo) marker.getTag();
 
-        textView1.setText(markerInfo.getAdress());
-        textView2.setText(markerInfo.getPhone());
-        textView3.setText(markerInfo.getName());
-        textView4.setText(markerInfo.getName());
+        textView1.setText(markerInfo.getName());
+        textView2.setText(markerInfo.getAdress());
+        textView3.setText(markerInfo.getPhone());
+        textView4.setText("No info");
         int myColor = Color.argb(127, 255, 0, 255);
         textView1.setTextColor(myColor);
 

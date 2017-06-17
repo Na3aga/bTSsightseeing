@@ -47,10 +47,8 @@ public class SplashModelImpl implements SplashModel {
             List<ImageList> imageList = new ArrayList<ImageList>();
 
             for(i = 0; i < location.getImageList().size();i++) {
-                ImageList imageList1 = new ImageList(location.getImageList().get(i).getId(),location.getImageList().get(i).getUrl());
-                int q = imageList1.getId();
-                String d = imageList1.getUrl();
-                imageList.add(imageList1);
+                ImageList image = new ImageList(location.getImageList().get(i).getId(),location.getImageList().get(i).getUrl());
+                imageList.add(image);
             }
             location1.setImageList(imageList);
             location1.setDeleted(location.getDeleted());

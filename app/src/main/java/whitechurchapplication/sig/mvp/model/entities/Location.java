@@ -164,7 +164,7 @@ public class Location {
 
     }
 
-    public Location(int id,String name,String shortDescription,double longitude,double latitude,String address,List<ImageList> imageLists) {
+    public Location(int id,String name,String shortDescription,double longitude,double latitude,String address,List<ImageList> imageLists,String phone) {
         this.id = id;
         this.name = name;
         this.shortDescription = shortDescription;
@@ -172,6 +172,7 @@ public class Location {
         this.latitude = latitude;
         this.address = address;
         this.imageList = imageLists;
+        this.phone = phone;
 
     }
 

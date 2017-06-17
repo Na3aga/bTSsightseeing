@@ -38,17 +38,6 @@
                     android:weightSum="4"
                     android:background="#E3F2FD">
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/ic_location"
-                        android:drawableLeft="@mipmap/ic_location_on_black_24dp"
-                        android:drawableTint="#BDBDBD"
-                        android:layout_marginLeft="15dp"
-                        android:layout_weight="3"
-                        android:layout_margin="10dp"
-
-                        />
-                    <TextView
                         android:id="@+id/MapsPanelTextView11"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -84,19 +73,14 @@
 
 
                     <TextView
-                        android:id="@+id/MapsPanelTextView21"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:textSize="20dp"
-                        android:textColor="#616161"
-                        android:text=""
-                        android:drawableLeft="@mipmap/ic_phone_black_24dp"
+                        android:id="@+id/ic_location"
+                        android:drawableLeft="@mipmap/ic_location_on_black_24dp"
                         android:drawableTint="#BDBDBD"
                         android:layout_marginLeft="15dp"
                         android:layout_weight="3"
                         android:layout_margin="10dp"
-
 
                         />
                     <TextView
@@ -132,19 +116,22 @@
                     android:background="#E3F2FD">
 
                     <TextView
-                        android:id="@+id/MapsPanelTextView31"
+                        android:id="@+id/MapsPanelTextView21"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text=""
-                        android:drawableLeft="@mipmap/ic_mail_black_24dp"
-                        android:drawableTint="#BDBDBD"
+                        android:textSize="20dp"
                         android:textColor="#616161"
-                        android:textSize="22sp"
-                        android:layout_margin="10dp"
+                        android:text=""
+                        android:drawableLeft="@mipmap/ic_phone_black_24dp"
+                        android:drawableTint="#BDBDBD"
+                        android:layout_marginLeft="15dp"
                         android:layout_weight="3"
+                        android:layout_margin="10dp"
+
 
                         />
+
                     <TextView
                         android:id="@+id/MapsPanelTextView32"
                         android:layout_width="match_parent"
