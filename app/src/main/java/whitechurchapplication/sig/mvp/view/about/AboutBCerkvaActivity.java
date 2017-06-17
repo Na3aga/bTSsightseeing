@@ -17,7 +17,6 @@ import whitechurchapplication.sig.mvp.view.main.MainActivity;
 public class AboutBCerkvaActivity extends AppCompatActivity implements AboutContract.AboutView {
 
     private AboutContract.AboutPresenter aboutPresenter;
-    Button buttonbeck;
 
 
     @Override
@@ -27,7 +26,7 @@ public class AboutBCerkvaActivity extends AppCompatActivity implements AboutCont
         ButterKnife.bind(this);
 
         }
-        @OnClick(R.id.buttonbeck)
+        @OnClick(R.id.home1)
         protected void switch1() {
             Intent intent = new Intent(AboutBCerkvaActivity.this, MainActivity.class);
             startActivity(intent);
