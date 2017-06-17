@@ -28,7 +28,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     MapsContract.MapsPresenter mMapsPresenter;
     List<MarkerInfo> markerInfoList;
     SlidingUpPanelLayout layout;
-    TextView textView;
+    TextView textView1,textView2,textView3,textView4;
     Marker marker1;
     public int id;
 
@@ -44,7 +44,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMapsPresenter.setMapsView(this);
         mMapsPresenter.getMarkerInfo();
         layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-        textView = (TextView) findViewById(R.id.MapsPanelTextView11);
+
+        textView1 = (TextView) findViewById(R.id.MapsPanelTextView11);
+        textView2 = (TextView) findViewById(R.id.MapsPanelTextView22);
+        textView3 = (TextView) findViewById(R.id.MapsPanelTextView32);
+        textView4 = (TextView) findViewById(R.id.MapsPanelTextView42);
+
+
         Intent intent = getIntent();
         id = intent.getIntExtra("showId", -1);
 
@@ -73,6 +79,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (int i = 0; i < markerInfoList.size(); i++) {
             LatLng bilaCerkva1 = new LatLng(markerInfoList.get(i).getLatitude(), markerInfoList.get(i).getLongitude());
             Marker marker = mMap.addMarker(new MarkerOptions().position(bilaCerkva1).title(markerInfoList.get(i).getName()));
+            marker.setTag(markerInfoList.get(i));
             marker.setTag(markerInfoList.get(i));
 
             if (markerInfoList.get(i).getId() == id) {
@@ -103,9 +110,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         MarkerInfo markerInfo = (MarkerInfo) marker.getTag();
         String markerId = markerInfo.getName();
 
-        textView.setText(markerId);
+        textView1.setText(markerId);
+        textView2.setText(markerInfo.getAdress());
+        textView3.setText(markerInfo.getPhone());
+        textView4.setText("no info");
         int myColor = Color.argb(127, 255, 0, 255);
-        textView.setTextColor(myColor);
 
         marker.showInfoWindow();
         LatLng moveTo = new LatLng(markerInfo.getLatitude(), markerInfo.getLongitude());

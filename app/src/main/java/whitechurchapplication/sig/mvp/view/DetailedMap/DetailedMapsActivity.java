@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.CardView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,6 +33,7 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
     SlidingUpPanelLayout Mainlayout;
     SlidingUpPanelLayout layout;
     TextView textView1,textView2,textView3,textView4;
+    CardView cardView;
     public int id;
 
     @Override
@@ -46,7 +48,7 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
         Mainlayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
 
-
+        cardView = (CardView) findViewById(R.id.card_view1);
         textView1 = (TextView) findViewById(R.id.MapsPanelTextView11);
         textView2 = (TextView) findViewById(R.id.MapsPanelTextView22);
         textView3 = (TextView) findViewById(R.id.MapsPanelTextView32);

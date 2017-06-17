@@ -44,8 +44,16 @@ public class MainDaoImpl implements MainDao {
         String locName = location.getName();
         String adress = location.getAddress();
         String shortDescription = location.getShortDescription();
+        String longDescription = location.getLongDescription();
         try{
-            shortDescription = new String(shortDescription.getBytes(),"UTF-8");
+            longDescription = new String(longDescription.getBytes(),"UTF-8");
+        }
+        catch(UnsupportedEncodingException e)
+        {
+            e.printStackTrace();
+        }
+        try{
+            longDescription = new String(shortDescription.getBytes(),"UTF-8");
         }
         catch(UnsupportedEncodingException e)
         {
@@ -109,6 +117,7 @@ public class MainDaoImpl implements MainDao {
             values.put(DataContract.LocationEntry._ID, _id);
             values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
             values.put(DataContract.LocationEntry.COLUMN_SHORT_DESCRPT, shortDescription);
+            values.put(DataContract.LocationEntry.COLUMN_LONG_DESCRPT, longDescription);
             values.put(DataContract.LocationEntry.COLUMN_PHONE, phone);
             values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
             values.put(DataContract.LocationEntry.ID_TYPE, typeId);

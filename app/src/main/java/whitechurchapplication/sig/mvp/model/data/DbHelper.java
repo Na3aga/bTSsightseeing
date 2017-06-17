@@ -21,6 +21,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 + DataContract.LocationEntry.COLUMN_NAME + " TEXT NOT NULL, "
                 + DataContract.LocationEntry.COLUMN_ADRESS + " TEXT NOT NULL, "
                 + DataContract.LocationEntry.COLUMN_SHORT_DESCRPT + " TEXT NOT NULL, "
+                + DataContract.LocationEntry.COLUMN_LONG_DESCRPT + " TEXT NOT NULL, "
                 + DataContract.LocationEntry.COLUMN_PHONE + " TEXT NOT NULL, "//TODO
                 + DataContract.LocationEntry.COLUMN_LONGITUDE + " REAL, "
                 + DataContract.LocationEntry.COLUMN_LATITUDE + " REAL, "

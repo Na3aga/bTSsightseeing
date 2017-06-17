@@ -40,9 +40,11 @@ public class WhatToSeeActivity extends AppCompatActivity {
         List <Location> locationList = mainPresenter.getLocationsByType("Визначні місця");
         places = new ArrayList<>();
         for (int i = 0 ; i < locationList.size(); i++) {
-
-            String url = locationList.get(0).getImageList().get(0).getUrl();
-            places.add(new Place(locationList.get(i).getName(), locationList.get(i).getShortDescription(),url, R.drawable.hotelcity,locationList.get(i).getId()));
+            String imgUrl = "not exist";
+            if(locationList.get(i).getImageList().size() > 0){
+                imgUrl = locationList.get(i).getImageList().get(0).getUrl();
+            }
+            places.add(new Place(locationList.get(i).getName(), locationList.get(i).getShortDescription(),imgUrl, R.drawable.hotelcity,locationList.get(i).getId()));
         }
         return places;
     }
