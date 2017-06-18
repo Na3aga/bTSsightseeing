@@ -10,15 +10,6 @@
     tools:context=".mvp.view.main.MainActivity"
     android:weightSum="1">
 
-    <ImageView
-        android:id="@+id/whitechurchimage"
-        android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:scaleType="center"
-        tools:background="@android:color/black"
-       />
-
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/buttonToTouristMap"
         android:layout_width="wrap_content"
@@ -32,6 +23,15 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="35dp" />
+
+    <ImageView
+        android:id="@+id/whitechurchimage"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:scaleType="center"
+        tools:background="@android:color/black"
+       />
+
 
 
 
@@ -60,7 +60,26 @@
         />
 
 
-    <Button
+
+        <Button
+            android:id="@+id/buttonWhatToSee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:drawableTint="#2196F3"
+            android:text="@string/buttonWhatToSee"
+            android:textColor="#2196F3"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_below="@+id/buttonToAbout"
+            android:layout_weight="1"
+            android:layout_margin="1dp"
+            android:textAllCaps="false"
+
+
+            />
+
+        <Button
 
         android:id="@+id/buttonWhereToEat"
         android:layout_width="match_parent"
@@ -78,23 +97,7 @@
         
         />
 
-    <Button
-        android:id="@+id/buttonWhatToSee"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:drawableTint="#2196F3"
-        android:text="@string/buttonWhatToSee"
-        android:textColor="#2196F3"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:layout_below="@+id/buttonToAbout"
-        android:layout_weight="1"
-        android:layout_margin="1dp"
-        android:textAllCaps="false"
 
-
-        />
 
     <Button
         android:id="@+id/buttonWhereToStop"

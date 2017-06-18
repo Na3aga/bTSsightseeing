@@ -25,6 +25,8 @@ public class AboutBCerkvaActivity extends AppCompatActivity implements AboutCont
         setContentView(R.layout.activity_about_bcerkva);
         ButterKnife.bind(this);
 
+
+
         }
         @OnClick(R.id.home1)
         protected void switch1() {

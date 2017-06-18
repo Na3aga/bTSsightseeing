@@ -3,6 +3,8 @@ package whitechurchapplication.sig.mvp.view.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -23,9 +25,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+        final ImageView zoom = (ImageView) findViewById(R.id.whitechurchimage);
+        final Animation zoomAnimation = AnimationUtils.loadAnimation(this, R.anim.zoom);
+        zoom.startAnimation(zoomAnimation);
         ImageView imageView2 = (ImageView)findViewById(R.id.whitechurchimage);
         Picasso.with(this).load(R.drawable.golovnyiekran2).into(imageView2);
+
     }
 
     @OnClick(R.id.buttonToAbout)

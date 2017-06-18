@@ -1,5 +1,6 @@
 package whitechurchapplication.sig.mvp.view.stay;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,12 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import whitechurchapplication.sig.R;
 import whitechurchapplication.sig.mvp.model.entities.Location;
 import whitechurchapplication.sig.mvp.presenter.MainContract;
 import whitechurchapplication.sig.mvp.presenter.MainPresenterImpl;
 import whitechurchapplication.sig.mvp.view.Place;
 import whitechurchapplication.sig.mvp.view.RVAdapter;
+import whitechurchapplication.sig.mvp.view.about.AboutBCerkvaActivity;
+import whitechurchapplication.sig.mvp.view.main.MainActivity;
 
 
 public class WhereToStopActivity extends AppCompatActivity {
@@ -31,6 +36,7 @@ public class WhereToStopActivity extends AppCompatActivity {
         rv = (RecyclerView) findViewById(R.id.rview);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
+        ButterKnife.bind(this);
 
         mainPresenter = new MainPresenterImpl(this);
 
@@ -38,6 +44,8 @@ public class WhereToStopActivity extends AppCompatActivity {
         initializeAdapter();
 
     }
+
+     
 
     private List<Place> initializeData() {
         List <Location> locationList = mainPresenter.getLocationsByType("Переночувати");

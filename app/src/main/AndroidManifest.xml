@@ -16,10 +16,15 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/btlogo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait" >
+
         <activity
             android:name=".mvp.view.main.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            />
+        />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -35,26 +40,34 @@
 
         <activity
             android:name=".mvp.view.map.MapsActivity"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"
+            />
         <activity
             android:name=".mvp.view.about.AboutBCerkvaActivity"
             android:label="@string/title_activity_about_bcerkva"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.view.see.WhatToSeeActivity"
             android:label="@string/title_activity_what_to_see"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.view.stay.WhereToStopActivity"
             android:label="@string/title_activity_where_to_stop"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.view.eat.WhereToEatActivity"
             android:label="@string/title_activity_where_to_eat"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.view.splash.SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:noHistory="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -64,10 +77,14 @@
         <activity
             android:name=".mvp.view.detailView.DetailInfoActivity"
             android:label="@string/title_activity_detail_info"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.view.DetailedMap.DetailedMapsActivity"
-            android:label="@string/title_activity_detailed_maps"></activity>
+            android:label="@string/title_activity_detailed_maps"
+            >
+
+        </activity>
     </application>
 
 </manifest>

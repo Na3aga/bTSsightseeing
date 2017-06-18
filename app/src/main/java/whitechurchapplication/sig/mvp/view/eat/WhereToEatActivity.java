@@ -1,5 +1,6 @@
 package whitechurchapplication.sig.mvp.view.eat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,12 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import whitechurchapplication.sig.R;
 import whitechurchapplication.sig.mvp.model.entities.Location;
 import whitechurchapplication.sig.mvp.presenter.MainContract;
 import whitechurchapplication.sig.mvp.presenter.MainPresenterImpl;
 import whitechurchapplication.sig.mvp.view.Place;
 import whitechurchapplication.sig.mvp.view.RVAdapter;
+import whitechurchapplication.sig.mvp.view.about.AboutBCerkvaActivity;
+import whitechurchapplication.sig.mvp.view.main.MainActivity;
 
 public class WhereToEatActivity extends AppCompatActivity{
     MainContract.MainPresenter mainPresenter;
@@ -25,6 +30,7 @@ public class WhereToEatActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_where_to_eat);
+        ButterKnife.bind(this);
 
         rv = (RecyclerView) findViewById(R.id.rview2);
 
@@ -38,6 +44,8 @@ public class WhereToEatActivity extends AppCompatActivity{
 
 
     }
+
+
 
     private List<Place> initializeData() {
         List <Location> locationList = mainPresenter.getLocationsByType("Перекусити");
