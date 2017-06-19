@@ -1,9 +1,11 @@
 package whitechurchapplication.sig.mvp.view.map;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.CardView;
+import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,6 +31,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     List<MarkerInfo> markerInfoList;
     SlidingUpPanelLayout layout;
     TextView textView1,textView2,textView3,textView4;
+    CardView cardViewName;
     Marker marker1;
     public int id;
 
@@ -44,12 +47,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMapsPresenter.setMapsView(this);
         mMapsPresenter.getMarkerInfo();
         layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-
+        cardViewName = (CardView) findViewById(R.id.card_view1);
         textView1 = (TextView) findViewById(R.id.MapsPanelTextView11);
         textView2 = (TextView) findViewById(R.id.MapsPanelTextView22);
         textView3 = (TextView) findViewById(R.id.MapsPanelTextView32);
         textView4 = (TextView) findViewById(R.id.MapsPanelTextView42);
-
+        layout.setFadeOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            }
+        });
 
         Intent intent = getIntent();
         id = intent.getIntExtra("showId", -1);
@@ -115,13 +123,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         textView2.setText(markerInfo.getAdress());
         textView3.setText(markerInfo.getPhone());
         textView4.setText("no info");
-        int myColor = Color.argb(127, 255, 0, 255);
+
+        cardViewName.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                cardViewName.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                layout.setPanelHeight(cardViewName.getHeight());
+            }
+        });
 
         marker.showInfoWindow();
-        LatLng moveTo = new LatLng(markerInfo.getLatitude(), markerInfo.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(moveTo));
+//        LatLng moveTo = new LatLng(markerInfo.getLatitude(), markerInfo.getLongitude());
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(moveTo));
 
-        layout.setPanelHeight(200);
 
         return true;
     }
