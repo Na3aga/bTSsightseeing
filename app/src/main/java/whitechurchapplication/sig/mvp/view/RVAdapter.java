@@ -78,21 +78,20 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PlaceViewHolder> {
 
         if (places.get(i).info != "") {
             placeViewHolder.placeInfo.setPadding(padding_in_px,padding_in_px_top,padding_in_px,padding_in_px);
+        }else {
+            placeViewHolder.placeInfo.setPadding(0,0,0,0);
+            placeViewHolder.placeName.setPadding(0,0,0,0);
         }
         placeViewHolder.cv.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailInfoActivity.class);
-                intent.putExtra("imageId",places.get(i).getPhotoId());
-                intent.putExtra("placeName",places.get(i).getName());
-                intent.putExtra("placeInfo",places.get(i).getInfo());
-                intent.putExtra("imageUrl",places.get(i).getImgUrl());
-                intent.putExtra("id",places.get(i).getId());
+                intent.putExtra("placeId",places.get(i).getId());
                 ((Activity) context).startActivity(intent);
             }
         });
-
-        Picasso.with(context).load(places.get(i).getImgUrl()).resize(640,480).into(placeViewHolder.placePhoto);
+        placeViewHolder.placePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        Picasso.with(context).load(places.get(i).getImgUrl()).into(placeViewHolder.placePhoto);
 
 
     }

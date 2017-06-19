@@ -4,4 +4,16 @@
     <color name="colorPrimaryDark">#E0E0E0</color>
     <color name="colorAccent">#bdbdbd</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="dot_inactive_detail">#2fff</color>
+    <color name="dot_active_detail">#8fff</color>
+>
+
+
+
+
+
+    <array name="array_dot_detail">
+        <item>@color/dot_inactive_detail</item>
+        <item>@color/dot_active_detail</item>
+    </array>
 </resources>

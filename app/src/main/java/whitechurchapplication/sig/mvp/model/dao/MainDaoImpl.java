@@ -161,7 +161,7 @@ public class MainDaoImpl implements MainDao {
 
         Cursor cursor = ndb.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
                 new String[]{DataContract.LocationEntry._ID, DataContract.LocationEntry.COLUMN_NAME, DataContract.LocationEntry.COLUMN_SHORT_DESCRPT, DataContract.LocationEntry.COLUMN_LATITUDE,
-                        DataContract.LocationEntry.COLUMN_LONGITUDE, DataContract.LocationEntry.COLUMN_ADRESS, DataContract.LocationEntry.COLUMN_PHONE},
+                        DataContract.LocationEntry.COLUMN_LONGITUDE, DataContract.LocationEntry.COLUMN_ADRESS, DataContract.LocationEntry.COLUMN_PHONE,DataContract.LocationEntry.COLUMN_LONG_DESCRPT},
                 DataContract.LocationEntry._ID + " = ? ",
                 new String[]{Integer.toString(id)},
                 null, null, null);
@@ -169,7 +169,7 @@ public class MainDaoImpl implements MainDao {
         if (cursor != null) {
             cursor.moveToFirst();
         }
-        location = new Location(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3), cursor.getDouble(4), cursor.getString(5),null,cursor.getString(6));//TODO
+        location = new Location(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3), cursor.getDouble(4), cursor.getString(5),null,cursor.getString(6),cursor.getString(7));//TODO
         cursor.close();
 
 

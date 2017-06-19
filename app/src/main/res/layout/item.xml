@@ -24,11 +24,10 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:id="@+id/place_photo"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:scaleType="centerCrop"
 
 
             />
@@ -40,8 +39,8 @@
             android:layout_below="@+id/place_photo"
             android:textSize="20sp"
             android:textColor="#424242"
-            android:layout_marginTop="4dp"
             android:paddingLeft="10dp"
+            android:layout_marginTop="2dp"
             />
 
         <TextView
