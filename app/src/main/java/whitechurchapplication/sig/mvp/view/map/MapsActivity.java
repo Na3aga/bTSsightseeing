@@ -48,7 +48,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMapsPresenter.getMarkerInfo();
         layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         cardViewName = (CardView) findViewById(R.id.card_view1);
-        textView1 = (TextView) findViewById(R.id.MapsPanelTextView11);
+        textView1 = (TextView) findViewById(R.id.MapsPanelTextViewName);
         textView2 = (TextView) findViewById(R.id.MapsPanelTextView22);
         textView3 = (TextView) findViewById(R.id.MapsPanelTextView32);
         textView4 = (TextView) findViewById(R.id.MapsPanelTextView42);

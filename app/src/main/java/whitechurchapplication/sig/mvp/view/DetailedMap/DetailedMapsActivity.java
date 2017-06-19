@@ -2,7 +2,6 @@ package whitechurchapplication.sig.mvp.view.DetailedMap;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
@@ -48,7 +47,7 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
         layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
 
         cardView = (CardView) findViewById(R.id.card_view1);
-        textView1 = (TextView) findViewById(R.id.MapsPanelTextView11);
+        textView1 = (TextView) findViewById(R.id.MapsPanelTextViewName);
         textView2 = (TextView) findViewById(R.id.MapsPanelTextView22);
         textView3 = (TextView) findViewById(R.id.MapsPanelTextView32);
         textView4 = (TextView) findViewById(R.id.MapsPanelTextView42);
@@ -60,8 +59,6 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
         textView2.setText(location.getAddress());
         textView3.setText(location.getPhone());
         textView4.setText("No info");
-        int myColor = Color.argb(240, 38, 0, 255);
-        textView1.setTextColor(myColor);
 
         cardView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
