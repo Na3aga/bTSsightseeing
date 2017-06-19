@@ -81,6 +81,10 @@ public class DetailInfoActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
         ButterKnife.bind(this);
         textViewName = (TextView) findViewById(R.id.textViewName);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+        textViewName.setMaxWidth(width*7/10);
         textViewName.setText(location.getName());
         textViewInfo = (TextView) findViewById(R.id.textViewInfo);
         textViewInfo.setText(location.getLongDescription());

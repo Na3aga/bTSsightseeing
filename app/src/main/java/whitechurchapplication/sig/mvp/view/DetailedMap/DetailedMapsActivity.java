@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,7 +31,6 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
 
     private GoogleMap mMap;
     DetailMapContract detailMap;
-    SlidingUpPanelLayout Mainlayout;
     SlidingUpPanelLayout layout;
     TextView textView1,textView2,textView3,textView4;
     CardView cardView;
@@ -45,7 +45,6 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         detailMap = new DetailMapPresenterImpl(this);
-        Mainlayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
 
         cardView = (CardView) findViewById(R.id.card_view1);
@@ -55,6 +54,22 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
         textView4 = (TextView) findViewById(R.id.MapsPanelTextView42);
         Intent intent = getIntent();
         id = intent.getIntExtra("showId", -1);
+
+        Location location = detailMap.findLocById(id);
+        textView1.setText(location.getName());
+        textView2.setText(location.getAddress());
+        textView3.setText(location.getPhone());
+        textView4.setText("No info");
+        int myColor = Color.argb(240, 38, 0, 255);
+        textView1.setTextColor(myColor);
+
+        cardView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                cardView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                layout.setPanelHeight(cardView.getHeight()); //height is ready
+            }
+        });
 
     }
 
@@ -71,15 +86,6 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
 
             LatLng bilaCerkva1 = new LatLng(location.getLatitude(), location.getLongitude());
             Marker marker = mMap.addMarker(new MarkerOptions().position(bilaCerkva1).title(location.getName()));
-
-            MarkerInfo markerInfo = new MarkerInfo();
-            markerInfo.setLatitude(location.getLatitude());
-            markerInfo.setLongitude(location.getLongitude());
-            markerInfo.setName(location.getName());
-            markerInfo.setAdress(location.getAddress());
-            markerInfo.setPhone(location.getPhone());
-            marker.setTag(markerInfo);
-
             onMarkerClick(marker);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(bilaCerkva1));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(13), 2000, null);
@@ -102,21 +108,9 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        MarkerInfo markerInfo = (MarkerInfo) marker.getTag();
-
-        textView1.setText(markerInfo.getName());
-        textView2.setText(markerInfo.getAdress());
-        textView3.setText(markerInfo.getPhone());
-        textView4.setText("No info");
-        int myColor = Color.argb(127, 255, 0, 255);
-        textView1.setTextColor(myColor);
 
         marker.showInfoWindow();
-        LatLng moveTo = new LatLng(markerInfo.getLatitude(), markerInfo.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(moveTo));
 
-        Mainlayout.setPanelHeight(100);
-        layout.setPanelHeight(100);
 
         return true;
     }
