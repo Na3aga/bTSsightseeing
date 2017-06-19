@@ -9,6 +9,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -158,8 +159,14 @@ public class DetailInfoActivity extends AppCompatActivity {
         public Object instantiateItem(ViewGroup container, int position) {
             View itemView = layoutInflater.inflate(R.layout.item_photo, container, false);
             imageView = (ImageView) itemView.findViewById(R.id.imageView) ;
-            imageView.setScaleType(ImageView.ScaleType.FIT_END);
-            Picasso.with(context).load(string.get(position)).into(imageView);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            int height = displayMetrics.heightPixels*4/10;
+            int width = displayMetrics.widthPixels;
+            imageView.getLayoutParams().height = height;
+            imageView.getLayoutParams().width = width;
+            Picasso.with(context).load(string.get(position)).resize(width,height).centerCrop().into(imageView);
 
             container.addView(itemView);
             return itemView;
@@ -191,24 +198,4 @@ public class DetailInfoActivity extends AppCompatActivity {
     }
 }
 
-
-
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_detail_info);
-//        ImageView imageView = (ImageView) findViewById(R.id.imageView);
-//        TextView textView4 = (TextView) findViewById(R.id.textView4);
-//        TextView textView5 = (TextView) findViewById(R.id.textView5);
-//        ButterKnife.bind(this);
-//        mainDao = new MainDaoImpl(this);
-//        Intent intent = getIntent();
-//        Picasso.with(this).load(R.drawable.hotelcity).into(imageView);
-//        id = intent.getIntExtra("placeId", -1);
-//        location = mainDao.findById(id);
-//        textView4.setText(location.getName());
-//        textView5.setText(location.getLongDescription());
-//
-//    }
-
-//
 

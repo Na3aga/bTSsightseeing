@@ -192,7 +192,7 @@ public class MainDaoImpl implements MainDao {
             imageList.add(imageList1);
             cursor.moveToNext();
         }
-
+        cursor.close();
         location.setImageList(imageList);
         ndb.close();
 
