@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,6 +22,7 @@ import whitechurchapplication.sig.R;
 import whitechurchapplication.sig.mvp.model.entities.MarkerInfo;
 import whitechurchapplication.sig.mvp.presenter.MapsContract;
 import whitechurchapplication.sig.mvp.presenter.MapsPresenterImpl;
+import whitechurchapplication.sig.mvp.view.detailView.DetailInfoActivity;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, MapsContract.MapsView, GoogleMap.OnMarkerClickListener {
 
@@ -46,6 +46,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMapsPresenter = new MapsPresenterImpl(this);
         mMapsPresenter.setMapsView(this);
         mMapsPresenter.getMarkerInfo();
+
         layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         cardViewName = (CardView) findViewById(R.id.card_view1);
         textView1 = (TextView) findViewById(R.id.MapsPanelTextViewName);
@@ -59,8 +60,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        Intent intent = getIntent();
-        id = intent.getIntExtra("showId", -1);
 
 
     }
@@ -83,22 +82,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         marker1 = mMap.addMarker(new MarkerOptions().position(bilaCerkva).title("Welcome to Bila Tserkva!"));
         marker1.setTag(markerInfoList.get(0));
         googleMap.setOnMarkerClickListener(this);
+        marker1.showInfoWindow();
 
 
         for (int i = 0; i < markerInfoList.size(); i++) {
-            LatLng bilaCerkva1 = new LatLng(markerInfoList.get(i).getLatitude(), markerInfoList.get(i).getLongitude());
-            Marker marker = mMap.addMarker(new MarkerOptions().position(bilaCerkva1).title(markerInfoList.get(i).getName()));
+            LatLng markerLatLng = new LatLng(markerInfoList.get(i).getLatitude(), markerInfoList.get(i).getLongitude());
+            Marker marker = mMap.addMarker(new MarkerOptions().position(markerLatLng).title(markerInfoList.get(i).getName()));
             marker.setTag(markerInfoList.get(i));
-            marker.setTag(markerInfoList.get(i));
-
-            if (markerInfoList.get(i).getId() == id) {
-                 onMarkerClick(marker);
-            }
 
             mMap.moveCamera(CameraUpdateFactory.newLatLng(bilaCerkva));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(13), 2000, null);
 
         }
+        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Intent intent = new Intent(MapsActivity.this, DetailInfoActivity.class);
+                MarkerInfo markerInfo = (MarkerInfo) marker.getTag();
+                intent.putExtra("placeId",markerInfo.getId());
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -123,19 +128,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         textView2.setText(markerInfo.getAdress());
         textView3.setText(markerInfo.getPhone());
         textView4.setText("no info");
-
-        cardViewName.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        cardViewName.postDelayed(new Runnable() {
             @Override
-            public void onGlobalLayout() {
-                cardViewName.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            public void run() {
+                cardViewName.invalidate();
                 layout.setPanelHeight(cardViewName.getHeight());
             }
-        });
+        }, 1);
 
         marker.showInfoWindow();
-//        LatLng moveTo = new LatLng(markerInfo.getLatitude(), markerInfo.getLongitude());
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(moveTo));
-
 
         return true;
     }
