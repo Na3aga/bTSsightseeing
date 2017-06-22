@@ -12,21 +12,25 @@
         android:id="@+id/top_guideline"
         app:layout_constraintGuide_percent="0.4"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteY="203dp"
+        tools:layout_editor_absoluteY="181dp"
         tools:layout_editor_absoluteX="0dp" />
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/right_guideline"
-        app:layout_constraintGuide_percent=".92"
-        android:orientation="vertical"/>
+        app:layout_constraintGuide_percent="0.92"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="295dp" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/right_guideline2"
-        app:layout_constraintGuide_percent=".7"
-        android:orientation="vertical"/>
+        app:layout_constraintGuide_percent="0.7"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="224dp" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
@@ -64,7 +68,9 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent">
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
     </LinearLayout>
 
@@ -87,7 +93,9 @@
         app:layout_constraintRight_toLeftOf="@+id/right_guideline2"
         android:layout_marginRight="8dp"
         app:layout_constraintTop_toTopOf="@+id/top_guideline"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/textViewInfo"
@@ -107,7 +115,43 @@
         android:paddingBottom="10dp"
         app:layout_constraintTop_toBottomOf="@+id/textViewName" />
 
+    <TextView
+        android:id="@+id/textViewPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewAdress"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
+    <TextView
+        android:id="@+id/textViewAdress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/textViewPhone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>

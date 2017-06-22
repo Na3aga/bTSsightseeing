@@ -39,118 +39,100 @@ public class MainDaoImpl implements MainDao {
     @Override
     public void save(Location location) {
 
-
         int _id = location.getId();
-        String locName = location.getName();
-        String adress = location.getAddress();
-        String shortDescription = location.getShortDescription();
-        String longDescription = location.getLongDescription();
-        try{
-            longDescription = new String(longDescription.getBytes(),"UTF-8");
-        }
-        catch(UnsupportedEncodingException e)
-        {
-            e.printStackTrace();
-        }
-        try{
-            longDescription = new String(shortDescription.getBytes(),"UTF-8");
-        }
-        catch(UnsupportedEncodingException e)
-        {
-            e.printStackTrace();
-        }
-        String phone = location.getPhone();
-        double longitude = location.getLongitude();
-        double latitude = location.getLatitude();
-        long version = location.getVersion();
         short deleted = 0;
-        if (location.getDeleted() == true){
-            deleted = 1;
-        }
 
+        if (location.getDeleted() == true) {
+            delete(_id);
+        } else {
 
-        db = dbHelper.getWritableDatabase();
-        Cursor cursor = db.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
-                new String[]{DataContract.LocationEntry.COLUMN_NAME},
-                DataContract.LocationEntry._ID + " = ? ",
-                new String[]{String.valueOf(_id)},
-                null, null, null);
+            String locName = location.getName();
+            String adress = location.getAddress();
+            String shortDescription = location.getShortDescription();
+            String longDescription = location.getLongDescription();
+            try {
+                shortDescription = new String(shortDescription.getBytes(), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            try {
+                longDescription = new String(longDescription.getBytes(), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            String phone = location.getPhone();
+            double longitude = location.getLongitude();
+            double latitude = location.getLatitude();
+            long version = location.getVersion();
+            db = dbHelper.getWritableDatabase();
+            Cursor cursor = db.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
+                    new String[]{DataContract.LocationEntry.COLUMN_NAME},
+                    DataContract.LocationEntry._ID + " = ? ",
+                    new String[]{String.valueOf(_id)},
+                    null, null, null);
 
-        if (cursor == null || cursor.getCount() == 0) {
+            if (cursor == null || cursor.getCount() == 0) {
 
-        int typeId = location.getLocationType().getId();
-        String typeName = location.getLocationType().getType();
+                int typeId = location.getLocationType().getId();
+                String typeName = location.getLocationType().getType();
 
-        if (testForUniquenessType(typeName) == true) {
-
-            ContentValues values = new ContentValues();
-            values.put(DataContract.LocationEntry._ID_OF_TYPE, typeId);
-            values.put(DataContract.LocationEntry.COLUMN_TYPE_NAME, typeName);
-
-            db.insertOrThrow(DataContract.LocationEntry.TABLE_TYPE_NAME, null, values);
-            db.close();
-        }
-        db = dbHelper.getWritableDatabase();
-
-
-        if (location.getImageList() != null) {
-            for (int i = 0; i < location.getImageList().size(); i++) {
-                try {
-                    int imgId = location.getImageList().get(i).getId();
-
-                    String imgUrl = location.getImageList().get(i).getUrl();
+                if (testForUniquenessType(typeName) == true) {
 
                     ContentValues values = new ContentValues();
-                    values.put(DataContract.LocationEntry._ID_IMAGE, imgId);
-                    values.put(DataContract.LocationEntry._ID_IMG_LOCATION, _id);
-                    values.put(DataContract.LocationEntry.COLUMN_URL, imgUrl);
+                    values.put(DataContract.LocationEntry._ID_OF_TYPE, typeId);
+                    values.put(DataContract.LocationEntry.COLUMN_TYPE_NAME, typeName);
 
-                    db.insertOrThrow(DataContract.LocationEntry.TABLE_IMAGE_LIST, null, values);
-
-                } catch (Exception e) {
-                    i = location.getImageList().size();
+                    db.insertOrThrow(DataContract.LocationEntry.TABLE_TYPE_NAME, null, values);
+                    db.close();
                 }
-            }
-        }
+                db = dbHelper.getWritableDatabase();
+
+
+                if (location.getImageList() != null) {
+                    for (int i = 0; i < location.getImageList().size(); i++) {
+                        try {
+                            int imgId = location.getImageList().get(i).getId();
+
+                            String imgUrl = location.getImageList().get(i).getUrl();
+
+                            ContentValues values = new ContentValues();
+                            values.put(DataContract.LocationEntry._ID_IMAGE, imgId);
+                            values.put(DataContract.LocationEntry._ID_IMG_LOCATION, _id);
+                            values.put(DataContract.LocationEntry.COLUMN_URL, imgUrl);
+
+                            db.insertOrThrow(DataContract.LocationEntry.TABLE_IMAGE_LIST, null, values);
+
+                        } catch (Exception e) {
+                            i = location.getImageList().size();
+                        }
+                    }
+                }
 //        try {
-            ContentValues values = new ContentValues();
-            values.put(DataContract.LocationEntry._ID, _id);
-            values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
-            values.put(DataContract.LocationEntry.COLUMN_SHORT_DESCRPT, shortDescription);
-            values.put(DataContract.LocationEntry.COLUMN_LONG_DESCRPT, longDescription);
-            values.put(DataContract.LocationEntry.COLUMN_PHONE, phone);
-            values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
-            values.put(DataContract.LocationEntry.ID_TYPE, typeId);
-            values.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
-            values.put(DataContract.LocationEntry.COLUMN_VERSION, version);
-            values.put(DataContract.LocationEntry.COLUMN_DELETED, deleted);
-            values.put(DataContract.LocationEntry.COLUMN_ADRESS, adress);
+                ContentValues values = new ContentValues();
+                values.put(DataContract.LocationEntry._ID, _id);
+                values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
+                values.put(DataContract.LocationEntry.COLUMN_SHORT_DESCRPT, shortDescription);
+                values.put(DataContract.LocationEntry.COLUMN_LONG_DESCRPT, longDescription);
+                values.put(DataContract.LocationEntry.COLUMN_PHONE, phone);
+                values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
+                values.put(DataContract.LocationEntry.ID_TYPE, typeId);
+                values.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
+                values.put(DataContract.LocationEntry.COLUMN_VERSION, version);
+                values.put(DataContract.LocationEntry.COLUMN_DELETED, deleted);
+                values.put(DataContract.LocationEntry.COLUMN_ADRESS, adress);
 
 
-            db.insertOrThrow(DataContract.LocationEntry.TABLE_LOCATIONS_NAME, null, values);
+                db.insertOrThrow(DataContract.LocationEntry.TABLE_LOCATIONS_NAME, null, values);
 //        } catch (Exception e) {
 //
 //        }
 
-        db.close();
-    }
+                db.close();
+            }
+        }
 
     }
 
-    @Override
-    public void delete(Location location) {
-
-    }
-
-    @Override
-    public void delete(long id) {
-
-    }
-
-    @Override
-    public void update(Location location) {
-
-    }
 
     @Override
     public Location findById(int id) {
@@ -161,7 +143,7 @@ public class MainDaoImpl implements MainDao {
 
         Cursor cursor = ndb.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
                 new String[]{DataContract.LocationEntry._ID, DataContract.LocationEntry.COLUMN_NAME, DataContract.LocationEntry.COLUMN_SHORT_DESCRPT, DataContract.LocationEntry.COLUMN_LATITUDE,
-                        DataContract.LocationEntry.COLUMN_LONGITUDE, DataContract.LocationEntry.COLUMN_ADRESS, DataContract.LocationEntry.COLUMN_PHONE,DataContract.LocationEntry.COLUMN_LONG_DESCRPT},
+                        DataContract.LocationEntry.COLUMN_LONGITUDE, DataContract.LocationEntry.COLUMN_ADRESS, DataContract.LocationEntry.COLUMN_PHONE, DataContract.LocationEntry.COLUMN_LONG_DESCRPT},
                 DataContract.LocationEntry._ID + " = ? ",
                 new String[]{Integer.toString(id)},
                 null, null, null);
@@ -169,7 +151,7 @@ public class MainDaoImpl implements MainDao {
         if (cursor != null) {
             cursor.moveToFirst();
         }
-        location = new Location(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3), cursor.getDouble(4), cursor.getString(5),null,cursor.getString(6),cursor.getString(7));//TODO
+        location = new Location(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3), cursor.getDouble(4), cursor.getString(5), null, cursor.getString(6), cursor.getString(7));//TODO
         cursor.close();
 
 
@@ -185,8 +167,8 @@ public class MainDaoImpl implements MainDao {
 
         List<ImageList> imageList = new ArrayList<ImageList>();
 
-        for(int i = 0; i < cursor.getCount() ;i++) {
-            ImageList imageList1 = new ImageList(cursor.getInt(0),cursor.getString(1));
+        for (int i = 0; i < cursor.getCount(); i++) {
+            ImageList imageList1 = new ImageList(cursor.getInt(0), cursor.getString(1));
             int q = imageList1.getId();
             String d = imageList1.getUrl();
             imageList.add(imageList1);
@@ -224,8 +206,8 @@ public class MainDaoImpl implements MainDao {
         SQLiteDatabase ndb = dbHelper.getReadableDatabase();
 
         Cursor cursor2 = ndb.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
-                new String[]{DataContract.LocationEntry._ID, DataContract.LocationEntry.COLUMN_NAME, DataContract.LocationEntry.COLUMN_SHORT_DESCRPT,DataContract.LocationEntry.COLUMN_LATITUDE,
-                        DataContract.LocationEntry.COLUMN_LONGITUDE, DataContract.LocationEntry.COLUMN_ADRESS,DataContract.LocationEntry.COLUMN_PHONE},
+                new String[]{DataContract.LocationEntry._ID, DataContract.LocationEntry.COLUMN_NAME, DataContract.LocationEntry.COLUMN_SHORT_DESCRPT, DataContract.LocationEntry.COLUMN_LATITUDE,
+                        DataContract.LocationEntry.COLUMN_LONGITUDE, DataContract.LocationEntry.COLUMN_ADRESS, DataContract.LocationEntry.COLUMN_PHONE},
                 DataContract.LocationEntry.ID_TYPE + " = ? ",
                 new String[]{String.valueOf(id_type)},
                 null, null, null);
@@ -234,28 +216,28 @@ public class MainDaoImpl implements MainDao {
             cursor2.moveToFirst();
 
 
-        int i = 0;
+            int i = 0;
 
-        do {
-            int id = cursor2.getInt(0);
-            Cursor cursor3 = ndb.query(DataContract.LocationEntry.TABLE_IMAGE_LIST,
-                    new String[]{DataContract.LocationEntry.COLUMN_URL},
-                    DataContract.LocationEntry._ID_IMG_LOCATION + " = ? ",
-                    new String[]{String.valueOf(id)},
-                    null, null, null);
-            List<ImageList> imageLists = new ArrayList<>();
-            if (cursor3 != null && cursor3.getCount() > 0) {
-                cursor3.moveToFirst();
-                do {
-                    ImageList imageList = new ImageList(0, cursor3.getString(0));
-                    imageLists.add(imageList);
-                }while (cursor3.moveToNext());
-            }
-            Location location = new Location(id, cursor2.getString(1), cursor2.getString(2), cursor2.getDouble(3), cursor2.getDouble(4), cursor2.getString(5),imageLists,cursor2.getString(6));
-            locationListByType.add(i, location);
+            do {
+                int id = cursor2.getInt(0);
+                Cursor cursor3 = ndb.query(DataContract.LocationEntry.TABLE_IMAGE_LIST,
+                        new String[]{DataContract.LocationEntry.COLUMN_URL},
+                        DataContract.LocationEntry._ID_IMG_LOCATION + " = ? ",
+                        new String[]{String.valueOf(id)},
+                        null, null, null);
+                List<ImageList> imageLists = new ArrayList<>();
+                if (cursor3 != null && cursor3.getCount() > 0) {
+                    cursor3.moveToFirst();
+                    do {
+                        ImageList imageList = new ImageList(0, cursor3.getString(0));
+                        imageLists.add(imageList);
+                    } while (cursor3.moveToNext());
+                }
+                Location location = new Location(id, cursor2.getString(1), cursor2.getString(2), cursor2.getDouble(3), cursor2.getDouble(4), cursor2.getString(5), imageLists, cursor2.getString(6));
+                locationListByType.add(i, location);
 
-            i++;
-        } while (cursor2.moveToNext());
+                i++;
+            } while (cursor2.moveToNext());
         }
         cursor2.close();
 
@@ -272,7 +254,7 @@ public class MainDaoImpl implements MainDao {
         db = dbHelper.getReadableDatabase();
 
         Cursor cursor = db.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
-                new String[]{DataContract.LocationEntry._ID, DataContract.LocationEntry.COLUMN_NAME,DataContract.LocationEntry.COLUMN_SHORT_DESCRPT, DataContract.LocationEntry.COLUMN_LATITUDE,
+                new String[]{DataContract.LocationEntry._ID, DataContract.LocationEntry.COLUMN_NAME, DataContract.LocationEntry.COLUMN_SHORT_DESCRPT, DataContract.LocationEntry.COLUMN_LATITUDE,
                         DataContract.LocationEntry.COLUMN_LONGITUDE, DataContract.LocationEntry.COLUMN_ADRESS, DataContract.LocationEntry.COLUMN_PHONE},
                 null,
                 null,
@@ -282,7 +264,7 @@ public class MainDaoImpl implements MainDao {
         }
         int i = 0;
         do {
-            Location location = new Location(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3), cursor.getDouble(4), cursor.getString(5),null,cursor.getString(6));//TODO
+            Location location = new Location(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3), cursor.getDouble(4), cursor.getString(5), null, cursor.getString(6));//TODO
             locationList.add(i, location);
             i++;
         } while (cursor.moveToNext());
@@ -313,4 +295,58 @@ public class MainDaoImpl implements MainDao {
 
         return result;
     }
+
+    @Override
+    public void delete(int id) {
+        db = dbHelper.getWritableDatabase();
+        db.delete(DataContract.LocationEntry.TABLE_LOCATIONS_NAME, DataContract.LocationEntry._ID, new String[]{String.valueOf(id)});
+        db.delete(DataContract.LocationEntry.TABLE_IMAGE_LIST, DataContract.LocationEntry._ID_IMG_LOCATION, new String[]{String.valueOf(id)});
+        db.close();
+    }
+
+    @Override
+    public void update(Location location) {
+        int _id = location.getId();
+        String locName = location.getName();
+        String adress = location.getAddress();
+        String shortDescription = location.getShortDescription();
+        String longDescription = location.getLongDescription();
+        try {
+            shortDescription = new String(shortDescription.getBytes(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        try {
+            longDescription = new String(longDescription.getBytes(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String phone = location.getPhone();
+        double longitude = location.getLongitude();
+        double latitude = location.getLatitude();
+        long version = location.getVersion();
+
+    }
+
+    @Override
+    public double maxVersion() {
+
+        double maxVersion = 0;
+
+        db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
+                new String[]{DataContract.LocationEntry.COLUMN_VERSION},
+                null,
+                null,
+                null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        do{
+            if (cursor.getLong(0) > maxVersion){maxVersion = cursor.getLong(0);}
+        }while (cursor.moveToNext());
+
+        return maxVersion;
+    }
+
 }

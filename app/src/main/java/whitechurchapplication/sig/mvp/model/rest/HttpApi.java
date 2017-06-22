@@ -10,7 +10,7 @@ public interface HttpApi {
 
     String BASE_URL ="http://edu.bionic-university.com:2221/";
 
-    @GET("http://edu.bionic-university.com:2221/sightseeing-dev/locations")
+    @GET("http://edu.bionic-university.com:2221/sightseeing/locations")
     Call<List<Location>> getLocations();
 
 }

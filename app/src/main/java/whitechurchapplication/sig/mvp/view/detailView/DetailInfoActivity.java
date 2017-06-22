@@ -39,7 +39,7 @@ public class DetailInfoActivity extends AppCompatActivity {
     private MyViewPagerAdapter myViewPagerAdapter;
     private LinearLayout dotsLayout;
     private TextView[] dots;
-    TextView textViewName,textViewInfo;
+    TextView textViewName,textViewInfo,textViewPhone,textViewAddress;
     ImageView imageView;
     List<String> string;
     int id;
@@ -81,13 +81,17 @@ public class DetailInfoActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
         ButterKnife.bind(this);
         textViewName = (TextView) findViewById(R.id.textViewName);
+        textViewInfo = (TextView) findViewById(R.id.textViewInfo);
+        textViewPhone = (TextView) findViewById(R.id.textViewPhone);
+        textViewAddress = (TextView) findViewById(R.id.textViewAdress);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width = displayMetrics.widthPixels;
         textViewName.setMaxWidth(width*7/10);
         textViewName.setText(location.getName());
-        textViewInfo = (TextView) findViewById(R.id.textViewInfo);
         textViewInfo.setText(location.getLongDescription());
+        textViewPhone.setText("телефон : " + location.getPhone());
+        textViewAddress.setText("адреса : " + location.getAddress());
 
     }
 
