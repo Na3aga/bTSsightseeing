@@ -66,15 +66,30 @@
             android:name=".mvp.view.splash.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
-            android:noHistory="true"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:noHistory="true">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
+
         </activity>
+
         <activity
+            android:name=".mvp.view.intro.WelcomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" >
+
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.MAIN" />
+
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+            </activity>
+
+
+
+    <activity
             android:name=".mvp.view.detailView.DetailInfoActivity"
             android:label="@string/title_activity_detail_info"
             android:theme="@style/AppTheme.NoActionBar"
