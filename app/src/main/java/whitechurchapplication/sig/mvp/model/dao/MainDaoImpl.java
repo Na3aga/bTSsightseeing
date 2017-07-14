@@ -16,9 +16,10 @@ import whitechurchapplication.sig.mvp.model.entities.Location;
 
 public class MainDaoImpl implements MainDao {
 
-    public Context context;
+    private Context context;
     private DbHelper dbHelper;
     private SQLiteDatabase db;
+    private double maxVersion = 0;
 
     public MainDaoImpl(Context context) {
         this.context = context;
@@ -28,6 +29,8 @@ public class MainDaoImpl implements MainDao {
 
     @Override
     public boolean saveAll(List<Location> locationList) {
+
+        maxVersion = maxVersion();
         for (Location location : locationList) {
             save(location);
         }
@@ -40,94 +43,43 @@ public class MainDaoImpl implements MainDao {
     public void save(Location location) {
 
         int _id = location.getId();
-        short deleted = 0;
-
+        double version = location.getVersion();
+        //deleted location test
         if (location.getDeleted() == true) {
             delete(_id);
         } else {
-
-            String locName = location.getName();
-            String adress = location.getAddress();
-            String shortDescription = location.getShortDescription();
-            String longDescription = location.getLongDescription();
-            try {
-                shortDescription = new String(shortDescription.getBytes(), "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            try {
-                longDescription = new String(longDescription.getBytes(), "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            String phone = location.getPhone();
-            double longitude = location.getLongitude();
-            double latitude = location.getLatitude();
-            long version = location.getVersion();
+            //initialize db
             db = dbHelper.getWritableDatabase();
+            //
+            //check for type existence in the table of types
+            int typeId = location.getLocationType().getId();
+            String typeName = location.getLocationType().getType();
+            if (testForUniquenessType(typeName) == true) {
+                //if type is uniq(new) adds it to table
+                ContentValues values = new ContentValues();
+                values.put(DataContract.LocationEntry._ID_OF_TYPE, typeId);
+                values.put(DataContract.LocationEntry.COLUMN_TYPE_NAME, typeName);
+
+                db.insertOrThrow(DataContract.LocationEntry.TABLE_TYPE_NAME, null, values);
+                db.close();
+            }
+            //
+            //check for location existence in database
             Cursor cursor = db.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
                     new String[]{DataContract.LocationEntry.COLUMN_NAME},
                     DataContract.LocationEntry._ID + " = ? ",
                     new String[]{String.valueOf(_id)},
                     null, null, null);
-
+            //
             if (cursor == null || cursor.getCount() == 0) {
-
-                int typeId = location.getLocationType().getId();
-                String typeName = location.getLocationType().getType();
-
-                if (testForUniquenessType(typeName) == true) {
-
-                    ContentValues values = new ContentValues();
-                    values.put(DataContract.LocationEntry._ID_OF_TYPE, typeId);
-                    values.put(DataContract.LocationEntry.COLUMN_TYPE_NAME, typeName);
-
-                    db.insertOrThrow(DataContract.LocationEntry.TABLE_TYPE_NAME, null, values);
-                    db.close();
+                //if no = adds to db
+                saveLocToDB(location);
+            } else {
+                //else compares it's version with current maximum location version
+                if (version > maxVersion) {
+                    //updates rows
+                    update(location);
                 }
-                db = dbHelper.getWritableDatabase();
-
-
-                if (location.getImageList() != null) {
-                    for (int i = 0; i < location.getImageList().size(); i++) {
-                        try {
-                            int imgId = location.getImageList().get(i).getId();
-
-                            String imgUrl = location.getImageList().get(i).getUrl();
-
-                            ContentValues values = new ContentValues();
-                            values.put(DataContract.LocationEntry._ID_IMAGE, imgId);
-                            values.put(DataContract.LocationEntry._ID_IMG_LOCATION, _id);
-                            values.put(DataContract.LocationEntry.COLUMN_URL, imgUrl);
-
-                            db.insertOrThrow(DataContract.LocationEntry.TABLE_IMAGE_LIST, null, values);
-
-                        } catch (Exception e) {
-                            i = location.getImageList().size();
-                        }
-                    }
-                }
-//        try {
-                ContentValues values = new ContentValues();
-                values.put(DataContract.LocationEntry._ID, _id);
-                values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
-                values.put(DataContract.LocationEntry.COLUMN_SHORT_DESCRPT, shortDescription);
-                values.put(DataContract.LocationEntry.COLUMN_LONG_DESCRPT, longDescription);
-                values.put(DataContract.LocationEntry.COLUMN_PHONE, phone);
-                values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
-                values.put(DataContract.LocationEntry.ID_TYPE, typeId);
-                values.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
-                values.put(DataContract.LocationEntry.COLUMN_VERSION, version);
-                values.put(DataContract.LocationEntry.COLUMN_DELETED, deleted);
-                values.put(DataContract.LocationEntry.COLUMN_ADRESS, adress);
-
-
-                db.insertOrThrow(DataContract.LocationEntry.TABLE_LOCATIONS_NAME, null, values);
-//        } catch (Exception e) {
-//
-//        }
-
-                db.close();
             }
         }
 
@@ -169,8 +121,6 @@ public class MainDaoImpl implements MainDao {
 
         for (int i = 0; i < cursor.getCount(); i++) {
             ImageList imageList1 = new ImageList(cursor.getInt(0), cursor.getString(1));
-            int q = imageList1.getId();
-            String d = imageList1.getUrl();
             imageList.add(imageList1);
             cursor.moveToNext();
         }
@@ -288,9 +238,7 @@ public class MainDaoImpl implements MainDao {
 
         if (cursor != null && cursor.getCount() > 0) {
             result = false;
-        } else {
         }
-        ;
 
 
         return result;
@@ -298,33 +246,90 @@ public class MainDaoImpl implements MainDao {
 
     @Override
     public void delete(int id) {
+        //deletes images and data connected with location witch id it gets as argument
         db = dbHelper.getWritableDatabase();
-        db.delete(DataContract.LocationEntry.TABLE_LOCATIONS_NAME, DataContract.LocationEntry._ID, new String[]{String.valueOf(id)});
-        db.delete(DataContract.LocationEntry.TABLE_IMAGE_LIST, DataContract.LocationEntry._ID_IMG_LOCATION, new String[]{String.valueOf(id)});
+        db.delete(DataContract.LocationEntry.TABLE_LOCATIONS_NAME, DataContract.LocationEntry._ID + " = ? ", new String[]{String.valueOf(id)});
+        db.delete(DataContract.LocationEntry.TABLE_IMAGE_LIST, DataContract.LocationEntry._ID_IMG_LOCATION + " = ? ", new String[]{String.valueOf(id)});
+
         db.close();
     }
 
     @Override
     public void update(Location location) {
+        //
+        //this method updates all location data
+        //
+        //it is similar with "saveLocToDB" in all, but
+        //we use db.update instead of db.insertOrThrow
+        //
+        //get location data
         int _id = location.getId();
+        short deleted = 0;
         String locName = location.getName();
         String adress = location.getAddress();
+        String phone = location.getPhone();
+        double longitude = location.getLongitude();
+        double latitude = location.getLatitude();
+        double version = location.getVersion();
+        int typeId = location.getLocationType().getId();
+        //get text data with utf-8
         String shortDescription = location.getShortDescription();
-        String longDescription = location.getLongDescription();
         try {
             shortDescription = new String(shortDescription.getBytes(), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        String longDescription = location.getLongDescription();
         try {
             longDescription = new String(longDescription.getBytes(), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String phone = location.getPhone();
-        double longitude = location.getLongitude();
-        double latitude = location.getLatitude();
-        long version = location.getVersion();
+        //
+        //initialize db
+        db = dbHelper.getWritableDatabase();
+
+
+        if (location.getImageList() != null) {
+            for (int i = 0; i < location.getImageList().size(); i++) {
+                try {
+                    int imgId = location.getImageList().get(i).getId();
+
+                    String imgUrl = location.getImageList().get(i).getUrl();
+
+                    ContentValues values = new ContentValues();
+                    values.put(DataContract.LocationEntry._ID_IMAGE, imgId);
+                    values.put(DataContract.LocationEntry._ID_IMG_LOCATION, _id);
+                    values.put(DataContract.LocationEntry.COLUMN_URL, imgUrl);
+
+                    db.update(DataContract.LocationEntry.TABLE_IMAGE_LIST, values,DataContract.LocationEntry._ID_IMG_LOCATION + " = ?", new String[]{String.valueOf(_id)});
+
+                } catch (Exception e) {
+                    i = location.getImageList().size();
+                }
+            }
+        }
+        try {
+            ContentValues values = new ContentValues();
+            values.put(DataContract.LocationEntry._ID, _id);
+            values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
+            values.put(DataContract.LocationEntry.COLUMN_SHORT_DESCRPT, shortDescription);
+            values.put(DataContract.LocationEntry.COLUMN_LONG_DESCRPT, longDescription);
+            values.put(DataContract.LocationEntry.COLUMN_PHONE, phone);
+            values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
+            values.put(DataContract.LocationEntry.ID_TYPE, typeId);
+            values.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
+            values.put(DataContract.LocationEntry.COLUMN_VERSION, version);
+            values.put(DataContract.LocationEntry.COLUMN_DELETED, deleted);
+            values.put(DataContract.LocationEntry.COLUMN_ADRESS, adress);
+
+
+            db.update(DataContract.LocationEntry.TABLE_LOCATIONS_NAME, values, DataContract.LocationEntry._ID + " = ?", new String[]{String.valueOf(_id)});
+        } catch (Exception e) {
+        //TODO send messege to developer
+        }
+
+        db.close();
 
     }
 
@@ -339,14 +344,87 @@ public class MainDaoImpl implements MainDao {
                 null,
                 null,
                 null, null, null);
-        if (cursor != null) {
+        if (cursor != null && cursor.getCount() > 0) {
             cursor.moveToFirst();
+            do {
+                if (cursor.getDouble(0) > maxVersion) {
+                    maxVersion = cursor.getLong(0);
+                }
+            } while (cursor.moveToNext());
         }
-        do{
-            if (cursor.getLong(0) > maxVersion){maxVersion = cursor.getLong(0);}
-        }while (cursor.moveToNext());
-
         return maxVersion;
+    }
+
+    private void saveLocToDB(Location location) {
+        //get location data
+        int _id = location.getId();
+        short deleted = 0;
+        String locName = location.getName();
+        String adress = location.getAddress();
+        String phone = location.getPhone();
+        double longitude = location.getLongitude();
+        double latitude = location.getLatitude();
+        double version = location.getVersion();
+        int typeId = location.getLocationType().getId();
+        //get text data with utf-8
+        String shortDescription = location.getShortDescription();
+        try {
+            shortDescription = new String(shortDescription.getBytes(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String longDescription = location.getLongDescription();
+        try {
+            longDescription = new String(longDescription.getBytes(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        //
+        //initialize db
+        db = dbHelper.getWritableDatabase();
+
+
+        if (location.getImageList() != null) {
+            for (int i = 0; i < location.getImageList().size(); i++) {
+                try {
+                    int imgId = location.getImageList().get(i).getId();
+
+                    String imgUrl = location.getImageList().get(i).getUrl();
+
+                    ContentValues values = new ContentValues();
+                    values.put(DataContract.LocationEntry._ID_IMAGE, imgId);
+                    values.put(DataContract.LocationEntry._ID_IMG_LOCATION, _id);
+                    values.put(DataContract.LocationEntry.COLUMN_URL, imgUrl);
+                    //adds images to imageTable
+                    db.insertOrThrow(DataContract.LocationEntry.TABLE_IMAGE_LIST, null, values);
+
+                } catch (Exception e) {
+                    i = location.getImageList().size();
+                }
+            }
+        }
+        try {
+            ContentValues values = new ContentValues();
+            values.put(DataContract.LocationEntry._ID, _id);
+            values.put(DataContract.LocationEntry.COLUMN_NAME, locName);
+            values.put(DataContract.LocationEntry.COLUMN_SHORT_DESCRPT, shortDescription);
+            values.put(DataContract.LocationEntry.COLUMN_LONG_DESCRPT, longDescription);
+            values.put(DataContract.LocationEntry.COLUMN_PHONE, phone);
+            values.put(DataContract.LocationEntry.COLUMN_LONGITUDE, longitude);
+            values.put(DataContract.LocationEntry.ID_TYPE, typeId);
+            values.put(DataContract.LocationEntry.COLUMN_LATITUDE, latitude);
+            values.put(DataContract.LocationEntry.COLUMN_VERSION, version);
+            values.put(DataContract.LocationEntry.COLUMN_DELETED, deleted);
+            values.put(DataContract.LocationEntry.COLUMN_ADRESS, adress);
+
+            //adds data of "location"
+            db.insertOrThrow(DataContract.LocationEntry.TABLE_LOCATIONS_NAME, null, values);
+        } catch (Exception e) {
+
+        }
+
+        db.close();
+
     }
 
 }

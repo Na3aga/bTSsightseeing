@@ -1,6 +1,5 @@
 package whitechurchapplication.sig.mvp.view.stay;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,20 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import whitechurchapplication.sig.R;
 import whitechurchapplication.sig.mvp.model.entities.Location;
 import whitechurchapplication.sig.mvp.presenter.MainContract;
 import whitechurchapplication.sig.mvp.presenter.MainPresenterImpl;
 import whitechurchapplication.sig.mvp.view.Place;
 import whitechurchapplication.sig.mvp.view.RVAdapter;
-import whitechurchapplication.sig.mvp.view.about.AboutBCerkvaActivity;
-import whitechurchapplication.sig.mvp.view.main.MainActivity;
 
 
 public class WhereToStopActivity extends AppCompatActivity {
     MainContract.MainPresenter mainPresenter;
-
 
 
     private List<Place> places;
@@ -63,6 +58,11 @@ public class WhereToStopActivity extends AppCompatActivity {
     private void initializeAdapter() {
         RVAdapter adapter = new RVAdapter(places,this);
         rv.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
 

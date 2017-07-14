@@ -34,14 +34,15 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
     SlidingUpPanelLayout layout;
     TextView textView1,textView2,textView3,textView4;
     CardView cardView;
-    public int id;
+    SupportMapFragment mapFragment;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         detailMap = new DetailMapPresenterImpl(this);
@@ -103,6 +104,9 @@ public  class DetailedMapsActivity extends FragmentActivity implements OnMapRead
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mMap = null;
+        detailMap = null;
+        mapFragment = null;
     }
 
     @Override

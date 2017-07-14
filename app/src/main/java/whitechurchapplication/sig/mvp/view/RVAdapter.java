@@ -22,9 +22,9 @@ import whitechurchapplication.sig.mvp.view.detailView.DetailInfoActivity;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PlaceViewHolder> {
 
-    Picasso mPicasso;
-    private final int CACHE_SIZE = 50000000;
     Context context;
+    Picasso mPicasso;
+    private final int CACHE_SIZE = 500000000;
     public static class PlaceViewHolder extends RecyclerView.ViewHolder {
 
         CardView cv;
@@ -54,6 +54,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PlaceViewHolder> {
         this.places = places;
         this.context = context;
         mPicasso = new Picasso.Builder(context).memoryCache(new LruCache(CACHE_SIZE)).build();
+
     }
 
     @Override
@@ -92,7 +93,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PlaceViewHolder> {
             }
         });
         placeViewHolder.placePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        mPicasso.with(context).load(places.get(i).getImgUrl()).into(placeViewHolder.placePhoto);
+        mPicasso.with(context).load(places.get(i).getImgUrl()).fit().into(placeViewHolder.placePhoto);
 
 
     }

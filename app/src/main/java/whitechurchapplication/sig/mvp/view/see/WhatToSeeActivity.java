@@ -53,4 +53,9 @@ public class WhatToSeeActivity extends AppCompatActivity {
         RVAdapter adapter = new RVAdapter(places,this);
         rv.setAdapter(adapter);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
