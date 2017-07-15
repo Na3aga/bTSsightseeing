@@ -49,13 +49,13 @@ public class MainDaoImpl implements MainDao {
             delete(_id);
         } else {
             //initialize db
-            db = dbHelper.getWritableDatabase();
             //
             //check for type existence in the table of types
             int typeId = location.getLocationType().getId();
             String typeName = location.getLocationType().getType();
             if (testForUniquenessType(typeName) == true) {
                 //if type is uniq(new) adds it to table
+                db = dbHelper.getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put(DataContract.LocationEntry._ID_OF_TYPE, typeId);
                 values.put(DataContract.LocationEntry.COLUMN_TYPE_NAME, typeName);
@@ -65,6 +65,7 @@ public class MainDaoImpl implements MainDao {
             }
             //
             //check for location existence in database
+            db = dbHelper.getWritableDatabase();
             Cursor cursor = db.query(DataContract.LocationEntry.TABLE_LOCATIONS_NAME,
                     new String[]{DataContract.LocationEntry.COLUMN_NAME},
                     DataContract.LocationEntry._ID + " = ? ",
@@ -81,6 +82,7 @@ public class MainDaoImpl implements MainDao {
                     update(location);
                 }
             }
+            db.close();
         }
 
     }

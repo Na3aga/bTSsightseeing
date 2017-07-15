@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import whitechurchapplication.sig.R;
+import whitechurchapplication.sig.mvp.model.entities.Place;
 import whitechurchapplication.sig.mvp.view.detailView.DetailInfoActivity;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PlaceViewHolder> {
@@ -70,15 +71,15 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PlaceViewHolder> {
 
     @Override
         public void onBindViewHolder(PlaceViewHolder placeViewHolder, final int i) {
-        placeViewHolder.placeName.setText(places.get(i).name);
-        placeViewHolder.placeInfo.setText(places.get(i).info);
+        placeViewHolder.placeName.setText(places.get(i).getName());
+        placeViewHolder.placeInfo.setText(places.get(i).getInfo());
 
         int padding_in_dp = 10;  // 10 dps
         final float scale = context.getResources().getDisplayMetrics().density;
         int padding_in_px = (int) (padding_in_dp * scale + 0.5f);
         int padding_in_px_top = (int) ((padding_in_dp-2) * scale + 0.5f);
 
-        if (places.get(i).info != "") {
+        if (places.get(i).getInfo() != "") {
             placeViewHolder.placeInfo.setPadding(padding_in_px,padding_in_px_top,padding_in_px,padding_in_px);
         }else {
             placeViewHolder.placeInfo.setPadding(0,0,0,0);

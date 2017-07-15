@@ -1,4 +1,4 @@
-package whitechurchapplication.sig.mvp.view;
+package whitechurchapplication.sig.mvp.model.entities;
 
 public class Place {
     String name;

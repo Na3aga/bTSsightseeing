@@ -13,7 +13,7 @@ import whitechurchapplication.sig.R;
 import whitechurchapplication.sig.mvp.model.entities.Location;
 import whitechurchapplication.sig.mvp.presenter.MainContract;
 import whitechurchapplication.sig.mvp.presenter.MainPresenterImpl;
-import whitechurchapplication.sig.mvp.view.Place;
+import whitechurchapplication.sig.mvp.model.entities.Place;
 import whitechurchapplication.sig.mvp.view.RVAdapter;
 
 

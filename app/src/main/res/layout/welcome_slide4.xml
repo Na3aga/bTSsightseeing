@@ -9,11 +9,13 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <ImageView
             android:layout_width="@dimen/img_width_height"
             android:layout_height="@dimen/img_width_height"
+            android:tint="@android:color/white"
             android:src="@drawable/ic_map_black_48dp" />
 
         <TextView
@@ -25,7 +27,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="298dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:paddingLeft="@dimen/desc_padding"
@@ -33,7 +35,8 @@
             android:text="@string/slide_4_desc"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:layout_weight="0.55" />
 
     </LinearLayout>
 

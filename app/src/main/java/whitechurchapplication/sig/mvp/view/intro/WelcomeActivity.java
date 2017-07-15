@@ -137,6 +137,7 @@ public class WelcomeActivity extends AppCompatActivity {
             if (position == layouts.length - 1) {
                 // last page. make button text to GOT IT
                 btnNext.setText(getString(R.string.start));
+                btnNext.setPadding(0,0,50,0);
                 btnSkip.setVisibility(View.GONE);
             } else {
                 // still pages are left
