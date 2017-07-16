@@ -293,6 +293,7 @@ public class MainDaoImpl implements MainDao {
 
 
         if (location.getImageList() != null) {
+            db.delete(DataContract.LocationEntry.TABLE_IMAGE_LIST, DataContract.LocationEntry._ID_IMG_LOCATION + " = ? ", new String[]{String.valueOf(_id)});
             for (int i = 0; i < location.getImageList().size(); i++) {
                 try {
                     int imgId = location.getImageList().get(i).getId();
@@ -304,7 +305,7 @@ public class MainDaoImpl implements MainDao {
                     values.put(DataContract.LocationEntry._ID_IMG_LOCATION, _id);
                     values.put(DataContract.LocationEntry.COLUMN_URL, imgUrl);
 
-                    db.update(DataContract.LocationEntry.TABLE_IMAGE_LIST, values,DataContract.LocationEntry._ID_IMG_LOCATION + " = ?", new String[]{String.valueOf(_id)});
+                    db.insertOrThrow(DataContract.LocationEntry.TABLE_IMAGE_LIST,null, values);
 
                 } catch (Exception e) {
                     i = location.getImageList().size();
@@ -350,7 +351,7 @@ public class MainDaoImpl implements MainDao {
             cursor.moveToFirst();
             do {
                 if (cursor.getDouble(0) > maxVersion) {
-                    maxVersion = cursor.getLong(0);
+                    maxVersion = cursor.getDouble(0);
                 }
             } while (cursor.moveToNext());
         }
